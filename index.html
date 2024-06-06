@@ -160,33 +160,25 @@
                 phone,
                 visitCount,
                 symptoms,
-                dates: [date1, date2, date3],
+                date1,
+                date2,
+                date3,
                 message
             };
 
-            if (!name || !phone || !date1 || !visitCount || symptoms.length === 0) {
-                alert('必須項目を全て入力してください。');
-                return;
-            }
-
-            fetch('https://script.google.com/macros/s/AKfycbzNWA2GtJuRLUepadWHpuqdxokKRLqIkk96ou4QclB8AvkhLs0ISIKeSieZaoTJKdnw/exec', { // ここにデプロイしたウェブアプリのURLを入力
+            fetch('https://script.google.com/macros/s/AKfycbwJA0vO9XSchxbL9MjX5h-1T9BdS_HSYWeBwpkK2GTni-lpmwwAX3zA9wL9wzA2BgG0/exec', { // ここにGoogle Apps ScriptのウェブアプリURLを入力
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(formData)
             })
-            .then(response => response.json())
+            .then(response => response.text())
             .then(data => {
-                if (data.status === 'success') {
-                    alert('予約が送信されました。当日キャンセルはご遠慮ください。キャンセル料が発生します。');
-                } else {
-                    alert('予約の送信中にエラーが発生しました。');
-                }
+                alert(data);
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('予約の送信中にエラーが発生しました。');
             });
         }
     </script>
