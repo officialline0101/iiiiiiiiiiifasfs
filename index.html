@@ -112,13 +112,13 @@
         </div>
 
         <label for="date1">第1希望日※必須</label>
-        <input type="datetime-local" id="date1" placeholder="タップして日時を入力">
+        <input type="datetime-local" id="date1" step="1800" placeholder="タップして日時を入力">
 
         <label for="date2">第2希望日</label>
-        <input type="datetime-local" id="date2" placeholder="タップして日時を入力">
+        <input type="datetime-local" id="date2" step="1800" placeholder="タップして日時を入力">
 
         <label for="date3">第3希望日</label>
-        <input type="datetime-local" id="date3" placeholder="タップして日時を入力">
+        <input type="datetime-local" id="date3" step="1800" placeholder="タップして日時を入力">
 
         <label for="message">メッセージ（質問等お気軽にご記入ください）</label>
         <textarea id="message" rows="4" placeholder="メッセージを入力してください"></textarea>
@@ -160,32 +160,34 @@
                 phone,
                 visitCount,
                 symptoms,
-                date1,
-                date2,
-                date3,
+                dates: [date1, date2, date3],
                 message
             };
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxQgjap7eMb86AfwAjVXpOX8QJ-2EB2hz2EeHdP0TvWIwzlK8Itw6boJQAUsXdmlkOD0A/exec'; // ここにGoogle Apps ScriptのURLを設定します
+            if (!name || !phone || !date1 || !visitCount || symptoms.length === 0) {
+                alert('必須項目を全て入力してください。');
+                return;
+            }
 
-            fetch(scriptURL, {
+            fetch('https://script.google.com/macros/s/AKfycbzNWA2GtJuRLUepadWHpuqdxokKRLqIkk96ou4QclB8AvkhLs0ISIKeSieZaoTJKdnw/exec', { // ここにデプロイしたウェブアプリのURLを入力
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.status === 'success') {
-                      alert('予約が正常に送信されました。');
-                  } else {
-                      alert('予約の送信中にエラーが発生しました。');
-                      console.error('エラー詳細:', data.message);
-                  }
-              }).catch((error) => {
-                  console.error('エラー:', error);
-                  alert('予約の送信中にエラーが発生しました。');
-              });
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('予約が送信されました。当日キャンセルはご遠慮ください。キャンセル料が発生します。');
+                } else {
+                    alert('予約の送信中にエラーが発生しました。');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('予約の送信中にエラーが発生しました。');
+            });
         }
     </script>
 </body>
