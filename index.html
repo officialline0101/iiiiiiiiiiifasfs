@@ -48,7 +48,7 @@
             gap: 10px;
             margin-bottom: 20px;
         }
-        .visit-buttons button, .symptoms button, .other-symptoms button {
+        .visit-buttons button, .symptoms button {
             flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
@@ -59,7 +59,7 @@
             text-align: center;
             white-space: nowrap;
         }
-        .visit-buttons button.active, .symptoms button.active, .other-symptoms button.active {
+        .visit-buttons button.active, .symptoms button.active {
             background-color: #444;
             color: #fff;
         }
@@ -86,7 +86,7 @@
 <body>
     <div class="container">
         <h1>予約フォーム</h1>
-        <label for="name">お客様名ううう※必須</label>
+        <label for="name">お客様名※必須</label>
         <input type="text" id="name" placeholder="お名前を入力してください">
 
         <label for="phone">電話番号※必須</label>
@@ -98,24 +98,10 @@
             <button type="button" id="repeatVisit" onclick="selectVisit(this)">2回目以降</button>
         </div>
 
-        <label>コース※必須</label>
+        <label>コース※必須とんトン！</label>
         <div class="symptoms">
             <button type="button" onclick="selectSymptom(this)">整体・ボディケア60分</button>
             <button type="button" onclick="selectSymptom(this)">整体ボディケア＋セルフ整体エクササイズ</button>
-        </div>
-
-        <label>症状</label>
-        <div class="other-symptoms">
-            <button type="button" onclick="toggleOtherSymptom(this)">腰が痛い</button>
-            <button type="button" onclick="toggleOtherSymptom(this)">肩が痛い</button>
-            <button type="button" onclick="toggleOtherSymptom(this)">首が痛い</button>
-            <button type="button" onclick="toggleOtherSymptom(this)">手首の痛み</button>
-            <button type="button" onclick="toggleOtherSymptom(this)">癒しが欲しい</button>
-            <button type="button" onclick="toggleOtherSymptom(this)">疲れが溜まっている</button>
-            <button type="button" onclick="toggleOtherSymptom(this)">その他の痛み</button>
-            <button type="button" onclick="toggleOtherSymptom(this)">猫背</button>
-            <button type="button" onclick="toggleOtherSymptom(this)">身体の歪み</button>
-            <!-- 他の症状ボタンも同様に追加 -->
         </div>
 
         <label for="date1">第1希望日※必須</label>
@@ -137,7 +123,6 @@
     <script>
         let visitCount = '';
         let selectedSymptom = '';
-        let otherSymptoms = '';
 
         // LIFF初期化
         document.addEventListener('DOMContentLoaded', function() {
@@ -168,21 +153,6 @@
             selectedSymptom = element.innerText;
         }
 
-        let selectedOtherSymptoms = []; // 選択されたその他の症状を保存する配列
-
-        function toggleOtherSymptom(element) {
-            element.classList.toggle('active'); // ボタンの状態を切り替える
-
-            if (element.classList.contains('active')) {
-                selectedOtherSymptoms.push(element.innerText); // ボタンが選択されたら配列に追加
-            } else {
-                const index = selectedOtherSymptoms.indexOf(element.innerText);
-                if (index !== -1) {
-                    selectedOtherSymptoms.splice(index, 1); // ボタンが選択解除されたら配列から削除
-                }
-            }
-        }
-
         function submitForm() {
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
@@ -195,8 +165,7 @@
                 name,
                 phone,
                 visitCount,
-                symptoms, // 通常の症状
-                otherSymptoms: selectedOtherSymptoms, // その他の症状
+                selectedSymptom,
                 dates: [date1, date2, date3],
                 message
             };
@@ -204,7 +173,7 @@
             // LINEトークにメッセージを送信
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\n訪問回数：${formData.visitCount}\nコース：${formData.selectedSymptom}\n症状：${formData.otherSymptoms.join(', ')}\n希望日時：\n ${formData.dates[0]}\n${formData.dates[1]}\n${formData.dates[2]}\nメッセージ：${formData.message}`
+                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\n訪問回数：${formData.visitCount}\nコース：${formData.selectedSymptom}\n希望日時：\n ${formData.dates[0]}\n${formData.dates[1]}\n${formData.dates[2]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 alert('当日キャンセルは無いようにお願いいたします。キャンセル料発生いたします。 ' );
                 // LIFFウィンドウを閉じる
