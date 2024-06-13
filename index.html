@@ -98,13 +98,20 @@
             <button type="button" id="repeatVisit" onclick="selectVisit(this)">2回目以降</button>
         </div>
 
-        <label>コース※必須とんトン！</label>
+        <label>症状※必須</label>
         <div class="symptoms">
-            <button type="button" onclick="selectSymptom(this)">整体・ボディケア60分</button>
-            <button type="button" onclick="selectSymptom(this)">整体ボディケア＋セルフ整体エクササイズ</button>
+            <button type="button" onclick="selectSymptom(this)">頭痛・偏頭痛</button>
+            <button type="button" onclick="selectSymptom(this)">交通事故施術</button>
+            <button type="button" onclick="selectSymptom(this)">肩こり・腕のしびれ</button>
+            <button type="button" onclick="selectSymptom(this)">臀部・下肢の痛みや痒れ</button>
+            <button type="button" onclick="selectSymptom(this)">ぎっくり腰・慢性腰痛</button>
+            <button type="button" onclick="selectSymptom(this)">寝違い・むち打ち等首の症状</button>
+            <button type="button" onclick="selectSymptom(this)">EMS(電気的筋肉刺激装置)トレーニング</button>
+            <button type="button" onclick="selectSymptom(this)">健康保険の施術</button>
+            <button type="button" onclick="selectSymptom(this)">その他</button>
         </div>
 
-        <label for="date1">第1希望日※必須</label>
+        <label for="date1">第1希望日※必須<br>希望時間は30分単位でお願いします</label>
         <input type="datetime-local" id="date1" placeholder="タップして日時を入力">
 
         <label for="date2">第2希望日</label>
@@ -127,7 +134,7 @@
         // LIFF初期化
         document.addEventListener('DOMContentLoaded', function() {
             liff.init({
-                liffId: '2005254357-zKma9BZk' // ここにあなたのLIFF IDを入力
+                liffId: '2004727608-aZejr9x5' // ここにあなたのLIFF IDを入力
             }).then(() => {
                 // LIFF初期化成功時の処理
                 console.log('LIFF初期化成功');
@@ -173,7 +180,7 @@
             // LINEトークにメッセージを送信
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\n訪問回数：${formData.visitCount}\nコース：${formData.selectedSymptom}\n希望日時：\n ${formData.dates[0]}\n${formData.dates[1]}\n${formData.dates[2]}\nメッセージ：${formData.message}`
+                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\n訪問回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom}\n希望日時：\n ${formData.dates[0]}\n${formData.dates[1]}\n${formData.dates[2]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 alert('当日キャンセルは無いようにお願いいたします。キャンセル料発生いたします。 ' );
                 // LIFFウィンドウを閉じる
