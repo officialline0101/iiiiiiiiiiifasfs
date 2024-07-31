@@ -98,10 +98,10 @@
         <label for="phone">電話番号</label> <!-- 電話番号入力フィールドのラベル -->
         <input type="tel" id="phone" placeholder="電話番号を入力してください"> <!-- 電話番号入力フィールド -->
 
-        <label>ご来店回数</label> <!-- ご来店回数のラベル -->
+        <label>ご性別</label> <!-- ご来店回数のラベル -->
         <div class="visit-buttons">
-            <button type="button" id="firstVisit" onclick="selectVisit(this)">1回目</button> <!-- 初めて来店ボタン -->
-            <button type="button" id="repeatVisit" onclick="selectVisit(this)">2回目以降</button> <!-- 2回目以降来店ボタン -->
+            <button type="button" id="firstVisit" onclick="selectVisit(this)">男性</button> <!-- 初めて来店ボタン -->
+            <button type="button" id="repeatVisit" onclick="selectVisit(this)">女性</button> <!-- 2回目以降来店ボタン -->
         </div>
 
         <label>メニューをお選びください</label>
@@ -176,7 +176,6 @@
     <script>
         let visitCount = ''; <!-- 訪問回数を格納する変数 -->
         let selectedSymptom = ''; <!-- 選択された症状を格納する変数 -->
-        let irradiationsCount = ''; <!-- 選択された症状を格納する変数 -->
 
         // LIFF初期化
         document.addEventListener('DOMContentLoaded', function() {
@@ -199,16 +198,6 @@
             element.classList.add('active');
             /* 選択された訪問回数を変数に格納 */
             visitCount = element.innerText;
-        }
-
-        function selectirradiations(element) {
-            /* 訪問回数ボタンの選択状態をリセット */
-            document.getElementById('firstirradiations').classList.remove('active');
-            document.getElementById('repeatirradiations').classList.remove('active');
-            /* クリックされたボタンを選択状態にする */
-            element.classList.add('active');
-            /* 選択された訪問回数を変数に格納 */
-            irradiationsCount = element.innerText;
         }
 
         function showMenu(menu) {
@@ -245,7 +234,6 @@
                 phone,
                 visitCount,
                 selectedSymptom,
-                irradiationsCount,
                 dates: [date1, date2, date3],
                 message
             };
@@ -253,7 +241,7 @@
             // LINEトークにメッセージを送信
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\nご来店回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom}${formData.visitCount}${formData.irradiationsCount}\n希望日時：\n ${formData.dates[0]}\n${formData.dates[1]}\n${formData.dates[2]}\nメッセージ：${formData.message}`
+                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\nご性別：${formData.visitCount}\nコース：${formData.selectedSymptom}\n希望日時：\n ${formData.dates[0]}\n${formData.dates[1]}\n${formData.dates[2]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 /* メッセージ送信成功時の処理 */
                 alert('当日キャンセルは無いようにお願いいたします。キャンセル料発生いたします。');
