@@ -108,59 +108,54 @@
         <div class="menu-sections">
             <button type="button" onclick="showMenu('male')">脱毛男性限定</button>
             <button type="button" onclick="showMenu('female')">脱毛女性限定</button>
-            <button type="button" onclick="showMenu('eyebrow')">眉毛メニュー</button>
+            <button type="button" onclick="showMenu('eyebrow')">エステメニュー</button>
             <button type="button" onclick="showMenu('whitening')">ホワイトニングメニュー</button>
         </div>
 
         <div id="male" class="menu-section">
             <label>◆脱毛メニュー◆<br><br>---男性限定---</label>
             <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this)">【脱毛】顔のみ</button>
-                <button type="button" onclick="selectSymptom(this)">【脱毛】髭のみ</button>
-                <button type="button" onclick="selectSymptom(this)">【脱毛】両腕or両足のみ</button>
-                <button type="button" onclick="selectSymptom(this)">【脱毛】両腕+両足</button>
+                <button type="button" onclick="selectSymptom(this)">男性【新規限定】メンズ脱毛全顔</button>
+                <button type="button" onclick="selectSymptom(this)">男性【新規限定】メンズ脱毛体験１パーツ～</button>
+                <button type="button" onclick="selectSymptom(this)">男性【新規限定】脱毛１セット体験</button>
+                <button type="button" onclick="selectSymptom(this)">男性【男性限定】全顔脱毛</button>
+                <button type="button" onclick="selectSymptom(this)">男性脱毛全身（全顔＋VIOあり）</button>
+                <button type="button" onclick="selectSymptom(this)">男性脱毛（全顔＋VIOなし）</button>
+                <button type="button" onclick="selectSymptom(this)">男性脱毛（選べるお好きな5パーツ）</button>
+                <button type="button" onclick="selectSymptom(this)">男性脱毛（選べるお好きな3パーツ）</button>
             </div>
         </div>
 
         <div id="female" class="menu-section">
             <label>◆脱毛メニュー◆<br><br>---女性限定---</label>
             <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this)">全身美肌脱毛</button>
-                <button type="button" onclick="selectSymptom(this)">脱毛+光フェイシャル</button>
-                <button type="button" onclick="selectSymptom(this)">腕・足・脇セット</button>
-                <button type="button" onclick="selectSymptom(this)">脇・VIOセット</button>
-                <button type="button" onclick="selectSymptom(this)">お好きなパーツ3セット</button>
-                <button type="button" onclick="selectSymptom(this)">Sパーツ</button>
-                <button type="button" onclick="selectSymptom(this)">Mパーツ</button>
-                <button type="button" onclick="selectSymptom(this)">Lパーツ</button>
-                <button type="button" onclick="selectSymptom(this)">Dパーツ</button>
+                <button type="button" onclick="selectSymptom(this)">女性【新規限定】脱毛１セット体験</button>
+                <button type="button" onclick="selectSymptom(this)">女性【女性限定】全顔orVIO脱毛</button>
+                <button type="button" onclick="selectSymptom(this)">女性【女性限定】全顔＋VIO脱毛</button>
+                <button type="button" onclick="selectSymptom(this)">女性脱毛全身（全顔＋VIOあり）</button>
+                <button type="button" onclick="selectSymptom(this)">女性脱毛（全顔＋VIOなし）</button>
+                <button type="button" onclick="selectSymptom(this)">女性脱毛（選べるお好きな5パーツ）</button>
+                <button type="button" onclick="selectSymptom(this)">女性脱毛（選べるお好きな3パーツ）</button>
             </div>
         </div>
 
         <div id="eyebrow" class="menu-section">
-            <label>◆眉毛メニュー◆</label>
+            <label>◆エステメニュー◆</label>
             <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this)">ハリウッドブロウリフト</button>
-                <button type="button" onclick="selectSymptom(this)">眉毛スタイリング</button>
-                <button type="button" onclick="selectSymptom(this)">フェイスワックス</button>
-                <button type="button" onclick="selectSymptom(this)">HBL+フェイスワックス</button>
-                <button type="button" onclick="selectSymptom(this)">HBL+ヘットマッサージ</button>
-                <button type="button" onclick="selectSymptom(this)">眉毛スタイリング+フェイスワックス</button>
+                <button type="button" onclick="selectSymptom(this)">フェイシャル体験４０分</button>
+                <button type="button" onclick="selectSymptom(this)">ボディトリートメント４０分</button>
+                <button type="button" onclick="selectSymptom(this)">オーダーメイドフェイシャル６０分</button>
+                <button type="button" onclick="selectSymptom(this)">ボディトリートメント６０分</button>
             </div>
         </div>
 
         <div id="whitening" class="menu-section">
             <label>◆ホワイトニングメニュー◆</label>
             <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this)">ホワイトニング</button>
-                <button type="button" onclick="selectSymptom(this)">ホワイトニング5回券</button>
+                <button type="button" onclick="selectSymptom(this)">ホワイトニング体験</button>
+                <button type="button" onclick="selectSymptom(this)">ホワイトニング(スタンダード)</button>
                 <button type="button" onclick="selectSymptom(this)">ホワイトニング10回</button>
                 <button type="button" onclick="selectSymptom(this)">ホワイトニング1ヶ月通い放題</button>
-            </div>
-            <label>---照射回数---</label>
-            <div class="irradiations">
-                <button type="button" id="firstirradiations" onclick="selectirradiations(this)">1回照射</button>
-                <button type="button" id="repeatirradiations" onclick="selectirradiations(this)">2回照射</button>
             </div>
         </div>
 
