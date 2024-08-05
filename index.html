@@ -92,16 +92,16 @@
 <body>
     <div class="container">
         <h1>予約フォーム</h1> <!-- フォームの見出し -->
-        <label for="name">お客様名※必須</label> <!-- 名前入力フィールドのラベル -->
+        <label for="name">お客様名</label> <!-- 名前入力フィールドのラベル -->
         <input type="text" id="name" placeholder="お名前を入力してください"> <!-- 名前入力フィールド -->
 
-        <label for="phone">電話番号※必須</label> <!-- 電話番号入力フィールドのラベル -->
+        <label for="phone">電話番号</label> <!-- 電話番号入力フィールドのラベル -->
         <input type="tel" id="phone" placeholder="電話番号を入力してください"> <!-- 電話番号入力フィールド -->
 
-        <label>ご来店回数※必須</label> <!-- ご来店回数のラベル -->
+        <label>ご性別</label> <!-- ご来店回数のラベル -->
         <div class="visit-buttons">
-            <button type="button" id="firstVisit" onclick="selectVisit(this)">1回目</button> <!-- 初めて来店ボタン -->
-            <button type="button" id="repeatVisit" onclick="selectVisit(this)">2回目以降</button> <!-- 2回目以降来店ボタン -->
+            <button type="button" id="firstVisit" onclick="selectVisit(this)">男性</button> <!-- 初めて来店ボタン -->
+            <button type="button" id="repeatVisit" onclick="selectVisit(this)">女性</button> <!-- 2回目以降来店ボタン -->
         </div>
 
         <label>メニューをお選びください</label>
@@ -264,8 +264,8 @@
             };
 
             // フォームデータのチェック
-            if (!formData.name || !formData.phone || !formData.visitCount) {
-                alert('入力不足です');
+            if (!formData.visitCount) {
+                alert('ご性別をご選択ください。');
                 return;
             }
 
