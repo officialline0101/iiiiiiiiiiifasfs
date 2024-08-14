@@ -194,10 +194,10 @@
         <div class="label">電話番号</div>
         <input type="tel" id="phone" placeholder="電話番号を入力してください">
 
-        <div class="label">ネイルのオフに関して選択してください</div>
+        <div class="label">ご来店回数※必須</div>
         <div class="visit-buttons">
-            <button type="button" id="firstVisit" onclick="selectVisit(this)">オフあり</button>
-            <button type="button" id="repeatVisit" onclick="selectVisit(this)">オフなし</button>
+            <button type="button" id="firstVisit" onclick="selectVisit(this)">1回目</button>
+            <button type="button" id="repeatVisit" onclick="selectVisit(this)">2回目以降</button>
         </div>
 
         <label>メニューをお選びください</label>
@@ -354,7 +354,7 @@
     const repairLabel = document.getElementById('repairLabel');
     const repairButtons = document.getElementById('repairButtons');
 
-    if (selectedSymptom === '初めて' || selectedSymptom === '2回目以降') {
+    if (selectedSymptom === '1回目' || selectedSymptom === '2回目以降') {
         repairLabel.style.display = 'block';
         repairButtons.style.display = 'flex';
     } else {
