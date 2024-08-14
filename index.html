@@ -187,7 +187,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>princess<br>予約フォーム</h1>
+        <h1>taki salon<br>予約フォーム</h1>
         <div class="label">お客様名</div>
         <input type="text" id="name" placeholder="お名前を入力してください">
 
@@ -318,11 +318,14 @@
             fetchAvailability(currentDate);
         });
 
-        function selectVisit(button) {
-            const buttons = document.querySelectorAll('.visit-buttons button');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            visitCount = button.id === 'firstVisit' ? 'オフあり' : 'オフなし';
+        function selectVisit(element) {
+            /* 訪問回数ボタンの選択状態をリセット */
+            document.getElementById('firstVisit').classList.remove('active');
+            document.getElementById('repeatVisit').classList.remove('active');
+            /* クリックされたボタンを選択状態にする */
+            element.classList.add('active');
+            /* 選択された訪問回数を変数に格納 */
+            visitCount = element.innerText;
         }
 
         function selectirradiations(element) {
@@ -335,18 +338,30 @@
             irradiationsCount = element.innerText;
         }
 
-        function selectSymptom(button) {
-            const buttons = document.querySelectorAll('.symptoms button');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            selectedSymptom = button.textContent;
-
         function showMenu(menu) {
             document.querySelectorAll('.menu-section').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById(menu).classList.add('active');
         }
+
+        function selectSymptom(button) {
+            const buttons = document.querySelectorAll('.symptoms button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            selectedSymptom = button.textContent;
+
+    const repairLabel = document.getElementById('repairLabel');
+    const repairButtons = document.getElementById('repairButtons');
+
+    if (selectedSymptom === '初めて' || selectedSymptom === '2回目以降') {
+        repairLabel.style.display = 'block';
+        repairButtons.style.display = 'flex';
+    } else {
+        repairLabel.style.display = 'none';
+        repairButtons.style.display = 'none';
+    }
+}
         
 function selectDate(cell) {
     // "unavailable" クラスが付いている場合はクリックを無効化
@@ -458,12 +473,11 @@ function updateCalendar(availability, businessDays) {
     const table = calendar.querySelector('table tbody');
 
     const times = [
-        '09:30','10:00', '10:30', '11:00', '11:30',
+        '10:00', '10:30', '11:00', '11:30',
         '12:00', '12:30', '13:00', '13:30',
         '14:00', '14:30', '15:00', '15:30',
         '16:00', '16:30', '17:00', '17:30',
-        '18:00', '18:30', '19:00', '19:30',
-        '20:00', '20:30', '21:00'
+        '18:00', '18:30'
     ];
 
     if (table.rows.length === 0) {
@@ -560,22 +574,8 @@ for (let i = 0; i < 7; i++) {
             cell.textContent = '◯';
             cell.classList.add('available');
         }
-        // 土日の19:30～21:00を×にする条件
-        else if ((slotStart.getDay() === 0 || slotStart.getDay() === 6) && 
-            ((slotStart.getHours() === 19 && slotStart.getMinutes() >= 30) || 
-             (slotStart.getHours() === 20 || slotStart.getHours() === 21))) {
-            cell.textContent = '✕';
-            cell.classList.add('unavailable');
-        }
-        // 月火木金の09:30～17:30を×にする条件
-        else if ((slotStart.getDay() === 1 || slotStart.getDay() === 2 || 
-                  slotStart.getDay() === 4 || slotStart.getDay() === 5) && 
-                 (slotStart.getHours() >= 9 && slotStart.getHours() < 18)) {
-            cell.textContent = '✕';
-            cell.classList.add('unavailable');
-        }
         // 日曜日で、営業日ではない場合
-        else if (slotStart.getDay() === 3 && !isBusinessDay && businessEventTimes.length === 0) {
+        else if (slotStart.getDay() === 0 && !isBusinessDay && businessEventTimes.length === 0) {
             cell.textContent = '✕';
             cell.classList.add('unavailable');
         }
