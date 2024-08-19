@@ -206,6 +206,7 @@
             <button type="button" onclick="showMenu('female')">脱毛女性限定</button>
             <button type="button" onclick="showMenu('eyebrow')">眉毛メニュー</button>
             <button type="button" onclick="showMenu('whitening')">ホワイトニングメニュー</button>
+            <button type="button" onclick="showMenu('limited')">期間限定メニュー</button>
         </div>
 
         <div id="male" class="menu-section">
@@ -257,6 +258,14 @@
             <div class="irradiations">
                 <button type="button" id="firstirradiations" onclick="selectirradiations(this)">1回照射</button>
                 <button type="button" id="repeatirradiations" onclick="selectirradiations(this)">2回照射</button>
+            </div>
+        </div>
+
+        <div id="limited" class="menu-section">
+            <label>◆期間限定メニュー◆</label>
+            <div class="symptoms">
+                <button type="button" onclick="selectSymptom(this)">眉毛スタイリング(WAX or 眉パーマ)＋脱毛(お好きなSパーツ3回分)</button>
+                <button type="button" onclick="selectSymptom(this)">HBL＋脱毛(お好きなSパーツ3回分)</button>
             </div>
         </div>
 
@@ -440,7 +449,7 @@ async function fetchAvailability(date) {
         return;
     }
 
-    const url = 'https://script.google.com/macros/s/AKfycbwvV8CAdTuusOV2YIjig2oRxxAoCsOjbdbADddD1DwQ_kpvAV_SF3UKB5KJ8n6d5xctKg/exec' + 
+    const url = 'https://script.google.com/macros/s/AKfycbxqXvLoma8ekENEzPr-eWl71QcbAHTbPN3ZH-r3KLlrK4_l7f1a5NykpWrI13DO7YE6FA/exec' + 
                 `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
 
     try {
@@ -574,6 +583,11 @@ for (let i = 0; i < 7; i++) {
             cell.textContent = '◯';
             cell.classList.add('available');
         }
+        // 営業日で、指定されている時間以外の時間は×
+        else if (businessEventTimes.length > 0) {
+            cell.textContent = '✕';
+            cell.classList.add('unavailable');
+        }
         // 日曜日で、営業日ではない場合
         else if (slotStart.getDay() === 0 && !isBusinessDay && businessEventTimes.length === 0) {
             cell.textContent = '✕';
@@ -596,6 +610,24 @@ for (let i = 0; i < 7; i++) {
         cell.setAttribute('data-date', slotStart.toISOString());
     }
 }
+
+    // ×と×の間のセル数が3未満の場合、その間のセルを×にする部分の後に以下を追加
+    for (let i = 0; i < 7; i++) {
+        const twentyOClockRow = times.indexOf('20:30');
+        const twentyOneOClockRow = times.indexOf('21:00');
+
+        for (let j = twentyOClockRow; j < times.length; j++) {
+            const cell = table.rows[j].cells[i + 1];
+            const aboveCell = table.rows[twentyOClockRow].cells[i + 1];
+            
+            // 20:00のセルに×がある場合、21:00のセルも×にする
+            if (aboveCell.textContent === '✕' && j >= twentyOneOClockRow) {
+                cell.textContent = '✕';
+                cell.classList.remove('available');
+                cell.classList.add('unavailable');
+            }
+        }
+    }
 
     
         }
