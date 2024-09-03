@@ -324,47 +324,47 @@
 
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Google Apps ScriptのWebアプリURL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwO3ZTwZ3z5KsjO9CCQD52X5tJvZhUb2BirFCmIonFpD9WNS0SfXJ9jCo52GXoYVvLX/exec';
 
-        // データを取得してフォームに表示
-        fetch(scriptURL)
-            .then(response => response.json())
-            .then(data => {
-                if (data.name) {
-                    document.getElementById('name').value = data.name;
-                }
-                if (data.phone) {
-                    document.getElementById('phone').value = data.phone;
-                }
-            });
+        // 提供されたJavaScriptコードを追加
+        document.addEventListener('DOMContentLoaded', function() {
+            // Google Apps ScriptのWebアプリURL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwO3ZTwZ3z5KsjO9CCQD52X5tJvZhUb2BirFCmIonFpD9WNS0SfXJ9jCo52GXoYVvLX/exec';
 
-        // フォームの送信時にデータを保存
-        document.querySelector('.submit-button').addEventListener('click', function(event) {
-            event.preventDefault();
+            // データを取得してフォームに表示
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.name) {
+                        document.getElementById('name').value = data.name;
+                    }
+                    if (data.phone) {
+                        document.getElementById('phone').value = data.phone;
+                    }
+                });
 
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
+            // フォームの送信時にデータを保存
+            document.querySelector('.submit-button').addEventListener('click', function(event) {
+                event.preventDefault();
 
-            fetch(scriptURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: name, phone: phone })
-            })
-            .then(response => response.text())
-            .then(data => {
-                console.log('Success:', data);
-                alert('データが保存されました。');
-            })
-            .catch(error => {
-                console.error('Error:', error);
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, phone: phone })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('データが保存されました。');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             });
         });
-    });
-</script>
 
-        
         let visitCount = '';
         let selectedSymptom = '';
         let selectedFullDate = '';
