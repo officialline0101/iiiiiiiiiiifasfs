@@ -324,19 +324,35 @@
 
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script>
-        // ページロード時に保存されたデータを入力フィールドに復元
-        window.onload = function() {
-            document.getElementById('name').value = sessionStorage.getItem('name') || '';
-            document.getElementById('phone').value = sessionStorage.getItem('phone') || '';
-        };
+        liff.init({
+            liffId: "YOUR_LIFF_ID"  // あなたのLIFF IDに置き換えてください
+        }).then(() => {
+            if (liff.isLoggedIn()) {
+                liff.getProfile().then(profile => {
+                    const userId = profile.userId;
 
-        // フィールドが変更されたときにデータを保存
-        document.getElementById('name').addEventListener('input', function() {
-            sessionStorage.setItem('name', this.value);
-        });
+                    // ユーザーごとに固有のキーを作成してsessionStorageに保存
+                    const nameKey = `name_${userId}`;
+                    const phoneKey = `phone_${userId}`;
 
-        document.getElementById('phone').addEventListener('input', function() {
-            sessionStorage.setItem('phone', this.value);
+                    // ページロード時に保存されたデータを入力フィールドに復元
+                    document.getElementById('name').value = sessionStorage.getItem(nameKey) || '';
+                    document.getElementById('phone').value = sessionStorage.getItem(phoneKey) || '';
+
+                    // フィールドが変更されたときにデータを保存
+                    document.getElementById('name').addEventListener('input', function() {
+                        sessionStorage.setItem(nameKey, this.value);
+                    });
+
+                    document.getElementById('phone').addEventListener('input', function() {
+                        sessionStorage.setItem(phoneKey, this.value);
+                    });
+                });
+            } else {
+                liff.login(); // ユーザーがログインしていない場合はLIFFログインを行う
+            }
+        }).catch(err => {
+            console.error('LIFF Initialization failed', err);
         });
 
         
