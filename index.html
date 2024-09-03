@@ -326,18 +326,19 @@
     <script>
         // ページロード時に保存されたデータを入力フィールドに復元
         window.onload = function() {
-            document.getElementById('name').value = localStorage.getItem('name') || '';
-            document.getElementById('phone').value = localStorage.getItem('phone') || '';
+            document.getElementById('name').value = sessionStorage.getItem('name') || '';
+            document.getElementById('phone').value = sessionStorage.getItem('phone') || '';
         };
 
         // フィールドが変更されたときにデータを保存
         document.getElementById('name').addEventListener('input', function() {
-            localStorage.setItem('name', this.value);
+            sessionStorage.setItem('name', this.value);
         });
 
         document.getElementById('phone').addEventListener('input', function() {
-            localStorage.setItem('phone', this.value);
+            sessionStorage.setItem('phone', this.value);
         });
+
         
         let visitCount = '';
         let selectedSymptom = '';
@@ -356,23 +357,6 @@
 
             fetchAvailability(currentDate);
         });
-
-        // ここにlocalStorageからの読み込み処理を追加
-        document.getElementById('name').value = localStorage.getItem('name') || '';
-        document.getElementById('phone').value = localStorage.getItem('phone') || '';
-
-        // 残りの初期化処理
-        fetchAvailability(currentDate);
-    });
-
-    // 入力が変更されたときにlocalStorageに保存する
-    document.getElementById('name').addEventListener('input', function() {
-        localStorage.setItem('name', this.value);
-    });
-
-    document.getElementById('phone').addEventListener('input', function() {
-        localStorage.setItem('phone', this.value);
-    });
 
 let selectedMenuTime = 0;
 
