@@ -304,32 +304,49 @@
             visibility: hidden;
             opacity: 0;
         }
+        
+        .info-text {
+    margin-top: 60px; /* 下にずらすスペース */
+    font-size: 13px;  /* 読みやすいサイズ */
+    color: #000000;   /* 説明文らしい落ち着いた色 */
+    line-height: 1.5; /* テキスト間の高さを適切に設定 */
+    text-align: center; /* 中央揃え */
+    word-wrap: break-word; /* 長いテキストの折り返しを強制 */
+}
+
+/* 携帯端末向けのレスポンシブデザイン */
+@media (max-width: 768px) {
+    .info-text {
+        font-size: 14px; /* スマホでは少し小さく */
+        margin-top: 15px; /* 上下のマージンを調整 */
+        line-height: 1.4; /* テキストの高さ調整 */
+        transform: translateY(-15px); /* 上に10pxずらす */
+    }
+}
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>占屋伊千夜<br>予約フォーム<br><br>４名様以上若しくは<br>ロングタイムの方は<br>チャットにてご連絡お願い致します！</h1>
-        <div class="label2">お一人目のお客様名※必須</div>
-        <input type="text" id="name1" placeholder="お一人目のお名前を入力してください">
+        <h1>占屋伊千夜<br>予約フォーム</h1>
+        <div class="info-text">４名様以上若しくはロングタイムの方は<br>チャットにてご連絡お願い致します！</div>
+        <div class="label2">お名前　※必須</div>
+        <input type="text" id="name1" placeholder="お名前を入力してください">
 
-        <div class="label2">お一人目の生年月日※必須</div>
-        <input type="tel" id="dateofbirth1" placeholder="お一人目の生年月日を入力してください">
+        <div class="label2">生年月日　例：19940107　※必須</div>
+        <input type="tel" id="dateofbirth1" placeholder="生年月日を入力してください">
 
-        <div class="label2">お二人目のお客様名※必須</div>
-        <input type="text" id="name2" placeholder="お二人目のお名前を入力してください">
+        <div class="label2">二人目のお名前</div>
+        <input type="text" id="name2" placeholder="お名前を入力してください">
 
-        <div class="label2">お二人目の生年月日※必須</div>
-        <input type="tel" id="dateofbirth2" placeholder="お二人目の生年月日を入力してください">
+        <div class="label2">二人目の生年月日</div>
+        <input type="tel" id="dateofbirth2" placeholder="生年月日を入力してください">
 
-        <div class="label2">三人目のお客様名※必須</div>
-        <input type="text" id="name3" placeholder="三人目のお名前を入力してください">
+        <div class="label2">三人目のお名前</div>
+        <input type="text" id="name3" placeholder="お名前を入力してください">
 
-        <div class="label2">三人目の生年月日※必須</div>
-        <input type="tel" id="dateofbirth3" placeholder="三人目の生年月日を入力してください">
-
-        <div class="label">電話番号</div>
-        <input type="tel" id="phone" placeholder="電話番号を入力してください">
+        <div class="label2">三人目の生年月日</div>
+        <input type="tel" id="dateofbirth3" placeholder="生年月日を入力してください">
 
         <div class="label">ご来店回数</div>
         <div class="visit-buttons">
@@ -361,8 +378,6 @@
                 <span class="highlight-text">オプション</span>
             </div>
             <div class="irradiations">
-                <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="15000">追加、延長</button>
-                <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="15000">対面鑑定</button>
                 <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="15000">電話鑑定</button>
                 <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="15000">ビデオ通話鑑定</button>
             </div>
@@ -428,9 +443,6 @@
         <div class="label">メッセージ<br>（質問等お気軽にご記入ください）</div>
         <textarea id="message" rows="4" placeholder="メッセージを入力してください"></textarea>
 
-        <div class="label">ご予約内容</div>
-        <div id="displayInfo"></div> <!-- ここに選択された情報を表示します -->
-
         <button class="submit-button" onclick="submitForm()">予約を行う</button>
     </div>
 
@@ -468,8 +480,6 @@
 
         // 訪問回数ごとの時間設定 (例：初めて=20分、2回目以降=15分)
         let irradiationsTimes = {
-            '追加、延長': 10,
-            '対面鑑定': 0,
             '電話鑑定': 0,
             'ビデオ通話鑑定': 0,
             '追加、延長、団体料金など': 0
@@ -615,7 +625,7 @@
             } else if (treatmentId === 'treatment9') {
                 treatmentText.innerHTML = `<div style="text-align: left;">2名様：40分ずつ計80分鑑定</div><div style="text-align: right;"><strong>料金：9,000円</strong></div>`;
             } else if (treatmentId === 'treatment10') {
-                treatmentText.innerHTML = `<div style="text-align: left;">2名様：50分ずつ計100分鑑定</div><div style="text-align: right;"><strong>料金：円</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">2名様：50分ずつ計100分鑑定</div><div style="text-align: right;"><strong>料金：11000円</strong></div>`;
             } else if (treatmentId === 'treatment11') {
                 treatmentText.innerHTML = `<div style="text-align: left;">3名様：10分ずつ計30分鑑定</div><div style="text-align: right;"><strong>料金：円</strong></div>`;
             } else if (treatmentId === 'treatment12') {
@@ -755,7 +765,6 @@
         function submitForm() {
     const formData = {
         name1: document.getElementById('name1').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
         dateofbirth1: document.getElementById('dateofbirth1').value.trim(), // 生年月日を取得
         name2: document.getElementById('name2').value.trim(),
         dateofbirth2: document.getElementById('dateofbirth2').value.trim(), // 生年月日を取得
@@ -774,11 +783,6 @@
         return;
     }
 
-    if (!formData.phone) {
-        alert('電話番号を入力してください。');
-        return;
-    }
-
     if (!formData.dateofbirth1) {
         alert('生年月日を入力してください。');
         return;
@@ -792,7 +796,7 @@
     // LINEトークにメッセージを送信
     liff.sendMessages([{
         type: 'text',
-        text: `【予約フォーム】\n1人目お名前：${formData.name1}\n1人目生年月日：${formData.dateofbirth1}\n2人目お名前：${formData.name2}\n2人目生年月日：${formData.dateofbirth2}\n3人目お名前：${formData.name3}\n3人目生年月日：${formData.dateofbirth3}\n電話番号：${formData.phone}\nご来店回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom},${formData.irradiationsCount}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
+        text: `【予約フォーム】\n1人目お名前：${formData.name1}\n1人目生年月日：${formData.dateofbirth1}\n2人目お名前：${formData.name2}\n2人目生年月日：${formData.dateofbirth2}\n3人目お名前：${formData.name3}\n3人目生年月日：${formData.dateofbirth3}\nご来店回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom},${formData.irradiationsCount}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
     }]).then(() => {
         /* メッセージ送信成功時の処理 */
         alert('当日キャンセルは無いようにお願いいたします。');
