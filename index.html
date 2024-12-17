@@ -306,18 +306,19 @@
         }
         
         .info-text {
-    margin-top: 60px; /* 下にずらすスペース */
-    font-size: 13px;  /* 読みやすいサイズ */
+    margin-top: 20px; /* 下にずらすスペース */
+    font-size: 16px;  /* 読みやすいサイズ */
     color: #000000;   /* 説明文らしい落ち着いた色 */
     line-height: 1.5; /* テキスト間の高さを適切に設定 */
     text-align: center; /* 中央揃え */
     word-wrap: break-word; /* 長いテキストの折り返しを強制 */
+    transform: translateY(-15px); /* 上に10pxずらす */
 }
 
 /* 携帯端末向けのレスポンシブデザイン */
 @media (max-width: 768px) {
     .info-text {
-        font-size: 14px; /* スマホでは少し小さく */
+        font-size: 16px; /* スマホでは少し小さく */
         margin-top: 15px; /* 上下のマージンを調整 */
         line-height: 1.4; /* テキストの高さ調整 */
         transform: translateY(-15px); /* 上に10pxずらす */
