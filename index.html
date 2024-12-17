@@ -42,7 +42,18 @@
             margin-bottom: 10px;
             padding: 10px;
             font-weight: bold;
-            background-color: #158acf;
+            background-color: #13ca5e;
+            color: white;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .label2 {
+            display: block;
+            margin-bottom: 0px;
+            padding: 5px;
+            font-weight: bold;
+            background-color: #a6cc1b;
             color: white;
             border-radius: 4px;
             text-align: center;
@@ -106,7 +117,7 @@
             padding: 15px;
             border: none;
             border-radius: 4px;
-            background-color: #158acf;
+            background-color: #ff4c4c;
             color: #fff;
             font-size: 18px;
             cursor: pointer;
@@ -269,28 +280,118 @@
             font-weight: bold;
             /* 太文字に設定 */
         }
+
+                .datetime-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 16px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .datetime-input {
+            width: 100%;
+            padding: 15px; /* サイズを大きく調整 */
+            font-size: 18px; /* フォントサイズを大きく */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .datetime-input:focus + .datetime-placeholder,
+        .datetime-input:not(:placeholder-shown) + .datetime-placeholder {
+            visibility: hidden;
+            opacity: 0;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>俺婚<br>≪リピーター様≫<br>予約フォーム</h1>
-        <div class="label">お客様名</div>
-        <input type="text" id="name" placeholder="お名前を入力してください">
+        <h1>占屋伊千夜<br>予約フォーム<br><br>４名様以上若しくは<br>ロングタイムの方は<br>チャットにてご連絡お願い致します！</h1>
+        <div class="label2">お一人目のお客様名※必須</div>
+        <input type="text" id="name1" placeholder="お一人目のお名前を入力してください">
+
+        <div class="label2">お一人目の生年月日※必須</div>
+        <input type="tel" id="dateofbirth1" placeholder="お一人目の生年月日を入力してください">
+
+        <div class="label2">お二人目のお客様名※必須</div>
+        <input type="text" id="name2" placeholder="お二人目のお名前を入力してください">
+
+        <div class="label2">お二人目の生年月日※必須</div>
+        <input type="tel" id="dateofbirth2" placeholder="お二人目の生年月日を入力してください">
+
+        <div class="label2">三人目のお客様名※必須</div>
+        <input type="text" id="name3" placeholder="三人目のお名前を入力してください">
+
+        <div class="label2">三人目の生年月日※必須</div>
+        <input type="tel" id="dateofbirth3" placeholder="三人目の生年月日を入力してください">
 
         <div class="label">電話番号</div>
         <input type="tel" id="phone" placeholder="電話番号を入力してください">
 
-        <div class="label">初めてor会員</div>
+        <div class="label">ご来店回数</div>
         <div class="visit-buttons">
-            <button type="button" id="firstVisit" onclick="selectVisit(this)">初めて</button>
-            <button type="button" id="repeatVisit" onclick="selectVisit(this)">会員</button>
+            <button type="button" id="firstVisit" onclick="selectVisit(this)">1回目</button>
+            <button type="button" id="repeatVisit" onclick="selectVisit(this)">2回目以降</button>
         </div>
 
         <div class="label">メニューをお選びください</div>
+        <div class="menu-sections">
+            <button type="button" onclick="showMenu('male')">1名様</button>
+            <button type="button" onclick="showMenu('female')">2名様</button>
+            <button type="button" onclick="showMenu('whitening')">3名様</button>
+        </div>
+
         <div id="treatment-text" style="margin-bottom: 20px;"></div>
-        <div class="symptoms">
-            <button type="button" onclick="selectSymptom(this)" data-price="15000">ご面談</button>
+
+        <div id="male" class="menu-section">
+            <div class="highlight-background">
+                <span class="highlight-text">◆1名様◆</span>
+            </div>
+            <div class="symptoms">
+                <button type="button" onclick="selectSymptom(this, 'treatment1')" data-price="15000">10分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment2')" data-price="15000">20分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment3')" data-price="15000">30分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment4')" data-price="15000">40分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="15000">50分鑑定</button>
+            </div>
+            <div class="highlight-background">
+                <span class="highlight-text">オプション</span>
+            </div>
+            <div class="irradiations">
+                <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="15000">追加、延長</button>
+                <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="15000">対面鑑定</button>
+                <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="15000">電話鑑定</button>
+                <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="15000">ビデオ通話鑑定</button>
+            </div>
+        </div>
+
+        <div id="female" class="menu-section">
+            <div class="highlight-background">
+                <span class="highlight-text">◆2名様◆</span>
+            </div>
+            <div class="symptoms">
+                <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="15000">10分ずつ計20分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment7')" data-price="15000">20分ずつ計40分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment8')" data-price="15000">30分ずつ計60分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment9')" data-price="15000">40分ずつ計80分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment10')" data-price="15000">50分ずつ計100分鑑定</button>
+            </div>
+        </div>
+
+        <div id="whitening" class="menu-section">
+            <div class="highlight-background">
+                <span class="highlight-text">◆3名様◆</span>
+            </div>
+            <div class="symptoms">
+                <button type="button" onclick="selectSymptom(this, 'treatment11')" data-price="15000">10分ずつ計30分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment12')" data-price="15000">20分ずつ計60分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment13')" data-price="15000">30分ずつ計90分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment14')" data-price="15000">40分ずつ計120分鑑定</button>
+                <button type="button" onclick="selectSymptom(this, 'treatment15')" data-price="15000">50分ずつ計150分鑑定</button>
+            </div>
         </div>
 
         <div class="label">希望日時</div>
@@ -324,7 +425,7 @@
             </div>
         </div>
 
-        <div class="label">メッセージ<br>（身体のお悩みなどがあればご自由にご記載ください）</div>
+        <div class="label">メッセージ<br>（質問等お気軽にご記入ください）</div>
         <textarea id="message" rows="4" placeholder="メッセージを入力してください"></textarea>
 
         <div class="label">ご予約内容</div>
@@ -347,7 +448,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             liff.init({
-                liffId: '2006137975-XpgGkqgL'
+                liffId: ''
             }).then(() => {
                 console.log('LIFF初期化成功');
             }).catch((err) => {
@@ -359,7 +460,7 @@
 
         // 訪問回数ごとの時間設定 (例：初めて=20分、2回目以降=15分)
         let visitTimes = {
-            '初診': 0,
+            '1回目': 0,
             '2回目以降': 0
         };
 
@@ -367,13 +468,31 @@
 
         // 訪問回数ごとの時間設定 (例：初めて=20分、2回目以降=15分)
         let irradiationsTimes = {
-            '美白パック〈30分〉': 0
+            '追加、延長': 10,
+            '対面鑑定': 0,
+            '電話鑑定': 0,
+            'ビデオ通話鑑定': 0,
+            '追加、延長、団体料金など': 0
         };
 
         let selectedirradiationsTime = 0; // 訪問回数で選択された時間
 
         let menuTimes = {
-            '美容鍼': 20
+            '50分鑑定': 60,
+            '40分鑑定': 50,
+            '30分鑑定': 40,
+            '20分鑑定': 30,
+            '10分鑑定': 20,
+            '50分ずつ計100分鑑定': 110,
+            '40分ずつ計80分鑑定': 90,
+            '30分ずつ計60分鑑定': 70,
+            '20分ずつ計40分鑑定': 50,
+            '10分ずつ計20分鑑定': 30,
+            '10分ずつ計30分鑑定': 40,
+            '20分ずつ計60分鑑定': 70,
+            '30分ずつ計90分鑑定': 100,
+            '40分ずつ計120分鑑定': 130,
+            '50分ずつ計150分鑑定': 160
         };
 
 
@@ -411,7 +530,11 @@
             document.getElementById('displayInfo').innerHTML = `
         <p>・<span style="color:red;"><strong>お名前</strong></span>：${name}</p>
         <hr>
+        <p>${visitCountText}</p>
+        <hr>
         <p>${selectedSymptomText}</p>
+        <hr>
+        <p>${irradiationsText}</p>
         <hr>
         <p>${selectedDateText}</p>
         <hr>
@@ -474,21 +597,35 @@
             const treatmentText = document.getElementById('treatment-text');
 
             if (treatmentId === 'treatment1') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：10分</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">1名様：10分鑑定</div><div style="text-align: right;"><strong>料金：1,500円</strong></div>`;
             } else if (treatmentId === 'treatment2') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong</div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">1名様：20分鑑定</div><div style="text-align: right;"><strong>料金：2,500円</strong></div>`;
             } else if (treatmentId === 'treatment3') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">1名様：30分鑑定</div><div style="text-align: right;"><strong>料金：3,500円</strong></div>`;
             } else if (treatmentId === 'treatment4') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">1名様：40分鑑定</div><div style="text-align: right;"><strong>料金：4,500円</strong></div>`;
             } else if (treatmentId === 'treatment5') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">1名様：50分鑑定</div><div style="text-align: right;"><strong>料金：5,500円</strong></div>`;
             } else if (treatmentId === 'treatment6') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">2名様：10分ずつ計20分鑑定</div><div style="text-align: right;"><strong>料金：3,000円</strong></div>`;
             } else if (treatmentId === 'treatment7') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">2名様：20分ずつ計40分鑑定</div><div style="text-align: right;"><strong>料金：5,000円</strong></div>`;
             } else if (treatmentId === 'treatment8') {
-                treatmentText.innerHTML = `<div style="text-align: left;"><strong>施術時間：15分</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">2名様：30分ずつ計60分鑑定</div><div style="text-align: right;"><strong>料金：7,000円</strong></div>`;
+            } else if (treatmentId === 'treatment9') {
+                treatmentText.innerHTML = `<div style="text-align: left;">2名様：40分ずつ計80分鑑定</div><div style="text-align: right;"><strong>料金：9,000円</strong></div>`;
+            } else if (treatmentId === 'treatment10') {
+                treatmentText.innerHTML = `<div style="text-align: left;">2名様：50分ずつ計100分鑑定</div><div style="text-align: right;"><strong>料金：円</strong></div>`;
+            } else if (treatmentId === 'treatment11') {
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：10分ずつ計30分鑑定</div><div style="text-align: right;"><strong>料金：円</strong></div>`;
+            } else if (treatmentId === 'treatment12') {
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：20分ずつ計60分鑑定</div><div style="text-align: right;"><strong>料金：円</strong></div>`;
+            } else if (treatmentId === 'treatment13') {
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：30分ずつ計90分鑑定</div><div style="text-align: right;"><strong>料金：円</strong></div>`;
+            } else if (treatmentId === 'treatment14') {
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：40分ずつ計120分鑑定</div><div style="text-align: right;"><strong>料金：円</strong></div>`;
+            } else if (treatmentId === 'treatment15') {
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：50分ずつ計150分鑑定</div><div style="text-align: right;"><strong>料金：円</strong></div>`;
             } else {
                 treatmentText.innerHTML = '';
             }
@@ -557,6 +694,39 @@
             fetchAvailability(currentDate);
         }
 
+        function showMenu(menu) {
+            // すべてのメニューボタンの選択状態をリセット
+            document.querySelectorAll('.menu-sections button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // 選択されたメニューセクションを表示
+            document.querySelectorAll('.menu-section').forEach(section => {
+                section.classList.remove('active');
+                section.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            });
+
+            // 対応するメニューボタンを選択状態にする
+            document.querySelectorAll('.menu-sections button').forEach(button => {
+                if (button.getAttribute('onclick') === `showMenu('${menu}')`) {
+                    button.classList.add('active');
+                }
+            });
+
+            // 選択されたメニューセクションを表示
+            document.getElementById(menu).classList.add('active');
+
+            // メニューとオプションをリセット
+            selectedSymptom = '';      // メニューのリセット
+            irradiationsCount = '';    // オプションのリセット
+            menuPrice = 0;             // メニューの価格リセット
+            optionsPrice = 0;          // オプションの価格リセット
+            totalAmount = 0;           // 合計金額リセット
+
+            // 表示を更新
+            updateDisplayInfo();
+        }
+
         function selectDate(cell) {
             // "unavailable" クラスが付いている場合はクリックを無効化
             if (cell.classList.contains('unavailable')) {
@@ -583,73 +753,93 @@
         }
 
         function submitForm() {
-            const formData = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                visitCount: visitCount,
-                selectedSymptom: selectedSymptom,
-                irradiationsCount: irradiationsCount,
-                dates: [selectedFullDate],
-                message: document.getElementById('message').value
+    const formData = {
+        name1: document.getElementById('name1').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        dateofbirth1: document.getElementById('dateofbirth1').value.trim(), // 生年月日を取得
+        name2: document.getElementById('name2').value.trim(),
+        dateofbirth2: document.getElementById('dateofbirth2').value.trim(), // 生年月日を取得
+        name3: document.getElementById('name3').value.trim(),
+        dateofbirth3: document.getElementById('dateofbirth3').value.trim(), // 生年月日を取得
+        visitCount: visitCount,
+        selectedSymptom: selectedSymptom && selectedSymptom.length > 0 ? selectedSymptom : null, // 空の選択肢をチェック
+        irradiationsCount: irradiationsCount,
+        dates: [selectedFullDate],
+        message: document.getElementById('message').value.trim()
+    };
+
+    // フォームデータのチェック
+    if (!formData.name1) {
+        alert('お名前を入力してください。');
+        return;
+    }
+
+    if (!formData.phone) {
+        alert('電話番号を入力してください。');
+        return;
+    }
+
+    if (!formData.dateofbirth1) {
+        alert('生年月日を入力してください。');
+        return;
+    }
+
+    if (!formData.selectedSymptom) {
+        alert('メニューを選択してください。');
+        return;
+    }
+
+    // LINEトークにメッセージを送信
+    liff.sendMessages([{
+        type: 'text',
+        text: `【予約フォーム】\n1人目お名前：${formData.name1}\n1人目生年月日：${formData.dateofbirth1}\n2人目お名前：${formData.name2}\n2人目生年月日：${formData.dateofbirth2}\n3人目お名前：${formData.name3}\n3人目生年月日：${formData.dateofbirth3}\n電話番号：${formData.phone}\nご来店回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom},${formData.irradiationsCount}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
+    }]).then(() => {
+        /* メッセージ送信成功時の処理 */
+        alert('当日キャンセルは無いようにお願いいたします。');
+        /* LIFFウィンドウを閉じる */
+        liff.closeWindow();
+    }).catch((err) => {
+        /* メッセージ送信失敗時の処理 */
+        console.error('メッセージの送信に失敗しました', err);
+    });
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return `${date.getFullYear()}年${('0' + (date.getMonth() + 1)).slice(-2)}月${('0' + date.getDate()).slice(-2)}日`;
+}
+
+async function fetchAvailability(date) {
+    const startTime = new Date(date);
+    const endTime = new Date(date);
+    endTime.setDate(endTime.getDate() + 7);
+
+    const cacheKey = startTime.toISOString() + endTime.toISOString();
+
+    // キャッシュを確認
+    if (availabilityCache[cacheKey]) {
+        console.log('Using cached data');
+        updateCalendar(availabilityCache[cacheKey].availability, availabilityCache[cacheKey].businessDays);
+        return;
+    }
+
+    const url = 'https://script.google.com/macros/s/AKfycbzY_Cqd9uxbgVtUN8KN25zsJp4xac7xwDWY7M2E9nR6WWY5x_hx8Z_NCfxdAOpjboze/exec' +
+        `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
+
+    try {
+        showLoadingSpinner(); // Show loading spinner
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data);
+
+        // 営業日の情報を抽出
+        const businessDays = data.filter(event => event.summary === "営業日").map(event => {
+            return {
+                start: new Date(event.startTime),
+                end: new Date(event.endTime)
             };
-
-            // フォームデータのチェック
-            if (!formData.name) {
-                alert('お名前');
-                return;
-            }
-
-            // LINEトークにメッセージを送信
-            liff.sendMessages([{
-                type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\nメニュー：${formData.selectedSymptom}\n希望日時：\n ${formData.dates[0]}\nメッセージ：${formData.message}`
-            }]).then(() => {
-                /* メッセージ送信成功時の処理 */
-                alert('当日キャンセルは無いようにお願いいたします。キャンセル料発生いたします。');
-                /* LIFFウィンドウを閉じる */
-                liff.closeWindow();
-            }).catch((err) => {
-                /* メッセージ送信失敗時の処理 */
-                console.error('メッセージの送信に失敗しました', err);
-            });
-        }
-
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            const date = new Date(dateStr);
-            return `${date.getFullYear()}年${('0' + (date.getMonth() + 1)).slice(-2)}月${('0' + date.getDate()).slice(-2)}日 ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`;
-        }
-
-        async function fetchAvailability(date) {
-            const startTime = new Date(date);
-            const endTime = new Date(date);
-            endTime.setDate(endTime.getDate() + 7);
-
-            const cacheKey = startTime.toISOString() + endTime.toISOString();
-
-            // キャッシュを確認
-            if (availabilityCache[cacheKey]) {
-                console.log('Using cached data');
-                updateCalendar(availabilityCache[cacheKey].availability, availabilityCache[cacheKey].businessDays);
-                return;
-            }
-
-            const url = 'https://script.google.com/macros/s/AKfycbwCxnJaxGZ46c3TnnesuZcD_zuxuVoSHoDHo5MxkRzChcK5vZDwBs4HstzkXO-KLyuDYA/exec' +
-                `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
-
-            try {
-                showLoadingSpinner(); // Show loading spinner
-                const response = await fetch(url);
-                const data = await response.json();
-                console.log(data);
-
-                // 営業日の情報を抽出
-                const businessDays = data.filter(event => event.summary === "営業日").map(event => {
-                    return {
-                        start: new Date(event.startTime),
-                        end: new Date(event.endTime)
-                    };
-                });
+        });
 
                 // データをキャッシュに保存
                 availabilityCache[cacheKey] = { availability: data, businessDays: businessDays };
@@ -662,34 +852,72 @@
             }
         }
 
-        function updateCalendar(availability, businessDays) {
-            const calendar = document.getElementById('calendar1');
-            const table = calendar.querySelector('table tbody');
+// 時間を正規化する関数（27時までを当日として扱う）
+function normalizeTime(date) {
+    const normalizedDate = new Date(date);
+    const hours = normalizedDate.getHours();
+    if (hours >= 0 && hours <= 5) { // 深夜（0時～5時）は27時扱い
+        normalizedDate.setDate(normalizedDate.getDate() - 1); // 前日として扱う
+        normalizedDate.setHours(hours + 24); // 時間を27時表記に変換
+    }
+    return normalizedDate;
+}
 
-            const times = [
-    '10:00', '11:00', '12:00', '13:00', 
-    '14:00', '15:00', '16:00', '17:00', 
-    '18:00', '19:00', '20:00', '21:00', 
-    '22:00', '23:00'
-];
+// 現在時刻をチェックし、27時を過ぎたらカレンダーの日付を翌日に進める
+function checkAndUpdateDate() {
+    const now = new Date();
+    const normalizedNow = normalizeTime(now); // 現在時刻を正規化
 
+    // 正規化された時刻が27時を超えた場合
+    if (normalizedNow.getHours() >= 27) {
+        currentDate.setDate(currentDate.getDate() + 1); // 翌日に日付を進める
+        updateCalendarHeader(currentDate); // カレンダーのヘッダーを更新
+        updateCalendar(availabilityCache[currentDate.toISOString()], businessDays); // カレンダーを更新
+    }
+}
 
-            if (table.rows.length === 0) {
-                for (const time of times) {
-                    const row = document.createElement('tr');
-                    const timeCell = document.createElement('td');
-                    timeCell.textContent = time;
-                    row.appendChild(timeCell);
+function updateCalendar(availability, businessDays) {
+    const calendar = document.getElementById('calendar1');
+    const table = calendar.querySelector('table tbody');
 
-                    for (let i = 0; i < 7; i++) {
-                        const cell = document.createElement('td');
-                        cell.addEventListener('click', () => selectDate(cell));
-                        row.appendChild(cell);
-                    }
+    const times = [
+        '10:00', '10:30',
+        '11:00', '11:30',
+        '12:00', '12:30',
+        '13:00', '13:30',
+        '14:00', '14:30',
+        '15:00', '15:30',
+        '16:00', '16:30',
+        '17:00', '17:30',
+        '18:00', '18:30',
+        '19:00', '19:30',
+        '20:00', '20:30',
+        '21:00', '21:30',
+        '22:00', '22:30',
+        '23:00', '23:30',
+        '24:00', '24:30',
+        '25:00', '25:30',
+        '26:00', '26:30',
+        '27:00'
+    ];
 
-                    table.appendChild(row);
-                }
+    // テーブルの行を作成（初回のみ）
+    if (table.rows.length === 0) {
+        for (const time of times) {
+            const row = document.createElement('tr');
+            const timeCell = document.createElement('td');
+            timeCell.textContent = time; // 表示用の時間
+            row.appendChild(timeCell);
+
+            for (let i = 0; i < 7; i++) {
+                const cell = document.createElement('td');
+                cell.addEventListener('click', () => selectDate(cell));
+                row.appendChild(cell);
             }
+
+            table.appendChild(row);
+        }
+    }
 
             // テーブルのヘッダーを更新
             updateCalendarHeader(currentDate);
@@ -734,36 +962,46 @@
                     slotStart.setHours(parseInt(times[j].split(':')[0]), parseInt(times[j].split(':')[1]), 0, 0);
 
                     const slotEnd = new Date(slotStart);
-                    let menuDuration = selectedMenuTime || 30;
+                    let menuDuration = selectedMenuTime || 10;
                     let visitDuration = selectedVisitTime || 0;
                     let irradiationsDuration = selectedirradiationsTime || 0;
 
                     // メニュー時間と訪問回数の時間を合計して、終了時間を設定
                     slotEnd.setMinutes(slotStart.getMinutes() + menuDuration + visitDuration + irradiationsDuration);
 
-// 月・火・木・金は20:00以降、水・土は12:30以降を営業時間外とする条件
-const dayOfWeek = slotStart.getDay();
-const eveningLimitWeekdays = new Date(day);  // 新しいDateオブジェクトを使用
-eveningLimitWeekdays.setHours(23, 50); // 月・火・木・金の20:00
-const afternoonLimitWedSat = new Date(day);  // 新しいDateオブジェクトを使用
-afternoonLimitWedSat.setHours(21, 00); // 水・土の12:30
-
-if (
-    (dayOfWeek === 1 || dayOfWeek === 2 || dayOfWeek === 4 || dayOfWeek === 5 || dayOfWeek === 3) && slotEnd > eveningLimitWeekdays ||  // 月・火・木・金
-    (dayOfWeek === 0 || dayOfWeek === 6) && slotEnd > afternoonLimitWedSat  // 水・土
-) {
+// 深夜3時から4時に終了する予約を不可にする
+if (slotEnd.getHours() === 3 && slotEnd.getMinutes() > 0) {
+    cell.textContent = '✕';
+    cell.classList.add('unavailable');
+    continue;
+} else if (slotEnd.getHours() > 3 && slotEnd.getHours() < 9) {
     cell.textContent = '✕';
     cell.classList.add('unavailable');
     continue;
 }
 
-                    // ここで終了時間を使った条件処理を行う
-                    // 例えば、リアルタイムで既に過ぎた時間帯は×にする
-                    if (slotStart < now) {
-                        cell.textContent = '✕';
-                        cell.classList.add('unavailable');
-                        continue;
-                    }
+// 30分後の時刻を計算
+const thirtyMinutesLater = new Date(now.getTime() + 30 * 60 * 1000);
+
+// 時間を26時～30時に変換する関数
+function normalizeTime(date) {
+    const hours = date.getHours();
+    const normalizedHours = hours < 6 ? hours + 24 : hours;
+    const normalizedDate = new Date(date);
+    normalizedDate.setHours(normalizedHours);
+    return normalizedDate;
+}
+
+// slotStartも正規化
+const normalizedSlotStart = normalizeTime(slotStart);
+const normalizedThirtyMinutesLater = normalizeTime(thirtyMinutesLater);
+
+            // リアルタイムで過ぎた時間帯や30分以内のスロットを✕にする
+            if (slotStart < thirtyMinutesLater) {
+                cell.textContent = '✕';
+                cell.classList.add('unavailable');
+                continue;
+            }
 
                     const isBusinessDay = businessDays.some(businessDay => {
                         const businessDayStart = new Date(businessDay.start);
@@ -800,12 +1038,6 @@ if (
                         cell.textContent = '✕';
                         cell.classList.add('unavailable');
                     }
-// 月・火・木・金の09:00~10:59は✕にする（優先的にチェック）
-if ((slotStart.getDay() === 6 || slotStart.getDay() === 0) &&
-    slotStart.getHours() >= 22 && slotStart.getHours() <= 23) {
-    cell.textContent = '✕';
-    cell.classList.add('unavailable');
-}
                     // 営業日でかつ他のイベントがない場合
                     else if (isBusinessDay && count === 0) {
                         cell.textContent = '◯';
