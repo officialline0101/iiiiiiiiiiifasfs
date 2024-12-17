@@ -318,7 +318,7 @@
 /* 携帯端末向けのレスポンシブデザイン */
 @media (max-width: 768px) {
     .info-text {
-        font-size: 20px; /* スマホでは少し小さく */
+        font-size: 16px; /* スマホでは少し小さく */
         margin-top: 15px; /* 上下のマージンを調整 */
         line-height: 1.4; /* テキストの高さ調整 */
         transform: translateY(-15px); /* 上に10pxずらす */
@@ -330,7 +330,7 @@
 <body>
     <div class="container">
         <h1>占屋伊千夜<br>予約フォーム</h1>
-        <div class="info-text">４名様以上若しくはロングタイムの方は<br>チャットにてご連絡お願い致します！</div>
+        <div class="info-text">4名様以上やひとり60分以上のご予約は<br>チャットにてお願い致します</div>
         <div class="label2">お名前　※必須</div>
         <input type="text" id="name1" placeholder="お名前を入力してください">
 
@@ -461,7 +461,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             liff.init({
-                liffId: ''
+                liffId: '2006616429-V0q85Yed'
             }).then(() => {
                 console.log('LIFF初期化成功');
             }).catch((err) => {
@@ -628,15 +628,15 @@
             } else if (treatmentId === 'treatment10') {
                 treatmentText.innerHTML = `<div style="text-align: left;">2名様：50分ずつ計100分鑑定</div><div style="text-align: right;"><strong>料金：11000円</strong></div>`;
             } else if (treatmentId === 'treatment11') {
-                treatmentText.innerHTML = `<div style="text-align: left;">3名様：10分ずつ計30分鑑定</div><div style="text-align: right;"><strong>料金：5,000円</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：10分ずつ計30分鑑定</div><div style="text-align: right;"><strong>料金：1500円ずつ計4500円</strong></div>`;
             } else if (treatmentId === 'treatment12') {
-                treatmentText.innerHTML = `<div style="text-align: left;">3名様：20分ずつ計60分鑑定</div><div style="text-align: right;"><strong>料金：7,00円</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：20分ずつ計60分鑑定</div><div style="text-align: right;"><strong>料金：2500円ずつ計7500円</strong></div>`;
             } else if (treatmentId === 'treatment13') {
-                treatmentText.innerHTML = `<div style="text-align: left;">3名様：30分ずつ計90分鑑定</div><div style="text-align: right;"><strong>料金：9,000円</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：30分ずつ計90分鑑定</div><div style="text-align: right;"><strong>料金：3500円ずつ計10500円</strong></div>`;
             } else if (treatmentId === 'treatment14') {
-                treatmentText.innerHTML = `<div style="text-align: left;">3名様：40分ずつ計120分鑑定</div><div style="text-align: right;"><strong>料金：11,000円</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：40分ずつ計120分鑑定</div><div style="text-align: right;"><strong>料金：4500円ずつ計13500円</strong></div>`;
             } else if (treatmentId === 'treatment15') {
-                treatmentText.innerHTML = `<div style="text-align: left;">3名様：50分ずつ計150分鑑定</div><div style="text-align: right;"><strong>料金：13,000円</strong></div>`;
+                treatmentText.innerHTML = `<div style="text-align: left;">3名様：50分ずつ計150分鑑定</div><div style="text-align: right;"><strong>料金：5500円ずつ計16500円</strong></div>`;
             } else {
                 treatmentText.innerHTML = '';
             }
