@@ -42,7 +42,7 @@
             margin-bottom: 10px;
             padding: 10px;
             font-weight: bold;
-            background-color: #f7c11e;
+            background-color: #85b425;
             color: white;
             border-radius: 4px;
             text-align: center;
@@ -106,7 +106,7 @@
             padding: 15px;
             border: none;
             border-radius: 4px;
-            background-color: #f7c11e;
+            background-color: #85b425;
             color: #fff;
             font-size: 18px;
             cursor: pointer;
@@ -166,7 +166,7 @@
         }
 
         .calendar td.selected {
-            background-color: #13ca5e;
+            background-color: #85b425;
             /* 選択されたカレンダーのセルの背景色を緑色に設定 */
             color: #fff;
             /* 選択されたセルのテキスト色を白に設定 */
@@ -329,18 +329,20 @@
         }
 
         .info-text {
-    margin-top: 20px;
-    /* 上の余白 */
-    margin-bottom: 10px; /* 下に白い隙間を追加 */
-    font-size: 13px;
-    color: #000000;
-    line-height: 1.5;
-    text-align: center;
-    word-wrap: break-word;
-    background-color: #eef9f5; /* 青っぽい背景色を追加 */
-    padding: 10px;
-    border-radius: 4px;
-}
+            margin-top: 20px;
+            /* 上の余白 */
+            margin-bottom: 10px;
+            /* 下に白い隙間を追加 */
+            font-size: 13px;
+            color: #000000;
+            line-height: 1.5;
+            text-align: center;
+            word-wrap: break-word;
+            background-color: #eef9f5;
+            /* 青っぽい背景色を追加 */
+            padding: 10px;
+            border-radius: 4px;
+        }
 
         /* 携帯端末向けのレスポンシブデザイン */
         @media (max-width: 768px) {
@@ -354,14 +356,12 @@
             }
         }
 
-        .symptoms,
-        .options {
-            display: block;
-            /* ボタンを縦並びに */
-        }
-
         .symptoms button,
         .options button {
+            font-weight: bold;
+            /* 太文字に設定 */
+            text-align: left;
+            /* 左端揃えに設定 */
             display: block;
             width: 100%;
             padding: 10px;
@@ -371,7 +371,6 @@
             background-color: #f7f7f7;
             cursor: pointer;
             box-sizing: border-box;
-            text-align: center;
             white-space: nowrap;
         }
 
@@ -381,200 +380,83 @@
             color: #fff;
         }
 
-        .highlight-background {
-            cursor: pointer;
-            background-color: #f7c11e;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 18px;
-            /* テキストを読みやすく */
-            display: flex;
-            justify-content: center;
-            /* オプションを中央寄せ */
-            align-items: center;
-            position: relative;
-            /* プラス記号を右端に配置 */
-        }
-
         .symptoms,
         .options {
             display: block;
             /* ボタンを縦並びに */
         }
 
-        .highlight-text {
-            font-weight: bold;
-            display: inline-block;
-            color: #fff;
-            /* オプションテキストの色 */
+        .available.blue::before {
+            content: '◯';
+            color: red;
+            /* 青い〇 */
+            font-size: 16px;
+            /* サイズ調整が必要なら変更 */
         }
-        .treatment-container {
-        text-align: center;
-        padding: 10px;
-        background-color: #ffffff;
-        color: #333;
-        border-radius: 8px;
-        border: 1px solid #e0e0e0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        max-width: 350px;
-        margin: auto;
-    }
-    .treatment-image {
-        text-align: center;
-        margin-top: 15px;
-        position: relative;
-        width: 100%;
-        max-width: 300px;
-        height: 180px;
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid #d4af37;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        margin: 15px auto;
-    }
-    .treatment-description {
-        margin-top: 15px;
-        padding: 15px;
-        background-color: #fafafa;
-        color: #555;
-        border-radius: 8px;
-        border: 1px solid #e0e0e0;
-        font-size: 14px;
-        line-height: 1.5;
-        text-align: left;
-        max-width: 350px;
-        margin: 15px auto;
-    }
-    .treatment-price {
-        margin-top: 15px;
-        padding: 10px;
-        background: #fff;
-        color: #333;
-        border-radius: 8px;
-        border: 1px solid #d4af37;
-        font-weight: bold;
-        font-size: 15px;
-        text-align: right;
-        max-width: 350px;
-        margin: 15px auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 10px;
-    }
-    .spinner-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
-    }
-    .title {
-    font-size: 24px;
-    color: #4A4A4A;
-    text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
+
+        .available.red::before {
+            content: '◯';
+            color: red;
+            /* 赤い〇 */
+            font-size: 16px;
+            /* サイズ調整が必要なら変更 */
+        }
+
+        .centered-text {
+            text-align: center;
+            /* テキスト全体を中央に配置 */
+        }
+
+        .circle {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            text-align: center;
+            line-height: 1em;
+            font-size: 1em;
+            vertical-align: middle;
+        }
+
+        .blue {
+            color: black;
+        }
+
+        .red {
+            color: black;
+        }
+
+        .unavailablegray {
+            background-color: #d3d3d3;
+            color: #000000;
+            /* テキストカラーも少し薄く */
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>R and R beauty salon<br>予約フォーム
-        </h1>
-        <div class="label">お客様名</div>
-        <div class="info-text">予約システムの方がリニューアルいたしました。<br>新予約システムでのご予約が初めての方は<br>お手数ですがお名前のご入力をお願いいたします。</div>
+        <h1>巻き爪専門院<br>予約フォーム</h1>
+        
+        <div class="label">お客様名※必須</div>
         <input type="text" id="name" placeholder="お名前を入力してください">
 
-        <div class="label">電話番号</div>
+        <div class="label">電話番号※必須</div>
         <input type="tel" id="phone" placeholder="電話番号を入力してください">
 
-        <div class="label">ご来店回数</div>
+        <div class="label">ご来店回数※必須</div>
+        <div class="info-text">※ご来店回数を選択すると空き状況のカレンダーが表示されます</div>
         <div class="visit-buttons">
-            <button type="button" id="firstVisit" onclick="selectVisit(this)">1回目</button>
-            <button type="button" id="repeatVisit" onclick="selectVisit(this)">2回目以降</button>
+            <button type="button" id="firstVisit" onclick="selectVisit(this)">初めての方・1ケ月以上来院されてない方</button>
+            <button type="button" id="repeatVisit" onclick="selectVisit(this)">1ケ月以内に通院されてる方はこちら</button>
         </div>
 
         <div class="label">メニューをお選びください</div>
-        <div class="info-text">※メニューを選択すると<br>空き状況のカレンダーが表示されます</div>
-        <div class="menu-sections">
-            <button type="button" onclick="showMenu('male')">まつ毛</button>
-            <button type="button" onclick="showMenu('female')">ネイル</button>
-            <button type="button" onclick="showMenu('whitening')">眉毛</button>
-            <button type="button" onclick="showMenu('WAX')">WAX</button>
+        <div class="symptoms">
         </div>
 
-        <div id="treatment-text" style="margin-bottom: 20px;"></div>
-
-        <div id="male" class="menu-section">
-            <div class="highlight-background">
-                <span class="highlight-text">◆まつ毛◆</span>
-            </div>
-            <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this, 'treatment1')" data-price="4400">まつ毛エクステシングル60分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment2')" data-price="5500">まつ毛エクステシングル90分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment3')" data-price="6600">まつ毛エクステシングル120分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment4')" data-price="5500">まつ毛エクステ3D・フラットマットラッシュ<br>60分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6600">まつ毛エクステ3D・フラットマットラッシュ<br>90分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="7700">まつ毛エクステ3D・フラットマットラッシュ<br>120分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment7')" data-price="6600">バインドロック60分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment8')" data-price="7700">バインドロック90分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment9')" data-price="8800">バインドロック120分つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment10')" data-price="3300">下まつ毛つけ放題</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment11')" data-price="4950">ラッシュリフト（まつ毛パーマ）上のみ</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment12')" data-price="3300">ラッシュリフト（まつ毛パーマ）下のみ</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment13')" data-price="7700">ラッシュリフト（まつ毛パーマ）上下セット</button>
-            </div>
-            <div class="highlight-background">
-                <span class="highlight-text">オプション</span>
-            </div>
-            <div class="info-text">※まつ毛エクステ3D・フラットマットラッシュを選んだ方のみ</div>
-            <div class="irradiations">
-                <button type="button" id="firstirradiations" onclick="selectirradiations(this)" data-price="1100">4D</button>
-            </div>
+        <div class="label">希望日時</div>
+        <div class="centered-text">
         </div>
-
-        <div id="female" class="menu-section">
-            <div class="highlight-background">
-                <span class="highlight-text">◆ネイル◆</span>
-            </div>
-            <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this, 'treatment14')" data-price="4400">ワンカラージェルネイルオフ無し</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment15')" data-price="4950">ワンカラージェルネイルオフ有り</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment16')" data-price="5500">シンプルジェルネイルオフ無し</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment17')" data-price="6000">シンプルジェルネイルオフ有り</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment18')" data-price="6000">お持ち込みデザインネイルオフ無し</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment19')" data-price="6600">お持ち込みデザインネイルオフ有り</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment20')" data-price="5500">フットジェルネイルオフ無し</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment21')" data-price="6000">フットジェルネイルオフ有り</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment22')" data-price="2200">ジェルネイル当店オフのみ</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment23')" data-price="2750">ジェルネイル他店オフのみ</button>
-            </div>
-        </div>
-
-        <div id="whitening" class="menu-section">
-            <div class="highlight-background">
-                <span class="highlight-text">◆眉毛◆</span>
-            </div>
-            <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this, 'treatment24')" data-price="4400">アイブロウWAX</button>
-            </div>
-        </div>
-
-        <div id="WAX" class="menu-section">
-            <div class="highlight-background">
-                <span class="highlight-text">◆WAX◆</span>
-            </div>
-            <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this, 'treatment25')" data-price="8800">フェイシャルWAX＋VOSパック</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment26')" data-price="11000">メンズフェイシャルWAX</button>
-                <button type="button" onclick="selectSymptom(this, 'treatment27')" data-price="4950">うなじWAX</button>
-            </div>
-        </div>
-
-        <div class="label">希望日時<br>（メニュー選択後に選択ください）</div>
         <div class="calendar-container">
             <div class="week-button-container">
                 <button class="week-button" onclick="previousWeek()">前の週<br>←</button>
@@ -606,7 +488,7 @@
             </div>
         </div>
 
-        <div class="label">メッセージ<br>（質問等お気軽にご記入ください）</div>
+        <div class="label">お悩みの症状をお書きください</div>
         <textarea id="message" rows="4" placeholder="メッセージを入力してください"></textarea>
 
         <div class="label">ご予約内容</div>
@@ -629,7 +511,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             liff.init({
-                liffId: ''
+                liffId: '2006137975-XpgGkqgL'
             }).then(() => {
                 console.log('LIFF初期化成功');
             }).catch((err) => {
@@ -641,7 +523,7 @@
 
         // 訪問回数ごとの時間設定 (例：初めて=20分、2回目以降=15分)
         let visitTimes = {
-            '1回目': 0,
+            '初めて': 0,
             '2回目以降': 0
         };
 
@@ -649,58 +531,37 @@
 
         // 訪問回数ごとの時間設定 (例：初めて=20分、2回目以降=15分)
         let irradiationsTimes = {
-            '4D': 0
+            'ベーシックマッサージ(パック付き)〈30分〉': 0
         };
 
         let selectedirradiationsTime = 0; // 訪問回数で選択された時間
 
         let menuTimes = {
-            'まつ毛エクステシングル60分つけ放題': 60,
-            'まつ毛エクステシングル90分つけ放題': 90,
-            'まつ毛エクステシングル120分つけ放題': 120,
-            'ワンカラージェルネイルオフ無し': 75,
-            'ワンカラージェルネイルオフ有り': 105,
-            'シンプルジェルネイルオフ無し': 105,
-            'シンプルジェルネイルオフ有り': 165,
-            'お持ち込みデザインネイルオフ無し': 105,
-            'お持ち込みデザインネイルオフ有り': 165,
-            'フットジェルネイルオフ無し': 105,
-            'フットジェルネイルオフ有り': 165,
-            'ジェルネイル当店オフのみ': 60,
-            'ジェルネイル他店オフのみ': 60,
-            'フェイシャルWAX＋VOSパック': 120,
-            'メンズフェイシャルWAX': 180,
-            'うなじWAX': 75,
-            'まつ毛エクステシングル60分つけ放題': 60,
-            'まつ毛エクステシングル90分つけ放題': 90,
-            'まつ毛エクステシングル120分つけ放題': 120,
-            'まつ毛エクステ3D・フラットマットラッシュ60分つけ放題': 60,
-            'まつ毛エクステ3D・フラットマットラッシュ90分つけ放題': 90,
-            'まつ毛エクステ3D・フラットマットラッシュ120分つけ放題': 120,
-            'バインドロック60分つけ放題': 60,
-            'バインドロック90分つけ放題': 90,
-            'バインドロック120分つけ放題': 120,
-            '下まつ毛つけ放題': 60,
-            'アイブロウWAX': 60,
-            'ラッシュリフト（まつ毛パーマ）上のみ': 90,
-            'ラッシュリフト（まつ毛パーマ）下のみ': 60,
-            'ラッシュリフト（まつ毛パーマ）上下セット': 105
+            '新規様_産後の骨盤矯正プログラム': 60,
+            '新規様_マタニティ': 60,
+            '新規様_姿勢・頭痛・外反母趾・尿もれ': 60,
+            '産後の骨盤矯正プログラム.': 30,
+            'マタニティ.': 30,
+            '姿勢・頭痛・外反母趾・尿もれ.': 30,
+            '巻き爪': 60,
+            '巻き爪.': 30
         };
+
 
         let selectedMenuTime = 0;
 
         function updateDisplayInfo() {
             const name = document.getElementById('name').value;
-            const visitCountText = visitCount ? `・<span style="color:red;"><strong>ご来店回数</strong></span>：${visitCount}` : '・来店回数が未選択です';
+            const visitCountText = visitCount ? `・<span style="color:red;"><strong>来院回数</strong></span>：${visitCount}` : '・来院回数が未選択です';
 
             // メニューが選択されていたら、各メニューを改行して表示
             const selectedSymptomText = selectedSymptom.length > 0
-                ? `<span style="color:red;"><strong>【メニュー】</strong></span><br>${selectedSymptom.join('<br>')}`
+                ? `<span style="color:red;"><strong>【メニュー】</strong></span><br>・${selectedSymptom.join('<br>')}`
                 : '・メニューが未選択です';
 
             // オプションが選択されていたら、各オプションを改行して表示
             const irradiationsText = irradiationsCount
-                ? `<span style="color:red;"><strong>【オプション】</strong></span><br>${irradiationsCount.split(', ').join('<br>')}`
+                ? `<span style="color:red;"><strong>【オプション】</strong></span><br>・${irradiationsCount.split(', ').join('<br>・')}`
                 : '・オプション無し';
 
             // 所要時間を計算
@@ -725,13 +586,7 @@
         <hr>
         <p>${selectedSymptomText}</p>
         <hr>
-        <p>${irradiationsText}</p>
-        <hr>
-        <p>${totalTimeText}</p>
-        <hr>
         <p>${selectedDateText}</p>
-        <hr>
-        <p>${totalAmountText}</p>
         <hr>
     `;
         }
@@ -749,18 +604,18 @@
         });
 
         document.querySelectorAll('.symptoms button').forEach(button => {
-            button.addEventListener('click', () => {
-                const calendarContainer = document.querySelector('.calendar-container');
+    button.addEventListener('click', () => {
+        const calendarContainer = document.querySelector('.calendar-container');
 
-                // 選択されたメニューがあればカレンダーを表示
-                if (document.querySelectorAll('.symptoms button.active').length > 0) {
-                    calendarContainer.style.display = 'block';
-                } else {
-                    // 選択が解除された場合、カレンダーを非表示
-                    calendarContainer.style.display = 'none';
-                }
-            });
-        });
+        // 選択されたメニューがあればカレンダーを表示
+        if (document.querySelectorAll('.symptoms button.active').length > 0) {
+            calendarContainer.style.display = 'block';
+        } else {
+            // 選択が解除された場合、カレンダーを非表示
+            calendarContainer.style.display = 'none';
+        }
+    });
+});
 
         // 初期状態でカレンダーを非表示にする
         document.addEventListener('DOMContentLoaded', () => {
@@ -812,244 +667,56 @@
             // トリートメントテキストを表示
             const treatmentText = document.getElementById('treatment-text');
 
-            function createTreatmentContent(title, imageUrl, description, price, time) {
-    return `
-        <div class="treatment-container">
-            <div style="font-size: 18px; font-weight: bold;">${title}</div>
-        </div>
-
-        <div class="treatment-image">
-            <div class="spinner-overlay">
-                <div class="spinner"></div>
-            </div>
-            <img src="${imageUrl}" alt="${title}" style="width: 100%; height: 100%; display: none;" 
-                 onload="this.style.display='block'; this.previousElementSibling.style.display='none';">
-        </div>
-
-        <div class="treatment-description">${description}</div>
-
-        <div class="treatment-price">
-            <span>価格：</span><span>${price}</span><br>
-            <span>所要時間：</span><span>${time}</span>
-        </div>`;
-}
-
-if (treatmentId === 'treatment1') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'まつ毛エクステシングル',
-        'https://www.dropbox.com/scl/fi/fg5tny0u1slsjk0yvyka6/.png?rlkey=7duofvgkerjq6qktj5da3ex85&st=l0t01oto&raw=1',
-        '60分つけ放題',
-        '4,400円',
-        '60分'
-    );
-} else if (treatmentId === 'treatment2') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'まつ毛エクステシングル',
-        'https://www.dropbox.com/scl/fi/fg5tny0u1slsjk0yvyka6/.png?rlkey=7duofvgkerjq6qktj5da3ex85&st=l0t01oto&raw=1',
-        '90分つけ放題',
-        '5,500円',
-        '90分'
-    );
-} else if (treatmentId === 'treatment3') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'まつ毛エクステシングル',
-        'https://www.dropbox.com/scl/fi/fg5tny0u1slsjk0yvyka6/.png?rlkey=7duofvgkerjq6qktj5da3ex85&st=l0t01oto&raw=1',
-        '120分つけ放題',
-        '6,600円',
-        '120分'
-    );
-} else if (treatmentId === 'treatment4') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'まつ毛エクステ３D<br>フラットマットラッシュ',
-        'https://www.dropbox.com/scl/fi/98w6mk6r1yfz2s4nduph7/D.png?rlkey=ffsum2jme2p0fbxmtjoipuutc&st=vz5rkpmk&raw=1',
-        '60分つけ放題<br>※４Dはプラス1100円',
-        '5,500円',
-        '60分'
-    );
-} else if (treatmentId === 'treatment5') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'まつ毛エクステ３D<br>フラットマットラッシュ',
-        'https://www.dropbox.com/scl/fi/98w6mk6r1yfz2s4nduph7/D.png?rlkey=ffsum2jme2p0fbxmtjoipuutc&st=vz5rkpmk&raw=1',
-        '90分つけ放題<br>※４Dはプラス1100円',
-        '6,600円',
-        '90分'
-    );
-} else if (treatmentId === 'treatment6') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'まつ毛エクステ３D<br>フラットマットラッシュ',
-        'https://www.dropbox.com/scl/fi/98w6mk6r1yfz2s4nduph7/D.png?rlkey=ffsum2jme2p0fbxmtjoipuutc&st=vz5rkpmk&raw=1',
-        '120分つけ放題<br>※４Dはプラス1100円',
-        '7,700円',
-        '120分'
-    );
-} else if (treatmentId === 'treatment7') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'バインドロック',
-        'https://www.dropbox.com/scl/fi/5owwalhtbzkct7aez3guu/.png?rlkey=ny160a800km257bavmjuizm99&st=kniz36wg&raw=1',
-        '60分つけ放題',
-        '6,600円',
-        '60分'
-    );
-} else if (treatmentId === 'treatment8') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'バインドロック',
-        'https://www.dropbox.com/scl/fi/5owwalhtbzkct7aez3guu/.png?rlkey=ny160a800km257bavmjuizm99&st=kniz36wg&raw=1',
-        '90分つけ放題',
-        '7,700円',
-        '90分'
-    );
-} else if (treatmentId === 'treatment9') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'バインドロック',
-        'https://www.dropbox.com/scl/fi/5owwalhtbzkct7aez3guu/.png?rlkey=ny160a800km257bavmjuizm99&st=kniz36wg&raw=1',
-        '120分つけ放題',
-        '8,800円',
-        '120分'
-    );
-} else if (treatmentId === 'treatment10') {
-    treatmentText.innerHTML = createTreatmentContent(
-        '下まつ毛つけ放題',
-        'https://www.dropbox.com/scl/fi/zt7t9rmja73ffh9omftry/.png?rlkey=f48tdw8v8lbejtzqhoggrfej2&st=sksm5kpp&raw=1',
-        '',
-        '3,300円',
-        '60分'
-    );
-} else if (treatmentId === 'treatment11') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'ラッシュリフト（まつ毛パーマ）',
-        'https://www.dropbox.com/scl/fi/or6n6vmkcrx9b5w5i3fu4/.png?rlkey=jbaw7i31sqfusk1dnp3qrmz9d&st=2b9px9qc&raw=1',
-        '上のみ',
-        '4,950円',
-        '90分'
-    );
-} else if (treatmentId === 'treatment12') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'ラッシュリフト（まつ毛パーマ）',
-        'https://www.dropbox.com/scl/fi/or6n6vmkcrx9b5w5i3fu4/.png?rlkey=jbaw7i31sqfusk1dnp3qrmz9d&st=2b9px9qc&raw=1',
-        '下のみ',
-        '3,300円',
-        '60分'
-    );
-} else if (treatmentId === 'treatment13') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'ラッシュリフト（まつ毛パーマ）',
-        'https://www.dropbox.com/scl/fi/or6n6vmkcrx9b5w5i3fu4/.png?rlkey=jbaw7i31sqfusk1dnp3qrmz9d&st=2b9px9qc&raw=1',
-        '上下セット',
-        '7,700円',
-        '105分'
-    );
-} else if (treatmentId === 'treatment14') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'ワンカラージェルネイル',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        'オフ無し',
-        '4,400円',
-        '75分'
-    );
-} else if (treatmentId === 'treatment15') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'ワンカラージェルネイル',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        'オフ有',
-        '4,950円',
-        '105分'
-    );
-} else if (treatmentId === 'treatment16') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'シンプルジェルネイル',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        'オフ無し',
-        '5,500円',
-        '210分'
-    );
-} else if (treatmentId === 'treatment17') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'シンプルジェルネイル',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        'オフ有',
-        '6,000円',
-        '180分'
-    );
-} else if (treatmentId === 'treatment18') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'お持ち込みデザインネイル',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        'オフ無し',
-        '6,000円～',
-        '105分'
-    );
-} else if (treatmentId === 'treatment19') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'お持ち込みデザインネイル',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        'オフ有',
-        '6,600円～',
-        '165分'
-    );
-} else if (treatmentId === 'treatment20') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'フットジェルネイル',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        'オフ無し',
-        '5,500円～',
-        '105分'
-    );
-} else if (treatmentId === 'treatment21') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'フットジェルネイル',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        'オフ有',
-        '6,000円～',
-        '165分'
-    );
-} else if (treatmentId === 'treatment22') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'ジェルネイルオフのみ',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        '当店オフのみ',
-        '2,200円',
-        '60分'
-    );
-} else if (treatmentId === 'treatment23') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'ジェルネイルオフのみ',
-        'https://www.dropbox.com/scl/fi/pb0eoo2qs7zs5ivz9tk1m/.png?rlkey=gjdsilmwgw87gw6j2fjlh4iqx&st=l2zlb0su&raw=1',
-        '他店オフ',
-        '2,750円',
-        '60分'
-    );
-} else if (treatmentId === 'treatment24') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'アイブロウWAX',
-        'https://www.dropbox.com/scl/fi/twbc0brsr1f8mjmnlbu4d/WAX.png?rlkey=813yshivzhqzmevxa6i8190di&st=ujqxymbw&raw=1',
-        '',
-        '4,400円',
-        '60分'
-    );
-} else if (treatmentId === 'treatment25') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'フェイシャルWAX＋VOSパック',
-        'https://www.dropbox.com/scl/fi/12mm2spg0vzqr1s9crqg5/WAX-VOS.png?rlkey=mu6bkuhi2opu3msaxs1ou55og&st=upu4qeml&raw=1',
-        '当店オススメ！',
-        '8,800円',
-        '120分'
-    );
-} else if (treatmentId === 'treatment26') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'メンズフェイシャルWAX',
-        'https://www.dropbox.com/scl/fi/12mm2spg0vzqr1s9crqg5/WAX-VOS.png?rlkey=mu6bkuhi2opu3msaxs1ou55og&st=upu4qeml&raw=1',
-        '当店オススメ！',
-        '11,000円',
-        '180分'
-    );
-} else if (treatmentId === 'treatment27') {
-    treatmentText.innerHTML = createTreatmentContent(
-        'うなじWAX',
-        'https://www.dropbox.com/scl/fi/8ep46z023cg946l16o13j/WAX.png?rlkey=8hpg5yw93mpjdy9shwo3q3dmu&st=jw0zy1ol&raw=1',
-        '別途カウンセリング時間約30分。<br>お体の様子をお伺いしながら施術を行なっていきます',
-        '4,950円',
-        '75分'
-    );
+            if (treatmentId === 'treatment1') {
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：90分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：6,500円<br>初診料：＋2,200円</strong></div><br>悠心堂<strong>オススメ</strong>の<strong>オーダーメイド治療</strong>です。<br>
+                鍼灸のツボ刺激で内臓から調整し、整体ではカラダのコリと血流改善を狙います。<br>
+                鍼は最小限の刺激で最大限の効果を狙い、<br>10～20本程度使います。<br>
+                お灸は、やけどにならないお灸を使います。<br>
+                <span style="color: blue;">-全身症状の改善・カラダのメンテナンスを希望の方へ。</span>`;
+            } else if (treatmentId === 'treatment2') {
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：60分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：4,500円<br>初診料：＋2,200円</strong></div><br>健康で美しい顔はとても素敵です。<br>
+                顔の周りのツボに施術することで、血流を促進します。<br>
+                むくみ、シワ、肌質などお顔のお悩みにぜひ。<br>
+                眼精疲労や脳のストレス発散など健康効果も。`;
+            } else if (treatmentId === 'treatment3') {
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：120分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：8,700円<br>初診料：＋2,200円</strong></div><br><strong>全身治療</strong>と<strong>美容鍼</strong>を同時に受けて頂けるメニューです。<br>
+                顔は内臓の状態を反映します。<br>
+                美容鍼のさらなる効果を求める方にもオススメしています。<br>
+                <span style="color: blue;">-しわ・たるみ・むくみの気になる方。<br>
+                -顔色が悪い・笑顔が固いという方へ。</span>`;
+            } else if (treatmentId === 'treatment4') {
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：30分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：1,700円<br>初診料：＋2,200円</strong></div><br><strong>刺さない鍼</strong>を使った施術メニューです。<br>
+                痛くなく<strong>気持ちいい</strong>ので子どもでも安心して受けていただけます。<br>
+                生後1ヶ月～小学生までオススメします。<br>
+                <span style="color: blue;">-夜泣き・疳の虫（ギャーギャー泣く）<br>
+                -夜尿（おねしょ）</span><br>
+                <span style="color: blue;">-食欲不振<br>
+                -虚弱体質（風邪をひきやすいなど）</span><br><br>`;
+            } else if (treatmentId === 'treatment5') {
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：60分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：6,500円</strong></div><br>悠心堂<strong>オススメ</strong>の<strong>オーダーメイド治療</strong>です。<br>
+                鍼灸のツボ刺激で内臓から調整し、整体ではカラダのコリと血流改善を狙います。<br>
+                鍼は最小限の刺激で最大限の効果を狙い、<br>10～20本程度使います。<br>
+                お灸は、やけどにならないお灸を使います。<br>
+                <span style="color: blue;">-全身症状の改善・カラダのメンテナンスを希望の方へ。</span>`;
+            } else if (treatmentId === 'treatment6') {
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：30分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：4,500円</strong></div><br>健康で美しい顔はとても素敵です。<br>
+                顔の周りのツボに施術することで、血流を促進します。<br>
+                むくみ、シワ、肌質などお顔のお悩みにぜひ。<br>
+                眼精疲労や脳のストレス発散など健康効果も。`;
+            } else if (treatmentId === 'treatment7') {
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：90分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：8,700円</strong></div><br><strong>全身治療</strong>と<strong>美容鍼</strong>を同時に受けて頂けるメニューです。<br>
+                顔は内臓の状態を反映します。<br>
+                美容鍼のさらなる効果を求める方にもオススメしています。<br>
+                <span style="color: blue;">-しわ・たるみ・むくみの気になる方。<br>
+                -顔色が悪い・笑顔が固いという方へ。</span>`;
+            } else if (treatmentId === 'treatment8') {
+                treatmentText.innerHTML = `<div style="text-align: left;"><strong>所要時間：15分</strong><br>※症状によりお時間が前後する場合がございます</div><div style="text-align: right;"><strong>料金：1,700円</strong></div><br><strong>刺さない鍼</strong>を使った施術メニューです。<br>
+                痛くなく<strong>気持ちいい</strong>ので子どもでも安心して受けていただけます。<br>
+                生後1ヶ月～小学生までオススメします。<br>
+                <span style="color: blue;">-夜泣き・疳の虫（ギャーギャー泣く）<br>
+                -夜尿（おねしょ）</span><br>
+                <span style="color: blue;">-食欲不振<br>
+                -虚弱体質（風邪をひきやすいなど）</span><br><br>`;
             } else {
                 treatmentText.innerHTML = '';
             }
@@ -1100,6 +767,7 @@ if (treatmentId === 'treatment1') {
             updateDisplayInfo();
         }
 
+
         function updateTotalAmount() {
             totalAmount = menuPrice + optionsPrice; // オプションの価格も含める
             updateDisplayInfo(); // 表示を更新
@@ -1109,6 +777,7 @@ if (treatmentId === 'treatment1') {
             // 選択された日時をリセット
             selectedFullDate = '';
 
+            // ボタンの選択状態を切り替える
             document.getElementById('firstVisit').classList.remove('active');
             document.getElementById('repeatVisit').classList.remove('active');
             element.classList.add('active');
@@ -1119,42 +788,30 @@ if (treatmentId === 'treatment1') {
 
             console.log('選択された訪問回数の時間:', selectedVisitTime);
 
-            // カレンダーを更新するために取得する日付を渡す
-            fetchAvailability(currentDate);
-        }
+    // 来院回数に応じてメニューを変更
+    const symptomsContainer = document.querySelector('.symptoms');
+    if (visitCount === "1ケ月以内に通院されてる方はこちら") {
+        symptomsContainer.innerHTML = `
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">産後の骨盤矯正プログラム</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="4500">マタニティ</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment7')" data-price="8700">姿勢・頭痛・外反母趾・尿もれ</button>
+        `;
+    } else {
+        // 初めての場合、元のメニューに戻す
+        symptomsContainer.innerHTML = `
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">新規様_産後の骨盤矯正プログラム</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="4500">新規様_マタニティ</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment7')" data-price="8700">新規様_姿勢・頭痛・外反母趾・尿もれ</button>
+        `;
+    }
 
-        function showMenu(menu) {
-            // すべてのメニューボタンの選択状態をリセット
-            document.querySelectorAll('.menu-sections button').forEach(button => {
-                button.classList.remove('active');
-            });
+    // メニュー変更後にカレンダーを表示
+    const calendarContainer = document.querySelector('.calendar-container');
+    calendarContainer.style.display = 'block';
 
-            // 選択されたメニューセクションを表示
-            document.querySelectorAll('.menu-section').forEach(section => {
-                section.classList.remove('active');
-                section.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-            });
-
-            // 対応するメニューボタンを選択状態にする
-            document.querySelectorAll('.menu-sections button').forEach(button => {
-                if (button.getAttribute('onclick') === `showMenu('${menu}')`) {
-                    button.classList.add('active');
-                }
-            });
-
-            // 選択されたメニューセクションを表示
-            document.getElementById(menu).classList.add('active');
-
-            // メニューとオプションをリセット
-            selectedSymptom = '';      // メニューのリセット
-            irradiationsCount = '';    // オプションのリセット
-            menuPrice = 0;             // メニューの価格リセット
-            optionsPrice = 0;          // オプションの価格リセット
-            totalAmount = 0;           // 合計金額リセット
-
-            // 表示を更新
-            updateDisplayInfo();
-        }
+    // 空き状況を再取得
+    fetchAvailability(currentDate);
+}
 
         function selectDate(cell) {
             // "unavailable" クラスが付いている場合はクリックを無効化
@@ -1192,8 +849,24 @@ if (treatmentId === 'treatment1') {
                 message: document.getElementById('message').value.trim()
             };
 
-            if (!formData.selectedSymptom) {
-                alert('メニューを選択してください。');
+            // フォームデータのチェック
+            if (!formData.name) {
+                alert('お名前を入力してください。');
+                return;
+            }
+
+            if (!formData.phone) {
+                alert('電話番号を入力してください。');
+                return;
+            }
+
+            if (!formData.phone) {
+                alert('電話番号を入力してください。');
+                return;
+            }
+
+            if (!formData.visitCount) {
+                alert('ご来院回数を選択してください。');
                 return;
             }
 
@@ -1205,7 +878,7 @@ if (treatmentId === 'treatment1') {
             // LINEトークにメッセージを送信
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\nご来店回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom},${formData.irradiationsCount}\n希望日時：\n ${formData.dates[0]}\nメッセージ：${formData.message}`
+                text: `【巻き爪専門院予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\n来院回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom}\n希望日時：\n ${formData.dates[0]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 /* メッセージ送信成功時の処理 */
                 alert('当日キャンセルは無いようにお願いいたします。');
@@ -1237,7 +910,7 @@ if (treatmentId === 'treatment1') {
                 return;
             }
 
-            const url = 'https://script.google.com/macros/s/AKfycbxeWYajMyWmIyAnq_by56lBnIlPYD6-QEkpNuKxd6Fo6kZib0sIUfX6ugZuT3aPxzncPg/exec' +
+            const url = 'https://script.google.com/macros/s/AKfycbw8wN31h1XR9n7ZADLQ6o7cHo_TPB6TyylyoZ5Em4HSi2QzGL07ibN6ODMrEovXCOVJ/exec' +
                 `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
 
             try {
@@ -1270,36 +943,37 @@ if (treatmentId === 'treatment1') {
             const table = calendar.querySelector('table tbody');
 
             const times = [
-                '09:00', '09:15', '09:30', '09:45',
-                '10:00', '10:15', '10:30', '10:45',
-                '11:00', '11:15', '11:30', '11:45',
-                '12:00', '12:15', '12:30', '12:45',
-                '13:00', '13:15', '13:30', '13:45',
-                '14:00', '14:15', '14:30', '14:45',
-                '15:00', '15:15', '15:30', '15:45',
-                '16:00', '16:15', '16:30', '16:45',
-                '17:00', '17:15', '17:30', '17:45',
-                '18:00', '18:15', '18:30', '18:45',
-                '19:00', '19:15', '19:30', '19:45',
-                '20:00'
+                '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+                '12:00', '12:30', '13:00', '13:30',
+                '14:00', '14:30', '15:00', '15:30',
+                '16:00', '16:30', '17:00', '17:30',
+                '18:00'
             ];
 
-            if (table.rows.length === 0) {
-                for (const time of times) {
-                    const row = document.createElement('tr');
-                    const timeCell = document.createElement('td');
-                    timeCell.textContent = time;
-                    row.appendChild(timeCell);
+if (table.rows.length === 0) {
+    for (const time of times) {
+        const row = document.createElement('tr');
+        const timeCell = document.createElement('td');
+        timeCell.textContent = time;
+        row.appendChild(timeCell);
 
-                    for (let i = 0; i < 7; i++) {
-                        const cell = document.createElement('td');
-                        cell.addEventListener('click', () => selectDate(cell));
-                        row.appendChild(cell);
-                    }
+        for (let i = 0; i < 7; i++) {
+            const cell = document.createElement('td');
 
-                    table.appendChild(row);
+            // unavailable と unavailablegray クラスがある場合は選択不可
+            cell.addEventListener('click', () => {
+                if (cell.classList.contains('unavailable') || cell.classList.contains('unavailablegray')) {
+                    return; // 何もしない
                 }
-            }
+                selectDate(cell);
+            });
+
+            row.appendChild(cell);
+        }
+
+        table.appendChild(row);
+    }
+}
 
             // テーブルのヘッダーを更新
             updateCalendarHeader(currentDate);
@@ -1309,10 +983,9 @@ if (treatmentId === 'treatment1') {
                 for (let i = 1; i < row.cells.length; i++) {
                     row.cells[i].textContent = '';
                     row.cells[i].removeAttribute('data-date');
-                    row.cells[i].classList.remove('available', 'unavailable', 'selected');
+                    row.cells[i].classList.remove('available', 'unavailable', 'selected', 'unavailablegray');
                 }
             }
-
 
             // 現在の日時を取得
             const now = new Date();
@@ -1358,29 +1031,13 @@ if (treatmentId === 'treatment1') {
                         continue;
                     }
 
-                    // 18時以降に終了する予約を不可にする (17:30は可)
-                    if (slotEnd.getHours() === 20 && slotEnd.getMinutes() > 0) {
-                        cell.textContent = '✕';
-                        cell.classList.add('unavailable');
-                        continue;
-                    } else if (slotEnd.getHours() > 20) {
-                        cell.textContent = '✕';
-                        cell.classList.add('unavailable');
-                        continue;
-                    }
+                    // リアルタイムで過ぎた時間のセルを×にする条件
+                    const oneHourLater = new Date(now.getTime() + 60 * 60 * 1000); // 現在の時間から1時間後の時間を計算
 
-                    // 19:00または20:00の場合は✕に設定
-                    if (slotStart.getHours() === 19 || slotStart.getHours() === 20) {
+                    if (slotStart < now || (slotStart >= now && slotStart < oneHourLater)) {
                         cell.textContent = '✕';
                         cell.classList.add('unavailable');
-                        continue;
-                    }
-
-                    // ここで終了時間を使った条件処理を行う
-                    // 例えば、リアルタイムで既に過ぎた時間帯は×にする
-                    if (slotStart < now) {
-                        cell.textContent = '✕';
-                        cell.classList.add('unavailable');
+                        cell.setAttribute('data-date', slotStart.toISOString());
                         continue;
                     }
 
@@ -1404,35 +1061,125 @@ if (treatmentId === 'treatment1') {
                         return acc;
                     }, 0);
 
-                    // 営業日のイベント時間内に他のイベントがある場合
-                    if (isBusinessEventTime && count > 0) {
+                    // 土曜日だけ16:30から18:00までを✕に設定
+                    if (
+                        slotStart.getDay() === 6 && // 土曜日の場合
+                        ((slotStart.getHours() === 16 && slotStart.getMinutes() >= 30) ||
+                            (slotStart.getHours() === 17) ||
+                            (slotStart.getHours() === 18 && slotStart.getMinutes() < 30))
+                    ) {
                         cell.textContent = '✕';
                         cell.classList.add('unavailable');
+                        cell.setAttribute('data-date', slotStart.toISOString());
+                        continue;
                     }
-                    // 営業日のイベント時間（他のイベントがない場合）
+
+                    // 11:30 - 13:30 を✕に設定
+                    if (
+                        (slotStart.getHours() === 11 && slotStart.getMinutes() >= 30) ||
+                        (slotStart.getHours() === 12) ||
+                        (slotStart.getHours() === 13 && slotStart.getMinutes() <= 30)
+                    ) {
+                        cell.textContent = '✕';
+                        cell.classList.add('unavailable'); // クラスを追加
+                        cell.setAttribute('data-date', slotStart.toISOString());
+                        continue;
+                    }
+
+                    // 土曜日以外の曜日で12:30 - 13:59 を✕に設定
+                    if (
+                        (slotStart.getDay() !== 6) && // 土曜日以外
+                        ((slotStart.getHours() === 12 && slotStart.getMinutes() >= 30) ||
+                            (slotStart.getHours() === 13 && slotStart.getMinutes() < 60))
+                    ) {
+                        cell.textContent = '✕';
+                        cell.classList.add('unavailable');
+                        cell.setAttribute('data-date', slotStart.toISOString());
+                        continue;
+                    }
+
+                    // 営業日の時間帯で、他にイベントがない場合
                     else if (isBusinessEventTime) {
-                        cell.textContent = '◯';
-                        cell.classList.add('available');
+                        // 土曜日で特別な処理を追加
+                        if (slotStart.getDay() === 6) { // 土曜日の場合
+                            if (slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) {
+                                cell.classList.add('available', 'red'); // 午前は青で利用可能
+                            } else {
+                                cell.classList.add('available', 'red'); // 午後は赤で利用可能
+                            }
+                        }
+                        // 他の曜日の処理
+                        else {
+                            if ((slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) && count > 0) {
+                                cell.textContent = '✕';
+                                cell.classList.add('unavailable');
+                            } else if (slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) {
+                                cell.classList.add('available', 'red'); // 午前は青で利用可能
+                            } else {
+                                cell.classList.add('available', 'blue'); // 午後は赤で利用可能
+                            }
+                        }
                     }
-                    // 営業日で、指定されている時間以外の時間は×
+                    // 営業日で他にイベントがある場合
                     else if (businessEventTimes.length > 0) {
                         cell.textContent = '✕';
                         cell.classList.add('unavailable');
                     }
-                    // 営業日でかつ他のイベントがない場合
-                    else if (isBusinessDay && count === 0) {
-                        cell.textContent = '◯';
-                        cell.classList.add('available');
+                    // 休日（日曜日）で、ビジネスデーでない場合
+                    else if (slotStart.getDay() === 0 && !isBusinessDay && businessEventTimes.length === 0) {
+                        cell.textContent = '✕'; // 休日のため利用不可
+                        cell.classList.add('unavailable'); // 利用不可スタイルを適用
                     }
-                    // それ以外の条件
+                    // 休日（金曜日）で、ビジネスデーでない場合
+                    else if (slotStart.getDay() === 5 && !isBusinessDay && businessEventTimes.length === 0) {
+                        cell.textContent = '✕'; // 休日のため利用不可
+                        cell.classList.add('unavailable'); // 利用不可スタイルを適用
+                    }
+                    // 営業日でイベントがない場合
+                    else if (isBusinessDay && count === 0) {
+                        // 土曜日で特別な処理を追加
+                        if (slotStart.getDay() === 6) { // 土曜日の場合
+                            if (slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) {
+                                cell.classList.add('available', 'red');
+                            } else {
+                                cell.classList.add('available', 'red');
+                            }
+                        }
+                        // 他の曜日の処理
+                        else {
+                            if (slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) {
+                                cell.classList.add('available', 'red');
+                            } else {
+                                cell.classList.add('available', 'blue');
+                            }
+                        }
+                    }
+                    // その他の場合（利用可能なイベントがない場合）
                     else if (count === 0) {
-                        cell.textContent = '◯';
-                        cell.classList.add('available');
-                    } else {
+                        // 土曜日で特別な処理を追加
+                        if (slotStart.getDay() === 6) { // 土曜日の場合
+                            if (slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) {
+                                cell.classList.add('available', 'red');
+                            } else {
+                                cell.classList.add('available', 'red');
+                            }
+                        }
+                        // 他の曜日の処理
+                        else {
+                            if (slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) {
+                                cell.classList.add('available', 'red');
+                            } else {
+                                cell.classList.add('available', 'blue');
+                            }
+                        }
+                    }
+                    // どの条件にも当てはまらない場合
+                    else {
                         cell.textContent = '✕';
                         cell.classList.add('unavailable');
                     }
 
+                    // セルに日付を設定
                     cell.setAttribute('data-date', slotStart.toISOString());
                 }
             }
