@@ -906,7 +906,7 @@
                 return;
             }
 
-            const url = 'https://script.google.com/macros/s/AKfycbwp7Y4r9mOyhBw4u_8n2vbiVyORti5CY0NFApIbZHnmxL05nTryEVxQq-waDOtneTzX/exec' +
+            const url = 'https://script.google.com/macros/s/AKfycbxAiGtmRlZO-qumP4HCd-WtZkDB7n5qcHhzik-m36Ph54boeYrjaOUq2PwF_BG2X7Ic/exec' +
                 `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
 
             try {
@@ -1057,54 +1057,20 @@ if (table.rows.length === 0) {
                         return acc;
                     }, 0);
 
-                    // 土曜日だけ16:30から18:00までを✕に設定
-                    if (
-                        slotStart.getDay() === 6 && // 土曜日の場合
-                        ((slotStart.getHours() === 16 && slotStart.getMinutes() >= 30) ||
-                            (slotStart.getHours() === 17) ||
-                            (slotStart.getHours() === 18 && slotStart.getMinutes() < 30))
-                    ) {
-                        cell.textContent = '✕';
-                        cell.classList.add('unavailable');
-                        cell.setAttribute('data-date', slotStart.toISOString());
-                        continue;
-                    }
-
-                    // 11:30 - 13:30 を✕に設定
-                    if (
-                        (slotStart.getHours() === 11 && slotStart.getMinutes() >= 30) ||
-                        (slotStart.getHours() === 12) ||
-                        (slotStart.getHours() === 13 && slotStart.getMinutes() <= 30)
-                    ) {
-                        cell.textContent = '✕';
-                        cell.classList.add('unavailable'); // クラスを追加
-                        cell.setAttribute('data-date', slotStart.toISOString());
-                        continue;
-                    }
-
-                    // 土曜日だけ12:00から19:00までを✕に設定
-                    if (
-                        slotStart.getDay() === 6 && // 土曜日の場合
-                        ((slotStart.getHours() >= 12 && slotStart.getHours() < 19) || // 12:00から18:59
-                            (slotStart.getHours() === 19 && slotStart.getMinutes() === 0)) // 19:00ちょうど
-                    ) {
-                        cell.textContent = '✕';
-                        cell.classList.add('unavailable');
-                        cell.setAttribute('data-date', slotStart.toISOString());
-                        continue;
-                    }
-
-                    // 土曜日だけ12:00から19:00までを✕に設定
-                    if (
-                        slotStart.getDay() === 3 && // 土曜日の場合
-                        ((slotStart.getHours() >= 12 && slotStart.getHours() < 19) || // 12:00から18:59
-                            (slotStart.getHours() === 19 && slotStart.getMinutes() === 0)) // 19:00ちょうど
-                    ) {
-                        cell.textContent = '✕';
-                        cell.classList.add('unavailable');
-                        cell.setAttribute('data-date', slotStart.toISOString());
-                        continue;
-                    }
+// 11:30 - 13:30 を✕に設定（対象：月火木金）
+if (
+    ([1, 2, 4, 5].includes(slotStart.getDay())) && // 月=1, 火=2, 木=4, 金=5
+    (
+        (slotStart.getHours() === 11 && slotStart.getMinutes() >= 30) ||
+        (slotStart.getHours() === 12) ||
+        (slotStart.getHours() === 13 && slotStart.getMinutes() <= 30)
+    )
+) {
+    cell.textContent = '✕';
+    cell.classList.add('unavailable'); // クラスを追加
+    cell.setAttribute('data-date', slotStart.toISOString());
+    continue;
+}
 
                     // 営業日の時間帯で、他にイベントがない場合
                     else if (isBusinessEventTime) {
@@ -1135,11 +1101,6 @@ if (table.rows.length === 0) {
                     }
                     // 休日（日曜日）で、ビジネスデーでない場合
                     else if (slotStart.getDay() === 0 && !isBusinessDay && businessEventTimes.length === 0) {
-                        cell.textContent = '✕'; // 休日のため利用不可
-                        cell.classList.add('unavailable'); // 利用不可スタイルを適用
-                    }
-                    // 休日（金曜日）で、ビジネスデーでない場合
-                    else if (slotStart.getDay() === 5 && !isBusinessDay && businessEventTimes.length === 0) {
                         cell.textContent = '✕'; // 休日のため利用不可
                         cell.classList.add('unavailable'); // 利用不可スタイルを適用
                     }
