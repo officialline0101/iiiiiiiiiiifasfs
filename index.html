@@ -446,8 +446,8 @@
         <div class="label">ご来店回数※必須</div>
         <div class="info-text">※ご来店回数を選択すると空き状況のカレンダーが表示されます</div>
         <div class="visit-buttons">
-            <button type="button" id="firstVisit" onclick="selectVisit(this)">初めての方・1ケ月以上来院されてない方</button>
-            <button type="button" id="repeatVisit" onclick="selectVisit(this)">1ケ月以内に通院されてる方はこちら</button>
+            <button type="button" id="firstVisit" onclick="selectVisit(this)">初めての方・半年以上あいてる方</button>
+            <button type="button" id="repeatVisit" onclick="selectVisit(this)">2回目以降の方</button>
         </div>
 
         <div class="label">メニューをお選びください</div>
@@ -511,7 +511,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             liff.init({
-                liffId: '2006137975-XpgGkqgL'
+                liffId: '2005254357-zKma9BZk'
             }).then(() => {
                 console.log('LIFF初期化成功');
             }).catch((err) => {
@@ -537,14 +537,14 @@
         let selectedirradiationsTime = 0; // 訪問回数で選択された時間
 
         let menuTimes = {
-            '新規様_産後の骨盤矯正プログラム': 60,
-            '新規様_マタニティ': 60,
-            '新規様_姿勢・頭痛・外反母趾・尿もれ': 60,
-            '産後の骨盤矯正プログラム.': 30,
-            'マタニティ.': 30,
-            '姿勢・頭痛・外反母趾・尿もれ.': 30,
-            '新規様_巻き爪': 60,
-            '巻き爪': 30
+            '巻き爪.': 60,
+            'タコ·ウオノメ.': 60,
+            '厚い爪・変形爪・爪切り.': 60,
+            'とりあえず予約.': 30,
+            '巻き爪': 30,
+            'タコ·ウオノメ': 30,
+            '厚い爪・変形爪・爪切り': 30,
+            'とりあえず予約': 30
         };
 
 
@@ -790,14 +790,20 @@
 
     // 来院回数に応じてメニューを変更
     const symptomsContainer = document.querySelector('.symptoms');
-    if (visitCount === "1ケ月以内に通院されてる方はこちら") {
+    if (visitCount === "2回目以降の方") {
         symptomsContainer.innerHTML = `
-            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">巻き爪</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">巻き爪.</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">タコ・ウオノメ.</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">厚い爪・変形爪・爪切り.</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">とりあえず予約.</button>
         `;
     } else {
         // 初めての場合、元のメニューに戻す
         symptomsContainer.innerHTML = `
-            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">新規様_巻き爪</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">巻き爪</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">タコ・ウオノメ</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">厚い爪・変形爪・爪切り</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">とりあえず予約</button>
         `;
     }
 
@@ -906,7 +912,7 @@
                 return;
             }
 
-            const url = 'https://script.google.com/macros/s/AKfycbxlKc3gqiRID1sfNbusx_7u9XkYb9NqI65nL5ksfNLJJM9LZxK77MCs9bTCVMPL2Id0/exec' +
+            const url = 'https://script.google.com/macros/s/AKfycbyQeRz_oDFP1LV3Tcyh5PS9SGwvvUuP8jL9NTYHCryfRa-yqAH72zXhGhebj4QqfPS49g/exec' +
                 `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
 
             try {
