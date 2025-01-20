@@ -42,7 +42,7 @@
             margin-bottom: 10px;
             padding: 10px;
             font-weight: bold;
-            background-color: #85b425;
+            background-color: #ef8b19;
             color: white;
             border-radius: 4px;
             text-align: center;
@@ -106,7 +106,7 @@
             padding: 15px;
             border: none;
             border-radius: 4px;
-            background-color: #85b425;
+            background-color: #ef8b19;
             color: #fff;
             font-size: 18px;
             cursor: pointer;
@@ -543,8 +543,8 @@
             '産後の骨盤矯正プログラム.': 30,
             'マタニティ.': 30,
             '姿勢・頭痛・外反母趾・尿もれ.': 30,
-            '巻き爪': 60,
-            '巻き爪.': 30
+            '新規様_巻き爪': 60,
+            '巻き爪': 30
         };
 
 
@@ -792,16 +792,12 @@
     const symptomsContainer = document.querySelector('.symptoms');
     if (visitCount === "1ケ月以内に通院されてる方はこちら") {
         symptomsContainer.innerHTML = `
-            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">産後の骨盤矯正プログラム</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="4500">マタニティ</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment7')" data-price="8700">姿勢・頭痛・外反母趾・尿もれ</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">巻き爪</button>
         `;
     } else {
         // 初めての場合、元のメニューに戻す
         symptomsContainer.innerHTML = `
-            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">新規様_産後の骨盤矯正プログラム</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment6')" data-price="4500">新規様_マタニティ</button>
-            <button type="button" onclick="selectSymptom(this, 'treatment7')" data-price="8700">新規様_姿勢・頭痛・外反母趾・尿もれ</button>
+            <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">新規様_巻き爪</button>
         `;
     }
 
@@ -910,7 +906,7 @@
                 return;
             }
 
-            const url = 'https://script.google.com/macros/s/AKfycbw8wN31h1XR9n7ZADLQ6o7cHo_TPB6TyylyoZ5Em4HSi2QzGL07ibN6ODMrEovXCOVJ/exec' +
+            const url = 'https://script.google.com/macros/s/AKfycbwp7Y4r9mOyhBw4u_8n2vbiVyORti5CY0NFApIbZHnmxL05nTryEVxQq-waDOtneTzX/exec' +
                 `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
 
             try {
@@ -1086,11 +1082,23 @@ if (table.rows.length === 0) {
                         continue;
                     }
 
-                    // 土曜日以外の曜日で12:30 - 13:59 を✕に設定
+                    // 土曜日だけ12:00から19:00までを✕に設定
                     if (
-                        (slotStart.getDay() !== 6) && // 土曜日以外
-                        ((slotStart.getHours() === 12 && slotStart.getMinutes() >= 30) ||
-                            (slotStart.getHours() === 13 && slotStart.getMinutes() < 60))
+                        slotStart.getDay() === 6 && // 土曜日の場合
+                        ((slotStart.getHours() >= 12 && slotStart.getHours() < 19) || // 12:00から18:59
+                            (slotStart.getHours() === 19 && slotStart.getMinutes() === 0)) // 19:00ちょうど
+                    ) {
+                        cell.textContent = '✕';
+                        cell.classList.add('unavailable');
+                        cell.setAttribute('data-date', slotStart.toISOString());
+                        continue;
+                    }
+
+                    // 土曜日だけ12:00から19:00までを✕に設定
+                    if (
+                        slotStart.getDay() === 3 && // 土曜日の場合
+                        ((slotStart.getHours() >= 12 && slotStart.getHours() < 19) || // 12:00から18:59
+                            (slotStart.getHours() === 19 && slotStart.getMinutes() === 0)) // 19:00ちょうど
                     ) {
                         cell.textContent = '✕';
                         cell.classList.add('unavailable');
@@ -1173,13 +1181,15 @@ if (table.rows.length === 0) {
                             }
                         }
                     }
-                    // どの条件にも当てはまらない場合
-                    else {
+                    // それ以外の条件
+                    else if (count <= 2) {
+                        cell.textContent = '◯';
+                        cell.classList.add('available');
+                    } else {
                         cell.textContent = '✕';
                         cell.classList.add('unavailable');
                     }
 
-                    // セルに日付を設定
                     cell.setAttribute('data-date', slotStart.toISOString());
                 }
             }
