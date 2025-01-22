@@ -935,7 +935,7 @@
                 return;
             }
 
-            const url = 'https://script.google.com/macros/s/AKfycbxQXo8OFZ-9MrA1KwUeLZILgHNvdAY-jLm7K0rkX1AmNegp0SXJoJrGpwQeiN8DD2hU/exec' +
+            const url = 'https://script.google.com/macros/s/AKfycbyiOxlxQ4xRBKLIof-UGsWPvFb_emNbxVmRTGHcr6BSF8mAWbhh4EAWv-4PuY8CkvJd/exec' +
                 `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
 
             try {
@@ -1169,7 +1169,7 @@
                         }
                     }
                     // それ以外の条件
-                    else if (count <= 2) {
+                    else if (count <= 1) {
                         cell.textContent = '◯';
                         cell.classList.add('available');
                     } else {
