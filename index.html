@@ -525,16 +525,18 @@
 
         // ボタンのクリックイベント設定
         document.getElementById('sendMessage').addEventListener('click', function () {
-            // LIFFでメッセージを送信
+            // メッセージ送信
             liff.sendMessages([{
                 type: 'text',
                 text: 'みずの接骨院予約フォームはこちら'
             }]).then(() => {
                 console.log('メッセージ送信成功');
-                alert('メッセージを送信しました！');
+                // LIFFを閉じる
+                liff.closeWindow();
             }).catch((err) => {
                 console.error('メッセージ送信失敗', err);
-                alert('メッセージの送信に失敗しました');
+                // エラー時でもLIFFを閉じる
+                liff.closeWindow();
             });
         });
 
