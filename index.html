@@ -435,7 +435,7 @@
 
 <body>
     <div class="container">
-        <h1>巻き爪専門院<br>予約フォーム</h1>
+        <h1>巻き爪専門院あ<br>予約フォーム</h1>
 
         <div class="info-text">
             予約システムの方がリニューアルいたしました。<br>
@@ -502,30 +502,6 @@
         <button class="submit-button" onclick="submitForm()">予約を行う</button>
     </div>
 
-    <script>
-        document.getElementById('sendMessage').addEventListener('click', async () => {
-            try {
-                const response = await fetch('https://your-backend-endpoint.com/sendMessage', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: 'みずの接骨院予約フォームはこちら',
-                    }),
-                });
-                if (response.ok) {
-                    alert('メッセージを送信しました！');
-                } else {
-                    alert('送信に失敗しました。');
-                }
-            } catch (error) {
-                alert('エラーが発生しました: ' + error.message);
-            }
-        });
-    </script>
-</div>
-
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script>
         let visitCount = '';
@@ -547,8 +523,24 @@
                 console.log('LIFF初期化失敗', err);
             });
 
-            fetchAvailability(currentDate);
+        // ボタンのクリックイベント設定
+        document.getElementById('sendMessage').addEventListener('click', function () {
+            // LIFFでメッセージを送信
+            liff.sendMessages([{
+                type: 'text',
+                text: 'みずの接骨院予約フォームはこちら'
+            }]).then(() => {
+                console.log('メッセージ送信成功');
+                alert('メッセージを送信しました！');
+            }).catch((err) => {
+                console.error('メッセージ送信失敗', err);
+                alert('メッセージの送信に失敗しました');
+            });
         });
+
+        // 空き状況の取得（既存コード）
+        fetchAvailability(currentDate);
+    });
 
         // 訪問回数ごとの時間設定 (例：初めて=20分、2回目以降=15分)
         let visitTimes = {
