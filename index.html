@@ -435,11 +435,11 @@
 
 <body>
     <div class="container">
-        <h1>巻き爪専門院あ<br>予約フォーム</h1>
+        <h1>巻き爪専門院<br>予約フォーム</h1>
 
         <div class="info-text">
-            予約システムの方がリニューアルいたしました。<br>
-            <button id="sendMessage">みずの接骨院予約フォームはこちら</button>
+            ⇩みずの接骨院の予約フォームはこちらから⇩<br>
+            <button id="sendMessage">みずの接骨院予約フォーム</button>
         </div>
 
         <div class="label">お客様名※必須</div>
@@ -525,18 +525,16 @@
 
         // ボタンのクリックイベント設定
         document.getElementById('sendMessage').addEventListener('click', function () {
-            // メッセージ送信
+            // LIFFでメッセージを送信
             liff.sendMessages([{
                 type: 'text',
                 text: 'みずの接骨院予約フォームはこちら'
             }]).then(() => {
                 console.log('メッセージ送信成功');
-                // LIFFを閉じる
-                liff.closeWindow();
+                alert('メッセージを送信しました！');
             }).catch((err) => {
                 console.error('メッセージ送信失敗', err);
-                // エラー時でもLIFFを閉じる
-                liff.closeWindow();
+                alert('メッセージの送信に失敗しました');
             });
         });
 
@@ -885,13 +883,13 @@
                 return;
             }
 
-            if (!formData.phone) {
-                alert('電話番号を入力してください。');
+            if (!formData.visitCount) {
+                alert('ご来院回数を選択してください。');
                 return;
             }
 
-            if (!formData.visitCount) {
-                alert('ご来院回数を選択してください。');
+            if (!formData.selectedSymptom) {
+                alert('メニューを選択してください。');
                 return;
             }
 
@@ -935,7 +933,7 @@
                 return;
             }
 
-            const url = 'https://script.google.com/macros/s/AKfycbwp7Y4r9mOyhBw4u_8n2vbiVyORti5CY0NFApIbZHnmxL05nTryEVxQq-waDOtneTzX/exec' +
+            const url = 'https://script.google.com/macros/s/AKfycbw94qWASCOjVgKMTXNPXHWQdxRQJTGEeBvsOHkRPjLATwuom4fWXLv80sq6e5dEzttk/exec' +
                 `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
 
             try {
