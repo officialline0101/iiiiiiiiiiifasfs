@@ -166,7 +166,7 @@
         }
 
         .calendar td.selected {
-            background-color: #85b425;
+            background-color: #ef8b19;
             /* 選択されたカレンダーのセルの背景色を緑色に設定 */
             color: #fff;
             /* 選択されたセルのテキスト色を白に設定 */
@@ -418,11 +418,11 @@
         }
 
         .blue {
-            color: black;
+            color: rgb(0, 0, 0);
         }
 
         .red {
-            color: black;
+            color: rgb(0, 0, 0);
         }
 
         .unavailablegray {
@@ -436,7 +436,12 @@
 <body>
     <div class="container">
         <h1>巻き爪専門院<br>予約フォーム</h1>
-        
+
+        <div class="info-text">
+            予約システムの方がリニューアルいたしました。<br>
+            <a href="https://liff.line.me/2005254357-zKma9BZk" target="_blank">みずの接骨院予約フォームはこちら</a>
+        </div>
+
         <div class="label">お客様名※必須</div>
         <input type="text" id="name" placeholder="お名前を入力してください">
 
@@ -511,7 +516,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             liff.init({
-                liffId: '2005254357-zKma9BZk'
+                liffId: '2006137975-XpgGkqgL'
             }).then(() => {
                 console.log('LIFF初期化成功');
             }).catch((err) => {
@@ -604,18 +609,18 @@
         });
 
         document.querySelectorAll('.symptoms button').forEach(button => {
-    button.addEventListener('click', () => {
-        const calendarContainer = document.querySelector('.calendar-container');
+            button.addEventListener('click', () => {
+                const calendarContainer = document.querySelector('.calendar-container');
 
-        // 選択されたメニューがあればカレンダーを表示
-        if (document.querySelectorAll('.symptoms button.active').length > 0) {
-            calendarContainer.style.display = 'block';
-        } else {
-            // 選択が解除された場合、カレンダーを非表示
-            calendarContainer.style.display = 'none';
-        }
-    });
-});
+                // 選択されたメニューがあればカレンダーを表示
+                if (document.querySelectorAll('.symptoms button.active').length > 0) {
+                    calendarContainer.style.display = 'block';
+                } else {
+                    // 選択が解除された場合、カレンダーを非表示
+                    calendarContainer.style.display = 'none';
+                }
+            });
+        });
 
         // 初期状態でカレンダーを非表示にする
         document.addEventListener('DOMContentLoaded', () => {
@@ -788,32 +793,32 @@
 
             console.log('選択された訪問回数の時間:', selectedVisitTime);
 
-    // 来院回数に応じてメニューを変更
-    const symptomsContainer = document.querySelector('.symptoms');
-    if (visitCount === "2回目以降の方") {
-        symptomsContainer.innerHTML = `
+            // 来院回数に応じてメニューを変更
+            const symptomsContainer = document.querySelector('.symptoms');
+            if (visitCount === "2回目以降の方") {
+                symptomsContainer.innerHTML = `
             <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">巻き爪.</button>
             <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">タコ・ウオノメ.</button>
             <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">厚い爪・変形爪・爪切り.</button>
             <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">とりあえず予約.</button>
         `;
-    } else {
-        // 初めての場合、元のメニューに戻す
-        symptomsContainer.innerHTML = `
+            } else {
+                // 初めての場合、元のメニューに戻す
+                symptomsContainer.innerHTML = `
             <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">巻き爪</button>
             <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">タコ・ウオノメ</button>
             <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">厚い爪・変形爪・爪切り</button>
             <button type="button" onclick="selectSymptom(this, 'treatment5')" data-price="6500">とりあえず予約</button>
         `;
-    }
+            }
 
-    // メニュー変更後にカレンダーを表示
-    const calendarContainer = document.querySelector('.calendar-container');
-    calendarContainer.style.display = 'block';
+            // メニュー変更後にカレンダーを表示
+            const calendarContainer = document.querySelector('.calendar-container');
+            calendarContainer.style.display = 'block';
 
-    // 空き状況を再取得
-    fetchAvailability(currentDate);
-}
+            // 空き状況を再取得
+            fetchAvailability(currentDate);
+        }
 
         function selectDate(cell) {
             // "unavailable" クラスが付いている場合はクリックを無効化
@@ -912,7 +917,7 @@
                 return;
             }
 
-            const url = 'https://script.google.com/macros/s/AKfycbyQeRz_oDFP1LV3Tcyh5PS9SGwvvUuP8jL9NTYHCryfRa-yqAH72zXhGhebj4QqfPS49g/exec' +
+            const url = 'https://script.google.com/macros/s/AKfycbw94qWASCOjVgKMTXNPXHWQdxRQJTGEeBvsOHkRPjLATwuom4fWXLv80sq6e5dEzttk/exec' +
                 `?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`;
 
             try {
@@ -952,30 +957,30 @@
                 '18:00'
             ];
 
-if (table.rows.length === 0) {
-    for (const time of times) {
-        const row = document.createElement('tr');
-        const timeCell = document.createElement('td');
-        timeCell.textContent = time;
-        row.appendChild(timeCell);
+            if (table.rows.length === 0) {
+                for (const time of times) {
+                    const row = document.createElement('tr');
+                    const timeCell = document.createElement('td');
+                    timeCell.textContent = time;
+                    row.appendChild(timeCell);
 
-        for (let i = 0; i < 7; i++) {
-            const cell = document.createElement('td');
+                    for (let i = 0; i < 7; i++) {
+                        const cell = document.createElement('td');
 
-            // unavailable と unavailablegray クラスがある場合は選択不可
-            cell.addEventListener('click', () => {
-                if (cell.classList.contains('unavailable') || cell.classList.contains('unavailablegray')) {
-                    return; // 何もしない
+                        // unavailable と unavailablegray クラスがある場合は選択不可
+                        cell.addEventListener('click', () => {
+                            if (cell.classList.contains('unavailable') || cell.classList.contains('unavailablegray')) {
+                                return; // 何もしない
+                            }
+                            selectDate(cell);
+                        });
+
+                        row.appendChild(cell);
+                    }
+
+                    table.appendChild(row);
                 }
-                selectDate(cell);
-            });
-
-            row.appendChild(cell);
-        }
-
-        table.appendChild(row);
-    }
-}
+            }
 
             // テーブルのヘッダーを更新
             updateCalendarHeader(currentDate);
@@ -991,6 +996,10 @@ if (table.rows.length === 0) {
 
             // 現在の日時を取得
             const now = new Date();
+
+            // 現在の日時から12時間後を計算
+            const twelveHoursLater = new Date(now);
+            twelveHoursLater.setHours(now.getHours() + 12);
 
             // テーブルの内容を更新
             for (let i = 0; i < 7; i++) {
@@ -1033,13 +1042,10 @@ if (table.rows.length === 0) {
                         continue;
                     }
 
-                    // リアルタイムで過ぎた時間のセルを×にする条件
-                    const oneHourLater = new Date(now.getTime() + 60 * 60 * 1000); // 現在の時間から1時間後の時間を計算
-
-                    if (slotStart < now || (slotStart >= now && slotStart < oneHourLater)) {
+                    // リアルタイムで現在の時間を過ぎた時間帯や12時間後の時間帯は✕にする
+                    if (slotStart < now || slotStart < twelveHoursLater) {
                         cell.textContent = '✕';
                         cell.classList.add('unavailable');
-                        cell.setAttribute('data-date', slotStart.toISOString());
                         continue;
                     }
 
@@ -1063,43 +1069,39 @@ if (table.rows.length === 0) {
                         return acc;
                     }, 0);
 
-// 11:30 - 13:30 を✕に設定（対象：月火木金）
-if (
-    ([1, 2, 4, 5].includes(slotStart.getDay())) && // 月=1, 火=2, 木=4, 金=5
-    (
-        (slotStart.getHours() === 11 && slotStart.getMinutes() >= 30) ||
-        (slotStart.getHours() === 12) ||
-        (slotStart.getHours() === 13 && slotStart.getMinutes() <= 30)
-    )
-) {
-    cell.textContent = '✕';
-    cell.classList.add('unavailable'); // クラスを追加
-    cell.setAttribute('data-date', slotStart.toISOString());
-    continue;
-}
-
-                    // 営業日の時間帯で、他にイベントがない場合
-                    else if (isBusinessEventTime) {
-                        // 土曜日で特別な処理を追加
-                        if (slotStart.getDay() === 6) { // 土曜日の場合
-                            if (slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) {
-                                cell.classList.add('available', 'red'); // 午前は青で利用可能
-                            } else {
-                                cell.classList.add('available', 'red'); // 午後は赤で利用可能
-                            }
-                        }
-                        // 他の曜日の処理
-                        else {
-                            if ((slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) && count > 0) {
-                                cell.textContent = '✕';
-                                cell.classList.add('unavailable');
-                            } else if (slotStart.getHours() < 12 || (slotStart.getHours() === 12 && slotStart.getMinutes() < 30)) {
-                                cell.classList.add('available', 'red'); // 午前は青で利用可能
-                            } else {
-                                cell.classList.add('available', 'blue'); // 午後は赤で利用可能
-                            }
-                        }
+                    // 11:30 - 13:30 を✕に設定（対象：月火木金）
+                    if (
+                        ([1, 2, 4, 5].includes(slotStart.getDay())) && // 月=1, 火=2, 木=4, 金=5
+                        (
+                            (slotStart.getHours() === 11 && slotStart.getMinutes() >= 30) ||
+                            (slotStart.getHours() === 12) ||
+                            (slotStart.getHours() === 13 && slotStart.getMinutes() <= 30)
+                        )
+                    ) {
+                        cell.textContent = '✕';
+                        cell.classList.add('unavailable'); // クラスを追加
+                        cell.setAttribute('data-date', slotStart.toISOString());
+                        continue;
                     }
+
+        // 営業日の時間帯で、他にイベントがない場合
+        if (isBusinessEventTime && count === 0) {
+            // 土曜日で特別な処理を追加
+            if (slotStart.getDay() === 6) { // 土曜日の場合
+                if (!cell.classList.contains('available')) {
+                    cell.textContent = '〇';
+                    cell.classList.add('available', 'red');
+                }
+            } else {
+                if (!cell.classList.contains('available')) {
+                    cell.textContent = '〇';
+                    cell.classList.add('available', 'red');
+                }
+            }
+        } else if (count > 0) {
+            cell.textContent = '✕';
+            cell.classList.add('unavailable');
+        }
                     // 営業日で他にイベントがある場合
                     else if (businessEventTimes.length > 0) {
                         cell.textContent = '✕';
