@@ -523,26 +523,26 @@
                 console.log('LIFF初期化失敗', err);
             });
 
-        // ボタンのクリックイベント設定
-        document.getElementById('sendMessage').addEventListener('click', function () {
-            // メッセージ送信
-            liff.sendMessages([{
-                type: 'text',
-                text: 'みずの接骨院予約フォーム'
-            }]).then(() => {
-                console.log('メッセージ送信成功');
-                // LIFFを閉じる
-                liff.closeWindow();
-            }).catch((err) => {
-                console.error('メッセージ送信失敗', err);
-                // エラー時でもLIFFを閉じる
-                liff.closeWindow();
+            // ボタンのクリックイベント設定
+            document.getElementById('sendMessage').addEventListener('click', function () {
+                // メッセージ送信
+                liff.sendMessages([{
+                    type: 'text',
+                    text: 'みずの接骨院予約フォーム'
+                }]).then(() => {
+                    console.log('メッセージ送信成功');
+                    // LIFFを閉じる
+                    liff.closeWindow();
+                }).catch((err) => {
+                    console.error('メッセージ送信失敗', err);
+                    // エラー時でもLIFFを閉じる
+                    liff.closeWindow();
+                });
             });
-        });
 
-        // 空き状況の取得（既存コード）
-        fetchAvailability(currentDate);
-    });
+            // 空き状況の取得（既存コード）
+            fetchAvailability(currentDate);
+        });
 
         // 訪問回数ごとの時間設定 (例：初めて=20分、2回目以降=15分)
         let visitTimes = {
@@ -560,14 +560,14 @@
         let selectedirradiationsTime = 0; // 訪問回数で選択された時間
 
         let menuTimes = {
-            '巻き爪.': 60,
-            'タコ·ウオノメ.': 60,
-            '厚い爪・変形爪・爪切り.': 60,
+            '巻き爪.': 30,
+            'タコ·ウオノメ.': 30,
+            '厚い爪・変形爪・爪切り.': 30,
             'とりあえず予約.': 30,
-            '巻き爪': 30,
-            'タコ·ウオノメ': 30,
-            '厚い爪・変形爪・爪切り': 30,
-            'とりあえず予約': 30
+            '巻き爪': 60,
+            'タコ·ウオノメ': 60,
+            '厚い爪・変形爪・爪切り': 60,
+            'とりあえず予約': 60
         };
 
 
@@ -1102,24 +1102,24 @@
                         continue;
                     }
 
-        // 営業日の時間帯で、他にイベントがない場合
-        if (isBusinessEventTime && count === 0) {
-            // 土曜日で特別な処理を追加
-            if (slotStart.getDay() === 6) { // 土曜日の場合
-                if (!cell.classList.contains('available')) {
-                    cell.textContent = '〇';
-                    cell.classList.add('available', 'red');
-                }
-            } else {
-                if (!cell.classList.contains('available')) {
-                    cell.textContent = '〇';
-                    cell.classList.add('available', 'red');
-                }
-            }
-        } else if (count > 0) {
-            cell.textContent = '✕';
-            cell.classList.add('unavailable');
-        }
+                    // 営業日の時間帯で、他にイベントがない場合
+                    if (isBusinessEventTime && count === 0) {
+                        // 土曜日で特別な処理を追加
+                        if (slotStart.getDay() === 6) { // 土曜日の場合
+                            if (!cell.classList.contains('available')) {
+                                cell.textContent = '〇';
+                                cell.classList.add('available', 'red');
+                            }
+                        } else {
+                            if (!cell.classList.contains('available')) {
+                                cell.textContent = '〇';
+                                cell.classList.add('available', 'red');
+                            }
+                        }
+                    } else if (count > 2) { // 修正: 条件を count > 3 に調整
+                        cell.textContent = '✕';
+                        cell.classList.add('unavailable');
+                    }
                     // 営業日で他にイベントがある場合
                     else if (businessEventTimes.length > 0) {
                         cell.textContent = '✕';
@@ -1169,7 +1169,7 @@
                         }
                     }
                     // それ以外の条件
-                    else if (count <= 1) {
+                    else if (count <= 2) {
                         cell.textContent = '◯';
                         cell.classList.add('available');
                     } else {
