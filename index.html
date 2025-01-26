@@ -654,7 +654,7 @@
             // 選択されたオプションを取得
             const updatedSelectedButtons = document.querySelectorAll('.symptoms button.active');
             selectedMenu = Array.from(updatedSelectedButtons).map(btn => btn.textContent.trim());
-            selectedSymptom = selectedMenu.join(', ');
+            selectedSymptom = selectedMenu.join('、 ');
 
             // メニュー時間と価格をリセット
             selectedMenuTime = 0;
@@ -723,7 +723,7 @@
             // 選択されたオプションを取得
             const selectedButtons = document.querySelectorAll('.irradiations button.active');
             const selectedIrradiations = Array.from(selectedButtons).map(btn => btn.innerText);
-            irradiationsCount = selectedIrradiations.join(', ');
+            irradiationsCount = selectedIrradiations.join('、 ');
 
             // すべてのオプションの価格を再計算
             optionsPrice = 0; // 全体をリセットして再計算
@@ -834,7 +834,7 @@
             // LINEトークにメッセージを送信
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\n堀江店\nお名前：${formData.name}\n電話番号：${formData.phone}\nご来店回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom},${formData.irradiationsCount}\n希望日時：\n ${formData.dates[0]}\nメッセージ：${formData.message}`
+                text: `【予約フォーム】\n堀江店\nお名前：${formData.name}\n電話番号：${formData.phone}\nご来店回数：${formData.visitCount}\nメニュー：${formData.selectedSymptom}、${formData.irradiationsCount}\n希望日時：\n ${formData.dates[0]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 /* メッセージ送信成功時の処理 */
                 alert('当日キャンセルは無いようにお願いいたします。キャンセル料発生いたします。');
