@@ -996,7 +996,7 @@
             </div>
         </div>
 
-        <div class="highlight-background">
+        <div class="highlight-background" id="Desireddateandtime">
             <div class="kibounitizi">希望日時<span class="required">必須</span></div>
         </div>
 
@@ -1386,7 +1386,14 @@ if (selectedSymptom.length > 0) {
             treatmentText.style.display = 'block';
 
             updateDisplayInfo();
-        }
+  // ▼ 希望日時(#Desireddateandtime)へスムーズスクロール
+  if (updatedSelectedButtons.length > 0) {
+    // レイアウト反映後にスクロール（被り防止で固定ヘッダー分オフセット）
+    requestAnimationFrame(() => {
+      scrollToSection('Desireddateandtime', getHeaderOffset());
+    });
+  }
+}
 
 function removeSymptom(button) {
     const category = button.getAttribute('data-category');
