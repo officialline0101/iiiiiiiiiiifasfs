@@ -1307,13 +1307,14 @@
       updateDisplayInfo();
     }
     function toggleMulti(btn){ btn.classList.toggle('active'); updateDisplayInfo(); }
-    function getSingle(groupId){
-      const el = document.querySelector(`#${groupId} button.active`);
-      return el ? el.innerText.trim() : '';
-    }
-    function getMultiTexts(groupId){
-      return Array.from(document.querySelectorAll(`#${groupId} button.active`)).map(b=>b.innerText.trim());
-    }
+function getSingle(groupId){
+  const el = document.querySelector(`#${groupId} button.active`);
+  return normalizeMenuText(el);
+}
+function getMultiTexts(groupId){
+  return Array.from(document.querySelectorAll(`#${groupId} button.active`))
+    .map(b => normalizeMenuText(b));
+}
 
     // ====== ハンド/フット メニュー選択で追従表示 ======
     function selectHandMenu(btn){
@@ -1338,6 +1339,19 @@
 
       updateDisplayInfo();
     }
+
+// === 表示テキスト整形（<br>対応 & 「\n×\n」→「\n× 」に） ===
+function normalizeMenuText(el){
+  if(!el) return '';
+  const html = el.innerHTML || '';
+  // <br> は改行に、そして「改行×改行」は「改行×＋半角スペース」に整える
+  return html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/\n×\n/g, '\n× ')
+    .replace(/[ \t]+\n/g, '\n')   // 改行直前の余計なスペース除去
+    .replace(/\n{3,}/g, '\n\n')   // 連続しすぎる改行の圧縮
+    .trim();
+}
 
     // ====== 日時ピッカー（簡易版） ======
     const JP_WD = ['日','月','火','水','木','金','土'];
@@ -1420,11 +1434,11 @@
       const eyeBrowMenu = getSingle('eyeBrowMenuGroup') || '';
       const designer = document.getElementById('designer').value || '';
 
-      const handMenu = (document.querySelector('#handMenuGroup button.active')||{}).innerText || '';
+      const handMenu = normalizeMenuText(document.querySelector('#handMenuGroup button.active'));
       const handOff = getSingle('handOffGroup');
       const handOpts = getMultiTexts('handOptionGroup');
 
-      const footMenu = (document.querySelector('#footMenuGroup button.active')||{}).innerText || '';
+      const footMenu = normalizeMenuText(document.querySelector('#footMenuGroup button.active'));
       const footOff = getSingle('footOffGroup');
       const footOpts = getMultiTexts('footOptionGroup');
 
@@ -1464,12 +1478,12 @@
       const designer = document.getElementById('designer').value;
 
       const handMenuEl = document.querySelector('#handMenuGroup button.active');
-      const handMenu = handMenuEl ? handMenuEl.innerText.trim() : '';
+      const handMenu = normalizeMenuText(document.querySelector('#handMenuGroup button.active'));
       const handOff = getSingle('handOffGroup');
       const handOpts = getMultiTexts('handOptionGroup');
 
       const footMenuEl = document.querySelector('#footMenuGroup button.active');
-      const footMenu = footMenuEl ? footMenuEl.innerText.trim() : '';
+      const footMenu = normalizeMenuText(document.querySelector('#footMenuGroup button.active'));
       const footOff = getSingle('footOffGroup');
       const footOpts = getMultiTexts('footOptionGroup');
 
