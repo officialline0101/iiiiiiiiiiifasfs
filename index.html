@@ -1019,6 +1019,97 @@
 /* 以前に margin で上げていた場合は打ち消し */
 .label + #designer{ margin-top: 0 !important; }
 
+/* ===== ご指名／まつ毛・眉毛メニュー セレクト（#designer, #eyeBrowMenu） ===== */
+#designer,
+#eyeBrowMenu{
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  /* ▼ カスタム矢印（SVG） */
+  background-image: url("data:image/svg+xml,%3Csvg width='22' height='22' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%2399A3AE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+
+  padding: 12px 44px 12px 14px; /* 右は矢印分を確保 */
+  border: 1.5px solid var(--border, #111827);
+  border-radius: 10px;
+  color: var(--ink, #111827);
+  font-size: 16px;          /* iOSの拡大防止 */
+  line-height: 1.2;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+
+  /* 上にずらす（必要に応じて調整） */
+  position: relative;
+  top: -10px;
+}
+
+/* hover */
+#designer:hover,
+#eyeBrowMenu:hover{
+  border-color: var(--border-hover, #111827);
+}
+
+/* focus */
+#designer:focus,
+#eyeBrowMenu:focus{
+  outline: none;
+  border-color: var(--accent, #06C755);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent, #06C755) 20%, #ffffff);
+}
+
+/* 未選択（placeholder）見た目。
+   ※ HTML側で required とし、先頭optionに value="" disabled selected を指定 */
+#designer:invalid,
+#eyeBrowMenu:invalid{
+  color: var(--muted, #111827);
+}
+
+/* 先頭のプレースホルダーは選択肢で見せない */
+#designer option[disabled][value=""],
+#eyeBrowMenu option[disabled][value=""]{
+  display: none;
+}
+
+/* 無効状態 */
+#designer:disabled,
+#eyeBrowMenu:disabled{
+  background-color: #111827;
+  color: #9aa3af;
+  cursor: not-allowed;
+}
+
+/* エラー強調（.is-error を付与） */
+#designer.is-error,
+#eyeBrowMenu.is-error{
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,.15);
+}
+
+/* ラベル直下に来る場合の余白調整（デフォルト） */
+.label + #designer,
+.label + #eyeBrowMenu{
+  margin-top: 6px;
+}
+
+/* 以前に margin で上げていた指定がある場合の打ち消し */
+.label + #designer,
+.label + #eyeBrowMenu{
+  margin-top: 0 !important;
+}
+
+/* モバイルのタップ快適化 */
+@media (max-width: 480px){
+  #designer,
+  #eyeBrowMenu{
+    min-height: 44px;   /* タップしやすい高さ */
+  }
+}
+
+
     </style>
 </head>
 
@@ -1033,7 +1124,7 @@
 
   <div class="container">
     <h1>
-      <span class="small-text">ハンド・フット同時施術のご予約（1枚目）</span><br>
+      <span class="small-text">ネイル・まつ毛同時施術のご予約（2枚目）</span><br>
       予約フォーム
     </h1>
 
@@ -1049,84 +1140,103 @@
     <div class="label">ご来店回数<span class="required">必須</span></div>
     <input type="text" id="visitCountFree" placeholder="例）初めて／2回目／3回目 など">
 
-    <!-- ④ ご指名（必須・選択） -->
-    <div class="label">ご指名<span class="required">必須</span></div>
-    <select id="designer" aria-label="ご指名を選択">
+    <!-- ④ まつ毛・眉毛メニュー（必須） -->
+    <div class="label">まつ毛・眉毛メニュー<span class="required">必須</span></div>
+    <select id="eyeBrowMenu" required>
       <option value="" disabled selected>選択してください</option>
-      <option>指名無し</option>
-      <option>YUKO</option>
-      <option>MAKI</option>
-      <option>YUKA</option>
-      <option>TOMOMI</option>
-      <option>SHIORI</option>
-      <option>MEGU</option>
+      <option>まつ毛パーマ&美眉スタイリング</option>
+      <option>まつげパーマ</option>
+      <option>美眉スタイリング</option>
+      <option>顔タイプ診断×マツパ&眉Wax</option>
+      <option>W診断(顔タイプ,4タイプカラー)×マツパ&眉Wax＆メイク</option>
     </select>
 
-    <!-- ⑤ ハンド（オフあり/なし） -->
-    <div class="label">ハンド<span class="required">必須</span></div>
-    <div class="visit-buttons" id="handOffGroup">
-      <button type="button" onclick="selectSingle('handOffGroup', this)">オフあり</button>
-      <button type="button" onclick="selectSingle('handOffGroup', this)">オフなし</button>
-    </div>
+<!-- ⑤ ネイルのご指名（必須） -->
+<div class="label">ネイルのご指名<span class="required">必須</span></div>
+<select id="designer" required>
+  <option value="" disabled selected>選択してください</option>
+  <option>指名無し</option>
+  <option>YUKO</option>
+  <option>MAKI</option>
+  <option>YUKA</option>
+  <option>TOMOMI</option>
+  <option>SHIORI</option>
+  <option>MEGU</option>
+</select>
 
-    <!-- ⑥ ハンドメニュー（単一選択） -->
+    <!-- ⑥ ハンドメニュー（必須） 選んだら⑥-1/⑥-2を表示 -->
     <div class="label">ハンドメニュー<span class="required">必須</span></div>
     <div class="symptoms" id="handMenuGroup">
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">ワンカラー</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">マグ</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">フラッシュワンカラー</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">シンプルニュアンス</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">シーズンコレクション</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">art A</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">art B</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">artC</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">90分持ち込み</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">120分持ち込み</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">フレンチ</button>
-      <button type="button" onclick="selectSingle('handMenuGroup', this)">オフのみ</button>
+      <button type="button" onclick="selectHandMenu(this)">ワンカラー</button>
+      <button type="button" onclick="selectHandMenu(this)">マグ</button>
+      <button type="button" onclick="selectHandMenu(this)">フラッシュワンカラー</button>
+      <button type="button" onclick="selectHandMenu(this)">シンプルニュアンス</button>
+      <button type="button" onclick="selectHandMenu(this)">シーズンコレクション</button>
+      <button type="button" onclick="selectHandMenu(this)">art A</button>
+      <button type="button" onclick="selectHandMenu(this)">art B</button>
+      <button type="button" onclick="selectHandMenu(this)">artC</button>
+      <button type="button" onclick="selectHandMenu(this)">90分持ち込み</button>
+      <button type="button" onclick="selectHandMenu(this)">120分持ち込み</button>
+      <button type="button" onclick="selectHandMenu(this)">フレンチ</button>
+      <button type="button" onclick="selectHandMenu(this)">オフのみ</button>
     </div>
 
-    <!-- ⑦ ハンドメニューオプション（任意・複数選択） -->
-    <div class="label">ハンドメニューオプション（任意）</div>
-    <div class="irradiations" id="handOptionGroup">
-      <button type="button" onclick="toggleMulti(this)">アート・パーツ1本〜</button>
-      <button type="button" onclick="toggleMulti(this)">亀裂補強（¥550)</button>
-      <button type="button" onclick="toggleMulti(this)">長さ出し（¥1100）</button>
-      <button type="button" onclick="toggleMulti(this)">ミラー</button>
-      <button type="button" onclick="toggleMulti(this)">オーロラパウダー1本（¥150）</button>
-      <button type="button" onclick="toggleMulti(this)">1色追加（¥550)</button>
-      <button type="button" onclick="toggleMulti(this)">ラメライン（¥120）</button>
-      <button type="button" onclick="toggleMulti(this)">フレンチベース（¥1100）</button>
+    <!-- ⑥-1 ネイル（ハンドのオフ）※ハンドメニュー選択後に表示 -->
+    <div id="handOffWrap" style="display:none;">
+      <div class="label" style="margin-top:12px;">ネイル（ハンド）<span class="required">必須</span></div>
+      <div class="visit-buttons" id="handOffGroup">
+        <button type="button" onclick="selectSingle('handOffGroup', this)">オフあり</button>
+        <button type="button" onclick="selectSingle('handOffGroup', this)">オフなし</button>
+      </div>
     </div>
 
-    <!-- ⑧ フット（オフあり/なし） -->
-    <div class="label">フット<span class="required">必須</span></div>
-    <div class="visit-buttons" id="footOffGroup">
-      <button type="button" onclick="selectSingle('footOffGroup', this)">オフあり</button>
-      <button type="button" onclick="selectSingle('footOffGroup', this)">オフなし</button>
+    <!-- ⑥-2 ハンドメニューオプション（任意）※ハンドメニュー選択後に表示 -->
+    <div id="handOptionWrap" style="display:none;">
+      <div class="label" style="margin-top:12px;">ハンドメニューオプション（任意）</div>
+      <div class="irradiations" id="handOptionGroup">
+        <button type="button" onclick="toggleMulti(this)">アート・パーツ1本〜</button>
+        <button type="button" onclick="toggleMulti(this)">亀裂補強（¥550)</button>
+        <button type="button" onclick="toggleMulti(this)">長さ出し（¥1100）</button>
+        <button type="button" onclick="toggleMulti(this)">ミラー</button>
+        <button type="button" onclick="toggleMulti(this)">オーロラパウダー1本（¥150）</button>
+        <button type="button" onclick="toggleMulti(this)">1色追加（¥550)</button>
+        <button type="button" onclick="toggleMulti(this)">ラメライン（¥120）</button>
+        <button type="button" onclick="toggleMulti(this)">フレンチベース（¥1100）</button>
+      </div>
     </div>
 
-    <!-- ⑨ フットメニュー（単一選択） -->
-    <div class="label">フットメニュー<span class="required">必須</span></div>
+    <!-- ⑦-1 フットメニュー（必須） 選んだら⑦-2/⑦-3を表示 -->
+    <div class="label" style="margin-top:16px;">フットメニュー<span class="required">必須</span></div>
     <div class="symptoms" id="footMenuGroup">
-      <button type="button" onclick="selectSingle('footMenuGroup', this)">ワンカラー</button>
-      <button type="button" onclick="selectSingle('footMenuGroup', this)">マグ</button>
-      <button type="button" onclick="selectSingle('footMenuGroup', this)">フラッシュワンカラー</button>
-      <button type="button" onclick="selectSingle('footMenuGroup', this)">90分持ち込み</button>
-      <button type="button" onclick="selectSingle('footMenuGroup', this)">ジェルオフのみ</button>
-      <button type="button" onclick="selectSingle('footMenuGroup', this)">ケアのみ</button>
+      <button type="button" onclick="selectFootMenu(this)">ワンカラー</button>
+      <button type="button" onclick="selectFootMenu(this)">マグ</button>
+      <button type="button" onclick="selectFootMenu(this)">フラッシュワンカラー</button>
+      <button type="button" onclick="selectFootMenu(this)">90分持ち込み</button>
+      <button type="button" onclick="selectFootMenu(this)">ジェルオフのみ</button>
+      <button type="button" onclick="selectFootMenu(this)">ケアのみ</button>
     </div>
 
-    <!-- 10 フットメニューオプション（必須・複数選択OK） -->
-    <div class="label">フットメニューオプション<span class="required">必須</span></div>
-    <div class="irradiations" id="footOptionGroup">
-      <button type="button" onclick="toggleMulti(this)">角質ケア（¥2500)</button>
-      <button type="button" onclick="toggleMulti(this)">巻き爪ジェル（¥3500）</button>
-      <button type="button" onclick="toggleMulti(this)">アート・パーツ1本〜</button>
+    <!-- ⑦-2 ネイル（フットのオフ）※フットメニュー選択後に表示 -->
+    <div id="footOffWrap" style="display:none;">
+      <div class="label" style="margin-top:12px;">ネイル（フット）<span class="required">必須</span></div>
+      <div class="visit-buttons" id="footOffGroup">
+        <button type="button" onclick="selectSingle('footOffGroup', this)">オフあり</button>
+        <button type="button" onclick="selectSingle('footOffGroup', this)">オフなし</button>
+      </div>
     </div>
 
-    <!-- 希望日時（既存のドロップダウン日付＋時間を継続利用） -->
-    <div class="labelkibounitizi">希望日時<span class="required">必須</span></div>
+    <!-- ⑦-3 フットメニューオプション（必須・複数可）※フットメニュー選択後に表示 -->
+    <div id="footOptionWrap" style="display:none;">
+      <div class="label" style="margin-top:12px;">フットメニューオプション<span class="required">必須</span></div>
+      <div class="irradiations" id="footOptionGroup">
+        <button type="button" onclick="toggleMulti(this)">角質ケア（¥2500)</button>
+        <button type="button" onclick="toggleMulti(this)">巻き爪ジェル（¥3500）</button>
+        <button type="button" onclick="toggleMulti(this)">アート・パーツ1本〜</button>
+      </div>
+    </div>
+
+    <!-- 希望日時（第1のみ必須。第2・第3は任意） -->
+    <div class="labelkibounitizi" style="margin-top:18px;">希望日時<span class="required">必須</span></div>
     <div class="datetime-wrapper" style="text-align: center;">
       <span class="placeholder" id="placeholder1">⇩タップして日時を入力⇩</span>
       <input type="hidden" id="date1" name="date1">
@@ -1136,7 +1246,7 @@
       </div>
     </div>
 
-    <div class="labelkibounitizi">第二希望日時<span class="required">必須</span></div>
+    <div class="labelkibounitizi">第二希望日時（任意）</div>
     <div class="datetime-wrapper" style="text-align: center;">
       <span class="placeholder" id="placeholder2">⇩タップして日時を入力⇩</span>
       <input type="hidden" id="date2" name="date2">
@@ -1146,7 +1256,7 @@
       </div>
     </div>
 
-    <div class="labelkibounitizi">第三希望日時<span class="required">必須</span></div>
+    <div class="labelkibounitizi">第三希望日時（任意）</div>
     <div class="datetime-wrapper" style="text-align: center;">
       <span class="placeholder" id="placeholder3">⇩タップして日時を入力⇩</span>
       <input type="hidden" id="date3" name="date3">
@@ -1160,7 +1270,7 @@
     <div class="labelmessezi">その他ご要望<br>（質問等お気軽にご記入ください）</div>
     <textarea id="message" rows="4" placeholder="その他ご要望を入力してください"></textarea>
 
-    <!-- 表示パネル -->
+    <!-- サマリー -->
     <div class="labeltyuuou">ご予約内容</div>
     <div id="displayInfo"></div>
 
@@ -1170,7 +1280,7 @@
   <!-- LIFF & Script -->
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
   <script>
-    // ====== 初期化・保存 ======
+    // ====== 初期化 ======
     document.addEventListener('DOMContentLoaded', function () {
       liff.init({ liffId: '2005254357-zKma9BZk' }).catch(console.error);
       const savedName = localStorage.getItem('name');
@@ -1178,42 +1288,60 @@
       if (savedName) document.getElementById('name').value = savedName;
       if (savedPhone) document.getElementById('phone').value = savedPhone;
 
-      // 日時ピッカー初期化
-      ['date1', 'date2', 'date3'].forEach(id => initPicker(id, 120));
-      // 入力のたびにサマリー更新
-      ['name','phone','visitCountFree','designer','message'].forEach(id=>{
+      // 日時ピッカー初期化（第1〜第3）
+      ['date1','date2','date3'].forEach(id => initPicker(id, 120));
+
+      // 入力変更でサマリー更新
+      ['name','phone','visitCountFree','eyeBrowMenu','designer','message'].forEach(id=>{
         const el = document.getElementById(id);
         el && el.addEventListener('input', updateDisplayInfo);
         el && el.addEventListener('change', updateDisplayInfo);
       });
     });
 
-    function saveInput(id) {
-      const v = document.getElementById(id).value;
-      localStorage.setItem(id, v);
-      updateDisplayInfo();
-    }
+    function saveInput(id){ localStorage.setItem(id, document.getElementById(id).value); updateDisplayInfo(); }
 
-    // ====== 単一選択 / 複数選択 ======
-    function selectSingle(groupId, btn) {
+    // ====== 単一/複数選択ユーティリティ ======
+    function selectSingle(groupId, btn){
       const group = document.getElementById(groupId);
       group.querySelectorAll('button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       updateDisplayInfo();
     }
-    function toggleMulti(btn) {
-      btn.classList.toggle('active');
-      updateDisplayInfo();
+    function toggleMulti(btn){ btn.classList.toggle('active'); updateDisplayInfo(); }
+    function getSingle(groupId){
+      const el = document.querySelector(`#${groupId} button.active`);
+      return el ? el.innerText.trim() : '';
     }
-    function getSingle(groupId) {
-      const active = document.querySelector(`#${groupId} button.active`);
-      return active ? active.innerText.trim() : '';
-    }
-    function getMultiTexts(groupId) {
+    function getMultiTexts(groupId){
       return Array.from(document.querySelectorAll(`#${groupId} button.active`)).map(b=>b.innerText.trim());
     }
 
-    // ====== 日時ピッカー（既存ロジック簡易版） ======
+    // ====== ハンド/フット メニュー選択で追従表示 ======
+    function selectHandMenu(btn){
+      // 単一選択
+      document.querySelectorAll('#handMenuGroup button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // ⑥-1/⑥-2 を表示
+      document.getElementById('handOffWrap').style.display = 'block';
+      document.getElementById('handOptionWrap').style.display = 'block';
+
+      updateDisplayInfo();
+    }
+    function selectFootMenu(btn){
+      // 単一選択
+      document.querySelectorAll('#footMenuGroup button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // ⑦-2/⑦-3 を表示
+      document.getElementById('footOffWrap').style.display = 'block';
+      document.getElementById('footOptionWrap').style.display = 'block';
+
+      updateDisplayInfo();
+    }
+
+    // ====== 日時ピッカー（簡易版） ======
     const JP_WD = ['日','月','火','水','木','金','土'];
     const pad = n => String(n).padStart(2,'0');
 
@@ -1231,7 +1359,7 @@
     }
     function buildHalfHourOptions(selectEl){
       selectEl.innerHTML = '<option value="" disabled selected>時間を選択</option>';
-      for(let h=10; h<=19; h++){ // 営業時間は必要に応じ調整
+      for(let h=10; h<=19; h++){
         for(const m of [0,30]){
           const opt=document.createElement('option');
           opt.value=`${pad(h)}:${pad(m)}`;
@@ -1277,7 +1405,6 @@
       restoreIfAny(baseId);
       updateHiddenAndPlaceholder(baseId);
     }
-
     function formatISOToJP(iso){
       if(!iso) return '';
       const [d,t]=iso.split('T'); if(!d||!t) return '';
@@ -1287,19 +1414,20 @@
       return `${Y}年${M}月${D}日 ${pad(h)}:${pad(m)}`;
     }
 
-    // ====== サマリー表示 ======
+    // ====== サマリー ======
     function updateDisplayInfo(){
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const visit = document.getElementById('visitCountFree').value.trim();
+      const name = (document.getElementById('name').value || '').trim();
+      const phone = (document.getElementById('phone').value || '').trim();
+      const visit = (document.getElementById('visitCountFree').value || '').trim();
+      const eyeBrowMenu = document.getElementById('eyeBrowMenu').value || '';
       const designer = document.getElementById('designer').value || '';
 
+      const handMenu = (document.querySelector('#handMenuGroup button.active')||{}).innerText || '';
       const handOff = getSingle('handOffGroup');
-      const handMenu = getSingle('handMenuGroup');
       const handOpts = getMultiTexts('handOptionGroup');
 
+      const footMenu = (document.querySelector('#footMenuGroup button.active')||{}).innerText || '';
       const footOff = getSingle('footOffGroup');
-      const footMenu = getSingle('footMenuGroup');
       const footOpts = getMultiTexts('footOptionGroup');
 
       const d1 = formatISOToJP(document.getElementById('date1').value);
@@ -1310,17 +1438,17 @@
         <div class="info-row"><p><span style="color:#45c4b7;"><strong>【お名前】</strong></span><br>・${name || '-'}</p></div><hr>
         <div class="info-row"><p><span style="color:#45c4b7;"><strong>【お電話番号】</strong></span><br>・${phone || '-'}</p></div><hr>
         <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ご来店回数】</strong></span><br>・${visit || '-'}</p></div><hr>
-        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ご指名】</strong></span><br>・${designer || '-'}</p></div><hr>
 
-        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ハンド】</strong></span><br>・${handOff || '-'}</p></div><hr>
-        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ハンドメニュー】</strong></span><br>・${handMenu || '-'}</p></div><hr>
-        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ハンドオプション】</strong></span><br>
-          ${handOpts.length ? '・' + handOpts.join('<br>・') : '・なし'}</p></div><hr>
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【まつ毛・眉毛メニュー】</strong></span><br>・${eyeBrowMenu || '-'}</p></div><hr>
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ネイルのご指名】</strong></span><br>・${designer || '-'}</p></div><hr>
 
-        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【フット】</strong></span><br>・${footOff || '-'}</p></div><hr>
-        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【フットメニュー】</strong></span><br>・${footMenu || '-'}</p></div><hr>
-        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【フットオプション】</strong></span><br>
-          ${footOpts.length ? '・' + footOpts.join('<br>・') : '・（未選択）'}</p></div><hr>
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ハンドメニュー】</strong></span><br>・${handMenu || '-'}</p></div>
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ハンド（オフ）】</strong></span><br>・${handOff || (handMenu ? '（未選択）':'-')}</p></div>
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ハンドオプション】</strong></span><br>${handOpts.length ? '・' + handOpts.join('<br>・') : '・なし'}</p></div><hr>
+
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【フットメニュー】</strong></span><br>・${footMenu || '-'}</p></div>
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【フット（オフ）】</strong></span><br>・${footOff || (footMenu ? '（未選択）':'-')}</p></div>
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【フットオプション】</strong></span><br>${footOpts.length ? '・' + footOpts.join('<br>・') : (footMenu ? '・（未選択）':'・-')}</p></div><hr>
 
         <div class="info-row"><p><span style="color:#45c4b7;"><strong>【希望日時】</strong></span><br>
           ・第1希望：${d1 || '-'}<br>
@@ -1334,15 +1462,18 @@
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const visit = document.getElementById('visitCountFree').value.trim();
+      const eyeBrowMenu = document.getElementById('eyeBrowMenu').value;
       const designer = document.getElementById('designer').value;
 
+      const handMenuEl = document.querySelector('#handMenuGroup button.active');
+      const handMenu = handMenuEl ? handMenuEl.innerText.trim() : '';
       const handOff = getSingle('handOffGroup');
-      const handMenu = getSingle('handMenuGroup');
       const handOpts = getMultiTexts('handOptionGroup');
 
+      const footMenuEl = document.querySelector('#footMenuGroup button.active');
+      const footMenu = footMenuEl ? footMenuEl.innerText.trim() : '';
       const footOff = getSingle('footOffGroup');
-      const footMenu = getSingle('footMenuGroup');
-      const footOpts = getMultiTexts('footOptionGroup'); // 必須（1つ以上）
+      const footOpts = getMultiTexts('footOptionGroup');
 
       const date1 = document.getElementById('date1').value;
       const date2 = document.getElementById('date2').value;
@@ -1353,42 +1484,48 @@
       if(!name){ alert('お名前を入力してください。'); return; }
       if(!phone){ alert('お電話番号を入力してください。'); return; }
       if(!visit){ alert('ご来店回数を入力してください。'); return; }
-      if(!designer){ alert('ご指名を選択してください。'); return; }
-      if(!handOff){ alert('ハンド（オフあり/なし）を選択してください。'); return; }
+      if(!eyeBrowMenu){ alert('まつ毛・眉毛メニューを選択してください。'); return; }
+      if(!designer){ alert('ネイルのご指名を選択してください。'); return; }
+
       if(!handMenu){ alert('ハンドメニューを選択してください。'); return; }
-      if(!footOff){ alert('フット（オフあり/なし）を選択してください。'); return; }
+      if(!handOff){ alert('ネイル（ハンド）のオフ有無を選択してください。'); return; }
       if(!footMenu){ alert('フットメニューを選択してください。'); return; }
+      if(!footOff){ alert('ネイル（フット）のオフ有無を選択してください。'); return; }
       if(footOpts.length === 0){ alert('フットメニューオプションを1つ以上選択してください。'); return; }
+
       if(!date1){ alert('第1希望日時を選択してください。'); return; }
-      if(!date2){ alert('第2希望日時を選択してください。'); return; }
-      if(!date3){ alert('第3希望日時を選択してください。'); return; }
 
       const text =
 `【予約フォーム】
 
-ハンド・フット同時施術のご予約
+ネイル・まつ毛同時施術のご予約
 
 《お名前》${name}
 《お電話番号》${phone}
 《ご来店回数》${visit}
-《ご指名》${designer}
+
+《まつ毛・眉毛メニュー》
+・${eyeBrowMenu}
+
+《ネイルのご指名》
+・${designer}
 
 — ハンド —
-《オフ》${handOff}
 《メニュー》${handMenu}
+《オフ》${handOff}
 《オプション》
 ${handOpts.length ? '・' + handOpts.join('\n・') : '・なし'}
 
 — フット —
-《オフ》${footOff}
 《メニュー》${footMenu}
+《オフ》${footOff}
 《オプション》
 ・${footOpts.join('\n・')}
 
 【希望日時】
 《第1希望》\n${formatISOToJP(date1)}
-《第2希望》\n${formatISOToJP(date2)}
-《第3希望》\n${formatISOToJP(date3)}
+《第2希望》\n${formatISOToJP(date2) || '（未入力）'}
+《第3希望》\n${formatISOToJP(date3) || '（未入力）'}
 
 《その他ご要望》
 ${message || '（なし）'}
