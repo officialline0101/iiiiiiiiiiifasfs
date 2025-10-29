@@ -1311,6 +1311,7 @@ function getSingle(groupId){
   const el = document.querySelector(`#${groupId} button.active`);
   return normalizeMenuText(el);
 }
+
 function getMultiTexts(groupId){
   return Array.from(document.querySelectorAll(`#${groupId} button.active`))
     .map(b => normalizeMenuText(b));
@@ -1340,17 +1341,23 @@ function getMultiTexts(groupId){
       updateDisplayInfo();
     }
 
-// === 表示テキスト整形（<br>対応 & 「\n×\n」→「\n× 」に） ===
+// === 表示テキスト整形（エンティティをデコード & <br>→改行 & 「\n×\n」→「\n× 」） ===
 function normalizeMenuText(el){
   if(!el) return '';
-  const html = el.innerHTML || '';
-  // <br> は改行に、そして「改行×改行」は「改行×＋半角スペース」に整える
-  return html
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/\n×\n/g, '\n× ')
-    .replace(/[ \t]+\n/g, '\n')   // 改行直前の余計なスペース除去
-    .replace(/\n{3,}/g, '\n\n')   // 連続しすぎる改行の圧縮
+
+  // 1) ボタンに見えている文字を優先（&amp; → &、<br> → 改行）
+  //   - innerText は <br> を改行にして、HTMLエンティティもデコードしてくれる
+  let t = (el.innerText || el.textContent || '').toString();
+
+  // 2) 「改行 × 改行」を「改行 × + 半角スペース」に整える
+  t = t
+    .replace(/\r\n/g, '\n')     // 改行コード統一
+    .replace(/\n×\n/g, '\n× ')  // ←ここがポイント！
+    .replace(/[ \t]+\n/g, '\n') // 改行直前の余白を除去
+    .replace(/\n{3,}/g, '\n\n') // 改行が多すぎる場合は圧縮
     .trim();
+
+  return t;
 }
 
     // ====== 日時ピッカー（簡易版） ======
@@ -1451,7 +1458,7 @@ function normalizeMenuText(el){
         <div class="info-row"><p><span style="color:#45c4b7;"><strong>【お電話番号】</strong></span><br>・${phone || '-'}</p></div><hr>
         <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ご来店回数】</strong></span><br>・${visit || '-'}</p></div><hr>
 
-        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【まつ毛・眉毛メニュー】</strong></span><br>・${eyeBrowMenu || '-'}</p></div><hr>
+        <div class="info-row"><p><span style="color:#45c4b7;"><strong>【まつ毛・眉毛メニュー】</strong></span><br>・${(eyeBrowMenu || '-').replace(/\n/g, '<br>')}</p></div><hr>
         <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ネイルのご指名】</strong></span><br>・${designer || '-'}</p></div><hr>
 
         <div class="info-row"><p><span style="color:#45c4b7;"><strong>【ハンドメニュー】</strong></span><br>・${handMenu || '-'}</p></div>
