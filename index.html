@@ -1280,42 +1280,22 @@
   <script>
     // ====== 初期化 ======
     document.addEventListener('DOMContentLoaded', function () {
-  const LIFF_ID = '2006137975-XpgGkqgL';
+      liff.init({ liffId: '2006137975-XpgGkqgL' }).catch(console.error);
+      const savedName = localStorage.getItem('name');
+      const savedPhone = localStorage.getItem('phone');
+      if (savedName) document.getElementById('name').value = savedName;
+      if (savedPhone) document.getElementById('phone').value = savedPhone;
 
-  document.addEventListener('DOMContentLoaded', initPage);
+      // 日時ピッカー初期化（第1〜第3）
+      ['date1','date2','date3'].forEach(id => initPicker(id, 120));
 
-  async function initPage() {
-    try {
-      await liff.init({ liffId: LIFF_ID });
-    } catch (e) {
-      console.error('LIFF init failed:', e);
-      alert('ページの読み込みに失敗しました。LINEアプリ内から開き直してください。');
-      return;
-    }
-
-    // LINEアプリ外なら送信不可なので明示
-    if (!liff.isInClient()) {
-      console.warn('Not in LINE client');
-    }
-
-    // 既存の復元処理
-    const savedName = localStorage.getItem('name');
-    const savedPhone = localStorage.getItem('phone');
-    if (savedName) document.getElementById('name').value = savedName;
-    if (savedPhone) document.getElementById('phone').value = savedPhone;
-
-    // 日時ピッカー初期化（第1〜第3）
-    ['date1','date2','date3'].forEach(id => initPicker(id, 120));
-
-    // 入力変更でサマリー更新
-    ['name','phone','visitCountFree','designer','message'].forEach(id=>{
-      const el = document.getElementById(id);
-      el && el.addEventListener('input', updateDisplayInfo);
-      el && el.addEventListener('change', updateDisplayInfo);
+      // 入力変更でサマリー更新
+      ['name','phone','visitCountFree','designer','message'].forEach(id=>{
+        const el = document.getElementById(id);
+        el && el.addEventListener('input', updateDisplayInfo);
+        el && el.addEventListener('change', updateDisplayInfo);
+      });
     });
-
-    updateDisplayInfo();
-  }
 
     function saveInput(id){ localStorage.setItem(id, document.getElementById(id).value); updateDisplayInfo(); }
 
