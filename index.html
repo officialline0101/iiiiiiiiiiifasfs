@@ -1140,16 +1140,15 @@
     <div class="label">ご来店回数<span class="required">必須</span></div>
     <input type="text" id="visitCountFree" placeholder="例）初めて／2回目／3回目 など">
 
-    <!-- ④ まつ毛・眉毛メニュー（必須） -->
-    <div class="label">まつ毛・眉毛メニュー<span class="required">必須</span></div>
-    <select id="eyeBrowMenu" required>
-      <option value="" disabled selected>選択してください</option>
-      <option>まつ毛パーマ&美眉スタイリング</option>
-      <option>まつげパーマ</option>
-      <option>美眉スタイリング</option>
-      <option>顔タイプ診断×マツパ&眉Wax</option>
-      <option>W診断(顔タイプ,4タイプカラー)×マツパ&眉Wax＆メイク</option>
-    </select>
+<!-- ④ まつ毛・眉毛メニュー（必須） -->
+<div class="label">まつ毛・眉毛メニュー<span class="required">必須</span></div>
+<div class="symptoms" id="eyeBrowMenuGroup">
+  <button type="button" onclick="selectSingle('eyeBrowMenuGroup', this)">まつ毛パーマ&美眉スタイリング</button>
+  <button type="button" onclick="selectSingle('eyeBrowMenuGroup', this)">まつげパーマ</button>
+  <button type="button" onclick="selectSingle('eyeBrowMenuGroup', this)">美眉スタイリング</button>
+  <button type="button" onclick="selectSingle('eyeBrowMenuGroup', this)">顔タイプ診断×マツパ&眉Wax</button>
+  <button type="button" onclick="selectSingle('eyeBrowMenuGroup', this)">W診断(顔タイプ,4タイプカラー)×マツパ&眉Wax＆メイク</button>
+</div>
 
 <!-- ⑤ ネイルのご指名（必須） -->
 <div class="label">ネイルのご指名<span class="required">必須</span></div>
@@ -1246,7 +1245,7 @@
       </div>
     </div>
 
-    <div class="labelkibounitizi">第二希望日時（任意）</div>
+    <div class="labelkibounitizi">第二希望日時<span class="required">必須</span></div>
     <div class="datetime-wrapper" style="text-align: center;">
       <span class="placeholder" id="placeholder2">⇩タップして日時を入力⇩</span>
       <input type="hidden" id="date2" name="date2">
@@ -1256,7 +1255,7 @@
       </div>
     </div>
 
-    <div class="labelkibounitizi">第三希望日時（任意）</div>
+    <div class="labelkibounitizi">第三希望日時<span class="required">必須</span></div>
     <div class="datetime-wrapper" style="text-align: center;">
       <span class="placeholder" id="placeholder3">⇩タップして日時を入力⇩</span>
       <input type="hidden" id="date3" name="date3">
@@ -1292,7 +1291,7 @@
       ['date1','date2','date3'].forEach(id => initPicker(id, 120));
 
       // 入力変更でサマリー更新
-      ['name','phone','visitCountFree','eyeBrowMenu','designer','message'].forEach(id=>{
+      ['name','phone','visitCountFree','designer','message'].forEach(id=>{
         const el = document.getElementById(id);
         el && el.addEventListener('input', updateDisplayInfo);
         el && el.addEventListener('change', updateDisplayInfo);
@@ -1419,7 +1418,7 @@
       const name = (document.getElementById('name').value || '').trim();
       const phone = (document.getElementById('phone').value || '').trim();
       const visit = (document.getElementById('visitCountFree').value || '').trim();
-      const eyeBrowMenu = document.getElementById('eyeBrowMenu').value || '';
+      const eyeBrowMenu = getSingle('eyeBrowMenuGroup') || '';
       const designer = document.getElementById('designer').value || '';
 
       const handMenu = (document.querySelector('#handMenuGroup button.active')||{}).innerText || '';
@@ -1462,7 +1461,7 @@
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const visit = document.getElementById('visitCountFree').value.trim();
-      const eyeBrowMenu = document.getElementById('eyeBrowMenu').value;
+      const eyeBrowMenu = getSingle('eyeBrowMenuGroup');
       const designer = document.getElementById('designer').value;
 
       const handMenuEl = document.querySelector('#handMenuGroup button.active');
@@ -1494,6 +1493,8 @@
       if(footOpts.length === 0){ alert('フットメニューオプションを1つ以上選択してください。'); return; }
 
       if(!date1){ alert('第1希望日時を選択してください。'); return; }
+      if(!date2){ alert('第2希望日時を選択してください。'); return; }
+      if(!date3){ alert('第3希望日時を選択してください。'); return; }
 
       const text =
 `【予約フォーム】
@@ -1524,8 +1525,8 @@ ${handOpts.length ? '・' + handOpts.join('\n・') : '・なし'}
 
 【希望日時】
 《第1希望》\n${formatISOToJP(date1)}
-《第2希望》\n${formatISOToJP(date2) || '（未入力）'}
-《第3希望》\n${formatISOToJP(date3) || '（未入力）'}
+《第2希望》\n${formatISOToJP(date2)}
+《第3希望》\n${formatISOToJP(date3)}
 
 《その他ご要望》
 ${message || '（なし）'}
