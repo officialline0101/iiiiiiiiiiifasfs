@@ -282,8 +282,8 @@
 
         .month-button:hover,
         .week-button:hover {
-            background-color: var(--primary-color);
-            color: var(--white);
+            background-color: var(--white);
+            color: var(--primary-color);
         }
 
 /* --- カレンダー (〇✕視認性重視版) --- */
@@ -437,7 +437,7 @@
             cursor: pointer;
             font-size: 14px;
             transition: all 0.2s;
-            height: 50px; /* タップしやすい高さ */
+            height: 40px; /* タップしやすい高さ */
             vertical-align: middle;
             position: relative;
         }
@@ -464,7 +464,7 @@
 /* --- 予約不可 (✕) のデザイン（暗く強調） --- */
         .calendar td.unavailable {
             background-color: #a0a0a0; /* かなり濃いグレーに変更 */
-            color: #d0d0d0; /* 文字色を薄くしてコントラストを下げる */
+            color: #ffffff; /* 文字色を薄くしてコントラストを下げる */
             cursor: not-allowed;
             pointer-events: none;
             font-weight: normal;
@@ -488,7 +488,7 @@
         
         /* 選択中のセルにはチェックマークなどを出す場合 */
         .calendar td.selected::after {
-            content: "✔";
+            content: "";
             display: block;
             font-size: 10px;
             line-height: 1;
