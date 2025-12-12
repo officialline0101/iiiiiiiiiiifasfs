@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予約フォーム</title>
+    <title>当日予約フォーム</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         /* 基本設定 */
@@ -37,15 +37,26 @@
             color: white;
             padding: 20px;
             text-align: center;
-            margin: -20px -15px 20px -15px;
-            font-size: 26px;
+            margin: -20px -15px 10px -15px;
+            font-size: 24px;
             font-weight: 100;
         }
 
         .small-text {
-            font-size: 16px;
+            font-size: 14px;
             display: block;
             margin-bottom: 5px;
+        }
+
+        /* 今日の日付表示 */
+        #today-display {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 2px solid #ff9bcb;
         }
 
         /* ラベル */
@@ -94,6 +105,32 @@
             text-align: center;
         }
 
+        /* 注意事項ボックス */
+        .note-box {
+            background-color: #fff0f5; /* 薄いピンク背景 */
+            border: 1px solid #ff9bcb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .note-box h3 {
+            margin: 0 0 10px 0;
+            color: #ff9bcb;
+            font-size: 16px;
+            text-align: center;
+            border-bottom: 1px dashed #ff9bcb;
+            padding-bottom: 5px;
+        }
+
+        .note-list {
+            padding-left: 20px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
         /* 営業日カレンダー表 */
         .schedule-table {
             width: 100%;
@@ -128,12 +165,13 @@
             margin-top: 10px;
         }
 
-        .submit-button:hover {
-            background-color: #555;
+        .submit-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
-        /* 注意書きテキスト */
-        .note-text {
+        /* 下部リンクテキスト */
+        .contact-link {
             text-align: center;
             margin: 20px 0 10px 0;
             font-size: 14px;
@@ -141,11 +179,16 @@
             line-height: 1.6;
         }
 
-        /* フォーカス時 */
-        input:focus, select:focus {
-            outline: none;
-            border-color: #ff9bcb;
-            box-shadow: 0 0 5px rgba(255, 155, 203, 0.5);
+        /* 終了メッセージ */
+        #closed-message {
+            display: none;
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 18px;
+            border: 2px solid red;
+            padding: 10px;
         }
     </style>
 </head>
@@ -155,21 +198,38 @@
     <div class="container">
         <h1>
             <span class="small-text">eyelash salon Mimi</span>
-            予約フォーム
+            当日予約フォーム
         </h1>
 
-        <div class="label">お名前<span class="required">必須</span></div>
-        <input type="text" id="name" placeholder="お名前を入力してください">
+        <div id="today-display"></div>
 
-        <div class="label">希望時間1<span class="required">必須</span></div>
-        <select id="time1">
-            <option value="" disabled selected>時間を選択してください</option>
+        <div id="closed-message">本日のWeb予約受付は終了しました。<br>お問い合わせはチャットにてお願いします。</div>
+
+        <div id="form-area">
+            <div class="label">お名前<span class="required">必須</span></div>
+            <input type="text" id="name" placeholder="お名前を入力してください">
+
+            <div class="label">希望時間1<span class="required">必須</span></div>
+            <select id="time1">
+                <option value="" disabled selected>時間を選択してください</option>
             </select>
 
-        <div class="label">希望時間2<span class="required">必須</span></div>
-        <select id="time2">
-            <option value="" disabled selected>時間を選択してください</option>
+            <div class="label">希望時間2<span class="required">必須</span></div>
+            <select id="time2">
+                <option value="" disabled selected>時間を選択してください</option>
             </select>
+
+            <div class="note-box">
+                <h3>⚠️ ご予約前の注意事項</h3>
+                <ul class="note-list">
+                    <li>フォーム送信時点では<strong>予約は確定しておりません</strong>。当店からの返信をもって予約確定となります。</li>
+                    <li>予約時間を<strong>10分以上</strong>過ぎますと、キャンセル扱いとさせていただく場合がございます。</li>
+                    <li>ご希望のお時間が満席の場合、時間の変更をお願いすることがございます。</li>
+                </ul>
+            </div>
+
+            <button id="btn-submit" class="submit-button" onclick="submitForm()">予約を行う</button>
+        </div>
 
         <table class="schedule-table">
             <tr>
@@ -202,16 +262,22 @@
             </tr>
         </table>
 
-        <div class="note-text">
-            予約以外の内容やご質問等は<br>
+        <div class="contact-link">
+            その他のお問い合わせは<br>
             チャットにてご連絡ください。
         </div>
-
-        <button class="submit-button" onclick="submitForm()">予約を行う</button>
     </div>
 
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <script>
+        // 現在時刻の取得用変数
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
+        
+        // 曜日配列
+        const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
+
         document.addEventListener('DOMContentLoaded', function () {
             // LIFF初期化
             liff.init({
@@ -222,13 +288,35 @@
                 console.log('LIFF init failed', err);
             });
 
+            // 1. 今日の日付を表示
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            const day = weekDays[now.getDay()];
+            const todayStr = `${year}年${month}月${date}日（${day}）`;
+            
+            document.getElementById('today-display').textContent = todayStr + " の予約";
+
             // 名前の復元
             const savedName = localStorage.getItem('name');
             if (savedName) document.getElementById('name').value = savedName;
 
-            // 時間の選択肢を生成 (09:00 - 16:30)
-            generateTimeOptions('time1');
+            // 2. 時間の選択肢を生成 (現在時刻を考慮)
+            const hasOptions = generateTimeOptions('time1');
             generateTimeOptions('time2');
+
+            // もし選択できる時間が一つもなければ受付終了とする
+            if (!hasOptions) {
+                document.getElementById('closed-message').style.display = 'block';
+                document.getElementById('btn-submit').disabled = true;
+                document.getElementById('btn-submit').textContent = '受付終了';
+                document.getElementById('time1').disabled = true;
+                document.getElementById('time2').disabled = true;
+                document.getElementById('name').disabled = true;
+                
+                // 注意書きも薄くするなどの見た目調整（任意）
+                document.querySelector('.note-box').style.opacity = '0.5';
+            }
         });
 
         // 名前の保存
@@ -236,25 +324,37 @@
             localStorage.setItem('name', this.value);
         });
 
-        // 時間オプション生成関数 (30分刻み)
+        // 時間オプション生成関数 (現在時刻より未来のみ表示)
         function generateTimeOptions(elementId) {
             const select = document.getElementById(elementId);
             const startHour = 9;
             const endHour = 16;
+            let optionCount = 0;
             
             for (let h = startHour; h <= endHour; h++) {
                 // 00分
-                addOption(select, h, 0);
-                // 30分 (16:30までなので16時の場合も追加)
-                if (h <= 16) {
+                if (isFuture(h, 0)) {
+                    addOption(select, h, 0);
+                    optionCount++;
+                }
+                // 30分 (16:30まで)
+                if (h <= 16 && isFuture(h, 30)) {
                     addOption(select, h, 30);
+                    optionCount++;
                 }
             }
+            return optionCount > 0;
+        }
+
+        // 未来かどうか判定する関数
+        function isFuture(targetH, targetM) {
+            // 時間が現在より大きい、または (時間が同じ かつ 分が現在より大きい)
+            if (targetH > currentHour) return true;
+            if (targetH === currentHour && targetM > currentMinute) return true;
+            return false;
         }
 
         function addOption(select, h, m) {
-            // 16:30以降はループ外にするなどの制御が必要ならここで調整
-            // 今回はループ条件で制御済み
             const hh = String(h).padStart(2, '0');
             const mm = String(m).padStart(2, '0');
             const val = `${hh}:${mm}`;
@@ -270,6 +370,7 @@
             const name = document.getElementById('name').value.trim();
             const time1 = document.getElementById('time1').value;
             const time2 = document.getElementById('time2').value;
+            const todayText = document.getElementById('today-display').textContent.replace(' の予約', '');
 
             // バリデーション
             if (!name) {
@@ -286,14 +387,14 @@
             }
 
             // LINE送信メッセージ作成
-            const textMessage = `【予約フォーム】\n` +
+            const textMessage = `【当日予約フォーム】\n` +
+                                `日時：${todayText}\n\n` +
                                 `《お名前》\n${name}\n\n` +
                                 `《希望時間1》\n${time1}\n\n` +
                                 `《希望時間2》\n${time2}`;
 
             // LIFF送信
             if (!liff.isInClient()) {
-                // ブラウザでテストしている場合のアラート
                 alert('LINEアプリ内から開いてください。\n\n送信内容プレビュー:\n' + textMessage);
             } else {
                 liff.sendMessages([{
