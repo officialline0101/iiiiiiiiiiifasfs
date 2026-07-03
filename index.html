@@ -99,6 +99,14 @@
             justify-content: space-between;
         }
 
+        /* ラベル右側の補足注記（複数選択可能です 等） */
+        .label-note {
+            font-size: 12px;
+            font-weight: 500;
+            color: #777;
+            white-space: nowrap;
+        }
+
         /* 必須マーク */
         .required {
             font-size: 11px;
@@ -412,11 +420,13 @@
             color: var(--accent-color);
         } */
 
-        /* ホバー時 */
-        .calendar td:not(.unavailable):not(:first-child):hover {
-            background-color: #fffbe6;
-            /* 薄い黄色 */
-            border: 1px solid var(--accent-color);
+        /* ホバー時（マウス操作の端末のみ） */
+        @media (hover: hover) and (pointer: fine) {
+            .calendar td:not(.unavailable):not(:first-child):hover {
+                background-color: #fffbe6;
+                /* 薄い黄色 */
+                border: 1px solid var(--accent-color);
+            }
         }
 
         /* --- 予約不可 (✕) のデザイン（暗く強調） --- */
@@ -919,6 +929,7 @@
             </div>
             <div class="labeltyuuou">
                 <span class="highlight-text">オプション</span>
+                <span class="label-note">（複数選択可能です）</span>
             </div>
             <div class="irradiations">
                 <button type="button" id="firstirradiations" onclick="selectirradiations(this)"
@@ -941,6 +952,7 @@
             </div>
             <div class="labeltyuuou">
                 <span class="highlight-text">オプション</span>
+                <span class="label-note">（複数選択可能です）</span>
             </div>
             <div class="irradiations">
                 <button type="button" id="fourthirradiations" onclick="selectirradiations(this)"
@@ -974,6 +986,7 @@
             </div>
             <div class="labeltyuuou">
                 <span class="highlight-text">オプション</span>
+                <span class="label-note">（複数選択可能です）</span>
             </div>
             <div class="irradiations">
                 <button type="button" id="twelvethirradiations" onclick="selectirradiations(this)"
@@ -1109,6 +1122,21 @@
         };
 
         let selectedirradiationsTime = 0; // 訪問回数で選択された時間
+
+        // オプションごとの詳細（タップ時にポップアップ表示する内容）
+        // ※キーはボタンの表示テキストと完全一致させること。料金・説明文はサンプル値なので導入先に合わせて編集する
+        const irradiationDetails = {
+            '眉カット〈30分〉': { time: '30分', price: '1,100円', detail: '・眉まわりの産毛を整え、目元の印象をすっきりさせます。' },
+            '襟足〈30分〉': { time: '30分', price: '1,100円', detail: '・襟足の産毛を整え、うなじをきれいに見せます。' },
+            '背中(キャミソールライン)〈30分〉': { time: '30分', price: '2,200円', detail: '・キャミソールから見える範囲の背中をケアします。' },
+            '背中(腰まで)〈30分〉': { time: '30分', price: '3,300円', detail: '・腰までの背中全体をケアします。' },
+            'デコルテ〈30分〉': { time: '30分', price: '2,200円', detail: '・首元〜デコルテの産毛ケアで明るい印象に。' },
+            '腕〈30分〉': { time: '30分', price: '2,200円', detail: '・二の腕〜手首までのケアです。' },
+            '保湿パック〈30分〉': { time: '30分', price: '1,650円', detail: '・施術後のお肌をしっかり保湿し、乾燥を防ぎます。' },
+            '美白パック〈30分〉': { time: '30分', price: '1,650円', detail: '・くすみが気になる方におすすめのパックです。' },
+            'ベーシックマッサージ〈30分〉': { time: '30分', price: '1,700円', detail: '・首・肩まわりを中心とした基本のマッサージです。' },
+            'リラックスマッサージ〈30分〉': { time: '30分', price: '1,700円', detail: '・ゆったりとした圧で行うリラックスマッサージです。' }
+        };
 
         let menuTimes = {
             '和装プラン〈30分〉': 30,
@@ -1383,7 +1411,6 @@
             selectedFullDate = '';
 
             const treatmentText = document.getElementById('treatment-text');
-            const closeButtonHtml = '<button type="button" class="treatment-close" onclick="closeTreatmentText()">×</button>';
 
             // クリック前にそのボタンがアクティブだったか
             const wasActive = button.classList.contains('active');
@@ -1523,19 +1550,22 @@
                 content = '';
             }
 
-            // ★ここが今回抜けていたポイント★
             if (content) {
-                treatmentText.innerHTML = `${closeButtonHtml}${content}`;
+                showTreatmentPopup(button, content);
             } else {
                 treatmentText.innerHTML = '';
                 treatmentText.style.display = 'none';
-                return;
             }
+        }
 
-            // 固定位置のカードを表示
+        // 詳細カード（ポップアップ）をタップしたボタンの直下に表示する共通処理
+        function showTreatmentPopup(button, content) {
+            const treatmentText = document.getElementById('treatment-text');
+            const closeButtonHtml = '<button type="button" class="treatment-close" onclick="closeTreatmentText()">×</button>';
+            treatmentText.innerHTML = `${closeButtonHtml}${content}`;
             treatmentText.style.display = 'block';
 
-            // ▼ メニューボタンのすぐ下にカードを表示させるための位置調整 ▼
+            // ▼ ボタンのすぐ下にカードを表示させるための位置調整 ▼
             const rect = button.getBoundingClientRect();
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
@@ -1560,6 +1590,20 @@
             const treatmentText = document.getElementById('treatment-text');
             treatmentText.style.display = 'none';
         }
+
+        // モーダル外をタップしたら詳細ポップアップを閉じる
+        document.addEventListener('click', function (e) {
+            const treatmentText = document.getElementById('treatment-text');
+            if (treatmentText.style.display !== 'block') return;
+
+            // モーダル内のタップは無視
+            if (treatmentText.contains(e.target)) return;
+
+            // モーダルを開く（＝選択操作の）ボタン自身のタップは、各関数側で表示制御するため無視
+            if (e.target.closest('.symptoms button') || e.target.closest('.irradiations button')) return;
+
+            closeTreatmentText();
+        });
 
         function selectirradiations(button) {
             selectedFullDate = '';
@@ -1589,6 +1633,19 @@
             });
 
             selectedirradiationsTime = totalirradiationsTime;
+
+            // ▼ 詳細ポップアップ表示（メニューと同様の動き） ▼
+            const treatmentText = document.getElementById('treatment-text');
+            if (isApplyingPreviousSelection || !button.classList.contains('active')) {
+                // 前回メニュー適用中、または選択解除のときはポップアップを閉じる
+                treatmentText.style.display = 'none';
+                treatmentText.innerHTML = '';
+            } else {
+                const info = irradiationDetails[button.innerText];
+                if (info) {
+                    showTreatmentPopup(button, createContent(button.innerText, info.time, info.price, false, info.detail));
+                }
+            }
 
             fetchAvailability(currentDate);
             updateDisplayInfo();
