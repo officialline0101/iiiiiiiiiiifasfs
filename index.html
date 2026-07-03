@@ -203,6 +203,25 @@
             outline: none;
         }
 
+        /* 選択中バッジ（疑似要素なので innerText を使う時間計算・送信内容には影響しない） */
+        .visit-buttons button.active::after,
+        .symptoms button.active::after,
+        .menu-sections button.active::after,
+        .irradiations button.active::after {
+            content: "✓ 選択中";
+            display: block;
+            width: fit-content;
+            margin: 6px auto 0;
+            padding: 1px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            line-height: 1.7;
+            background-color: var(--accent-color);
+            color: var(--white);
+        }
+
         /* 前回と同じメニューボタン */
         .repeat-booking-wrapper {
             text-align: center;
@@ -1248,15 +1267,15 @@
                 : '・来店回数が未選択です';
 
             const selectedMenuText = selectedMenu
-                ? `<span style="${labelStyle}"><strong>コース　　</strong></span>‣${selectedMenu}`
+                ? `<span style="${labelStyle}"><strong>コース　　</strong></span><br>‣${selectedMenu}`
                 : '・コースが未選択です';
 
             const selectedSymptomText = selectedSymptom.length > 0
-                ? `<span style="${labelStyle}"><strong>メニュー　</strong></span>‣${selectedSymptom.join('<br>')}`
+                ? `<span style="${labelStyle}"><strong>メニュー　</strong></span><br>‣${selectedSymptom.join('<br>‣')}`
                 : '・メニューが未選択です';
 
             const irradiationsText = irradiationsCount
-                ? `<span style="${labelStyle}"><strong>オプション</strong></span>‣${irradiationsCount.split(', ').join('<br>・')}`
+                ? `<span style="${labelStyle}"><strong>オプション</strong></span><br>‣${irradiationsCount.split(', ').join('<br>‣')}`
                 : '・オプション無し';
 
             let totalMinutes = selectedMenuTime + selectedirradiationsTime + selectedVisitTime;
