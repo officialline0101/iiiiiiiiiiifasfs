@@ -164,13 +164,23 @@
             text-align: center;
         }
 
-        /* ホバー時 */
-        .visit-buttons button:hover,
-        .symptoms button:hover,
-        .menu-sections button:hover,
-        .irradiations button:hover {
-            border-color: var(--accent-color);
-            background-color: #fffcf5;
+        /* メニューとオプションは縦一列（全幅）に並べる */
+        .symptoms button,
+        .irradiations button {
+            flex: 1 1 100%;
+            width: 100%;
+        }
+
+        /* ホバー時（マウス操作の端末のみ。スマホではタップ後に色が残るため無効化） */
+        @media (hover: hover) and (pointer: fine) {
+
+            .visit-buttons button:hover,
+            .symptoms button:hover,
+            .menu-sections button:hover,
+            .irradiations button:hover {
+                border-color: var(--accent-color);
+                background-color: #fffcf5;
+            }
         }
 
         /* 選択（アクティブ）時 */
