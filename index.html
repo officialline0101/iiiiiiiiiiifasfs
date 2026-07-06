@@ -172,7 +172,8 @@
             text-align: center;
         }
 
-        /* メニューとオプションは縦一列（全幅）に並べる */
+        /* カテゴリー・メニュー・オプションは縦一列（全幅）に並べる */
+        .menu-sections button,
         .symptoms button,
         .irradiations button {
             flex: 1 1 100%;
@@ -871,6 +872,20 @@
             letter-spacing: 0.05em;
         }
 
+        /* メニュー画像（正方形・横長どちらの画像でも崩れないよう、
+           幅は最大100%・高さは上限200pxに収めて中央寄せで表示する） */
+        .t-image {
+            text-align: center;
+        }
+
+        .t-image img {
+            max-width: 100%;
+            max-height: 200px;
+            height: auto;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
         /* フェードインアニメーション */
         @keyframes fadeIn {
             from {
@@ -1260,18 +1275,19 @@
         function updateDisplayInfo() {
             const name = document.getElementById('name').value;
 
-            const labelStyle = "color:#0c0c0c; font-size:14px; border:1px solid #0c0c0c; padding:0px 3px; border-radius:4px;";
+            // 項目ラベルの枠ボックス（固定幅＋中央揃え）
+            const labelStyle = "color:#0c0c0c; font-size:14px; border:1px solid #0c0c0c; padding:1px 3px; border-radius:4px; display:inline-block; width:5.8em; text-align:center;";
 
             const visitCountText = visitCount
-                ? `<span style="${labelStyle}"><strong>来店回数　</strong></span>‣${visitCount}`
+                ? `<span style="${labelStyle}"><strong>来店回数</strong></span>‣${visitCount}`
                 : '・来店回数が未選択です';
 
             const selectedMenuText = selectedMenu
-                ? `<span style="${labelStyle}"><strong>コース　　</strong></span><br>‣${selectedMenu}`
+                ? `<span style="${labelStyle}"><strong>コース</strong></span><br>‣${selectedMenu}`
                 : '・コースが未選択です';
 
             const selectedSymptomText = selectedSymptom.length > 0
-                ? `<span style="${labelStyle}"><strong>メニュー　</strong></span><br>‣${selectedSymptom.join('<br>‣')}`
+                ? `<span style="${labelStyle}"><strong>メニュー</strong></span><br>‣${selectedSymptom.join('<br>‣')}`
                 : '・メニューが未選択です';
 
             const irradiationsText = irradiationsCount
@@ -1281,18 +1297,18 @@
             let totalMinutes = selectedMenuTime + selectedirradiationsTime + selectedVisitTime;
             let hours = Math.floor(totalMinutes / 60);
             let minutes = totalMinutes % 60;
-            let totalTimeText = `<span style="${labelStyle}"><strong>所要時間　</strong></span>‣${hours > 0 ? hours + '時間' : ''}${minutes}分`;
+            let totalTimeText = `<span style="${labelStyle}"><strong>所要時間</strong></span>‣${hours > 0 ? hours + '時間' : ''}${minutes}分`;
 
-            const totalAmountText = `<span style="${labelStyle}"><strong>合計金額　</strong></span>‣¥${menuPrice + optionsPrice}`;
+            const totalAmountText = `<span style="${labelStyle}"><strong>合計金額</strong></span>‣¥${menuPrice + optionsPrice}`;
 
             const selectedDateText = selectedFullDate
-                ? `<span style="${labelStyle}"><strong>希望日時　</strong></span>‣${selectedFullDate}`
+                ? `<span style="${labelStyle}"><strong>希望日時</strong></span>‣${selectedFullDate}`
                 : '・日時が未選択です';
 
             // 修正ボタン付きのHTMLを作成
             document.getElementById('displayInfo').innerHTML = `
         <div class="info-row">
-            <p><span style="${labelStyle}"><strong>お名前　　</strong></span>‣${name}</p>
+            <p><span style="${labelStyle}"><strong>お名前</strong></span>‣${name}</p>
             <button class="edit-button" onclick="scrollToElement('name')">修正</button>
         </div>
         <hr>
@@ -1405,6 +1421,9 @@
             <div class="t-title-row">
                 <i class="fas fa-star t-icon"></i>
                 <span class="t-title">${title}</span>
+            </div>
+            <div class="t-image">
+                <img src="docs/メニュー画像1.png" alt="${title}" onerror="this.parentElement.style.display='none'">
             </div>
             <div class="t-time-row">
                 <i class="fas fa-clock t-icon"></i> 所要時間：${time}
